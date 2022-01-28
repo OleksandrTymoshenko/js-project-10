@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "firebase": "^9.6.5",
-    "firebaseui": "^6.0.0"
+    "firebaseui": "^6.0.0",
+    "notiflix": "^3.2.2"
   }
 }
