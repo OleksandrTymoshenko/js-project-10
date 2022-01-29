@@ -1,0 +1,41 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 100px 71px;
+
+    background-color: rgba(0,0,0,0.6);
+
+    &.hidden {
+        display: none;
+    }
+}
+
+.film-details {
+    display: flex;
+    padding: 50px 30px;
+    background-color: $white-text-and-bg;
+
+}
+
+.img-thumb {
+    display: inline-block;
+    width: 396px;
+}
+
+.about {
+    margin-left: 20px;
+}
+
+.close-btn {
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 30px;
+    right: 30px;
+    border-radius: 50%;
+}
+
