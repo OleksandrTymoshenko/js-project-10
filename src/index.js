@@ -1,5 +1,4 @@
 import './sass/main.scss';
-
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
