@@ -1,9 +1,3 @@
-import axios from 'axios'
-
-const instance = axios.create({
-    baseURL: ''
-})
-
 export default class ApiService {
 
     _apiKey = '4a69d9470951ad07e8f0cc655bb46705'
