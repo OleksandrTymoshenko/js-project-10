@@ -1,0 +1,63 @@
+.header-library__container {    
+    display: none;
+    width: 100vw;
+      height: 230px;
+      padding-top: 45px;
+      padding-bottom: 45px;
+      padding-left: 15px;
+      padding-right: 15px;
+      margin: 0 auto;
+      background-image:  linear-gradient($for-grad-header-lib, $for-grad-header-lib), 
+      url(../partials/img/Rectangle_lib_x1.jpg);
+      background-size: cover;
+      @media screen and (min-width: $tablet) { 
+        padding-top: 40px;
+        padding-bottom: 100px;
+        padding-left: 75px;
+        padding-right: 75px;
+        background-image:  linear-gradient($for-grad-header-lib, $for-grad-header-lib), 
+        url(../partials/img/Rectangle_lib_tabl_x1.jpg);
+        @media screen and (min-width: $desktop) {     
+          background-image:  linear-gradient($for-grad-header-lib, $for-grad-header-lib), 
+          url(../partials/img/Rectangle_lib_desc_x1.jpg);
+        }
+      }
+    }
+  
+  
+.navi__buttons {
+    margin-top: 48px;
+    display: flex; 
+  
+ justify-content: center;
+}
+
+.navi__button {
+    width: 130px;
+    height: 44px;
+    border: 1px solid $white-text-and-bg;
+    border-radius: 5px;
+    background-color: inherit;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 131%;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: $white-text-and-bg;
+    &:last-child {
+        margin-left: 20px;
+    }
+    &:hover,
+    &:focus {
+        background: #FF6B01;
+        border: none;
+
+    }
+
+    }
+
+ 
