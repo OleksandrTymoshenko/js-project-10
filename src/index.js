@@ -20,7 +20,6 @@ const refs = {
 refs.headerLib.style.display = "none";
 
 function onNaviListClick(e) {
-    apiService.getGeneresList()
     if(e.target.textContent === 'Home'){
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
