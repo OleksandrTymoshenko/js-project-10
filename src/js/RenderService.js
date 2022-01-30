@@ -31,6 +31,7 @@ export default class RenderService {
 
         const {id, poster_path, title, popularity, genres, overview} = film
         const imagePath = `https://image.tmdb.org/t/p/w400/${poster_path}`
+        const upperTitle = title.toUpperCase()
         
         const markup = `
             <div class="film-details">
@@ -40,29 +41,33 @@ export default class RenderService {
                 </div>
 
                 <div class="about">
-                    <label class="about__label">
-                        Просмотров: 
-                        <p class="about__field popularity">${popularity}</p>
-                    </label>
+                    <p class="about__title">${upperTitle}</p>
 
-                    <label class="about__label">
-                        Фильм: 
-                        <p class="about__field title">${title}</p>
-                    </label>
-                    
-                    <label class="about__label">
-                        Жанр: 
-                        <p class="about__field genres">${genres[0]}</p>
-                    </label>
+                    <div class="details">
+                        <div class="details__names-col">
+                            <p class="details__value">Vote / Votes<p>
+                            <p class="details__value">Popularity<p>
+                            <p class="details__value">Original Title<p>
+                            <p class="details__value">Genre<p>
+                        </div>
+                        
+                        <div class="values-col">
+                            <p class="details__name">7.3 / 1260<p>
+                            <p class="details__name">${popularity}<p>
+                            <p class="details__name">${upperTitle}<p>
+                            <p class="details__name">Western<p>
+                        </div>
+                    </div>
 
-                    <label class="about__label">
-                        О чём: 
-                        <p class="about__field overview">${overview}</p>
-                    </label>
+                    <div class="about__description">
+                        <p class="about__description--title" >ABOUT</p>
+
+                        <p class="about__description--text">${overview}</p>
+                    </div>
 
                     <div class="btn-block">
-                        <button class="add-to-lib-btn" data-action="addToLib">add to library</button>
-                        <button class="add-to-que-btn" data-action="addToQue">add to queue</button>
+                        <button class="about__btn lib" data-action="addToLib">add to watched</button>
+                        <button class="about__btn queue" data-action="addToQue">add to queue</button>
                     </div>
 
                 </div>
