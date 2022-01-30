@@ -9,11 +9,16 @@ export default class RenderService {
 
     renderAllFilms(filmArray) {
         const markup = filmArray.map(({id, title, poster_path}) => {
+
             const imagePath = `https://image.tmdb.org/t/p/w500/${poster_path}`
+            const upperTitle = title.toUpperCase()
+
             return `
                     <li class="list__item" id=${id}>      
                         <img class="item__img" src=${imagePath} alt="poster"> 
-                        <p class="item__title">${title}</p>
+                        
+                        <p class="item__title">${upperTitle}</p>
+                        <p class="item__genre">Drama, Action | 2020</p>
                     </li>
                 `
         }).join('')
