@@ -11,7 +11,31 @@ const refs = {
     input: document.querySelector('.search-block__input'),
     list: document.querySelector('.list'),
     modal: document.querySelector('[data-modal]'),
+    naviListMain: document.querySelector('.navi__list[data-action="main"]'),
+    naviListLib: document.querySelector('.navi__list[data-action="library"]'),
+    headerMain: document.querySelector('header[data-action="main"]'),
+    headerLib: document.querySelector('header[data-action="library"]'),
+    
 }
+
+refs.headerLib.style.display = "none";
+
+
+function onNaviListClick(e) {
+    if(e.target.textContent === 'Home'){
+        refs.headerMain.style.display = "block";
+        refs.headerLib.style.display = "none";
+    }
+    if(e.target.textContent === 'My library'){
+        refs.headerMain.style.display = "none";
+        refs.headerLib.style.display = "block";
+    }
+}
+
+refs.naviListMain.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick) 
+
+
 
 const getPopular = () => {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
