@@ -32,13 +32,14 @@ const openModal = (id) => {
         }
 
         if (e.target.dataset.action === 'addToLib') {
-           const filmElem = e.target.parentNode
+           const filmElem = document.querySelector('.film-details')
            
             const obj = {
                 id: filmElem.id,
-                title: filmElem.querySelector('.title').textContent,
-                overview: filmElem.querySelector('.overview').textContent,
-                path: filmElem.querySelector('.path').getAttribute('src')
+                title: filmElem.querySelector('.about__title').innerText,
+                overview: filmElem.querySelector('.about__description--text').innerText,
+                path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+                popularity: filmElem.querySelector('.popularity').innerText,
             }
            
 
