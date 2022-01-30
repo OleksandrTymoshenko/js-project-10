@@ -1,6 +1,6 @@
 
 .header__container {    
-  /* display: none;   */
+   display: none;   
   width: 100vw;
     height: 230px;
     padding-top: 45px;
@@ -76,7 +76,7 @@
 }
 
 .navi__item {
-    text-decoration: none;
+    background-color: inherit;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
