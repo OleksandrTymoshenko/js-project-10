@@ -14,7 +14,7 @@ export default class RenderService {
             const upperTitle = title.toUpperCase()
 
             return `
-                    <li class="list__item" id=${id}>      
+                    <li class="list__item" id=${id}> 
                         <img class="item__img" src=${imagePath} alt="poster"> 
                         
                         <p class="item__title">${upperTitle}</p>
@@ -29,7 +29,7 @@ export default class RenderService {
     renderFilmDetails(film) {
         modal.innerHTML = ''
 
-        const {id, poster_path, title, popularity, genres, overview} = film
+        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count} = film
         const imagePath = `https://image.tmdb.org/t/p/w400/${poster_path}`
         const upperTitle = title.toUpperCase()
         
@@ -52,7 +52,7 @@ export default class RenderService {
                         </div>
                         
                         <div class="values-col">
-                            <p class="details__name">7.3 / 1260<p>
+                            <p class="details__name"><span class="vote">${vote_average}</span> / ${vote_count}<p>
                             <p class="details__name popularity">${popularity}<p>
                             <p class="details__name">${upperTitle}<p>
                             <p class="details__name">Western<p>
@@ -72,7 +72,8 @@ export default class RenderService {
 
                 </div>
 
-                <button class="close-btn" data-action="close">x</button>
+            <button class="close-btn" data-action="close">x</button>
+                
             </div>
         `
 
