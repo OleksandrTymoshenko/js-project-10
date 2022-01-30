@@ -4,7 +4,7 @@ const library = document.querySelector('[data-lib]')
 
 export default class RenderService {
     constructor() {
-
+        this.obj = {}
     }
 
     renderAllFilms(filmArray) {
@@ -34,10 +34,10 @@ export default class RenderService {
         const upperTitle = title.toUpperCase()
         
         const markup = `
-            <div class="film-details">
+            <div class="film-details" id=${id}>
 
                 <div class="img-thumb" id=${id}>
-                    <img src=${imagePath} alt="poster" width="396">
+                    <img class="film-details__path" src=${imagePath} alt="poster" width="396">
                 </div>
 
                 <div class="about">
@@ -53,7 +53,7 @@ export default class RenderService {
                         
                         <div class="values-col">
                             <p class="details__name">7.3 / 1260<p>
-                            <p class="details__name">${popularity}<p>
+                            <p class="details__name popularity">${popularity}<p>
                             <p class="details__name">${upperTitle}<p>
                             <p class="details__name">Western<p>
                         </div>
@@ -73,9 +73,6 @@ export default class RenderService {
                 </div>
 
                 <button class="close-btn" data-action="close">x</button>
-
-                
-            
             </div>
         `
 

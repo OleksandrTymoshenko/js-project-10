@@ -1,24 +1,25 @@
 export default class LocalStorageService {
     constructor() {
-      this.filmArray = []
+      this.filmsArray = []
     }
 
     addToLibrary(obj) {
-        const data = localStorage.getItem('myFilms')
-        const filmArray = JSON.parse(data)
+        // const data = localStorage.getItem('myFilms')
+        // const filmArray = JSON.parse(data)
 
-        if (filmArray) {
-            filmArray.forEach(film => {
-                console.log(film.id)
-            })
-        }
+        // if (filmArray) {
+        //     filmArray.forEach(film => {
+        //         console.log(film.id)
+        //     })
+        // }
 
-        // this.filmsArr = [...this.filmsArr, JSON.stringify(film)]
-        // localStorage.setItem('myArr', this.filmsArr)
+        this.filmsArray.push(obj)
+        const stringified = JSON.stringify(this.filmsArray)
+        localStorage.setItem('myArr', stringified)
     }
 
     getAllFilms() {
-        const data = localStorage.getItem('myFilms')
+        const data = localStorage.getItem('myArr')
         const parsedData = JSON.parse(data)
         return parsedData
     }
