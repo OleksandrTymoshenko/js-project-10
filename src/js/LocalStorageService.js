@@ -1,6 +1,6 @@
 export default class LocalStorageService {
     constructor() {
-      this.filmArray = []
+      this.filmsArray = []
     }
 
     addToLibrary(obj) {
@@ -13,8 +13,8 @@ export default class LocalStorageService {
             })
         }
 
-        // this.filmsArr = [...this.filmsArr, JSON.stringify(film)]
-        // localStorage.setItem('myArr', this.filmsArr)
+        // this.filmsArray = [...this.filmsArr, JSON.stringify(film)]
+        // localStorage.setItem('myArr', this.filmsArray)
     }
 
     getAllFilms() {

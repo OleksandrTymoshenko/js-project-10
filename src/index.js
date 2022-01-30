@@ -31,7 +31,7 @@ const openModal = (id) => {
             closeModal()
         }
 
-        if (e.target.dataset.action === 'saveToLibrary') {
+        if (e.target.dataset.action === 'addToLib') {
            const filmElem = e.target.parentNode
            
             const obj = {
@@ -42,7 +42,7 @@ const openModal = (id) => {
             }
            
 
-           localStorageService.setFilm(obj)
+           localStorageService.addToLibrary(obj)
         }
    })
 }  
@@ -54,7 +54,7 @@ const getDetails = (e) => {
             const { id } = e.target.parentNode
             openModal(id)
         }
-    }
+}
 
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)

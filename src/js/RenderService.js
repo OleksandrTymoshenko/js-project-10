@@ -73,9 +73,6 @@ export default class RenderService {
                 </div>
 
                 <button class="close-btn" data-action="close">x</button>
-
-                
-            
             </div>
         `
 
