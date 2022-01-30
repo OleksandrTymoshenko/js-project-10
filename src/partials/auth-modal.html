@@ -19,14 +19,17 @@
     </div>
 
     <div data-auth-modal-signin-form>
-      <input class="auth-modal__form-input type="text" name="username" placeholder="Username" />
-      <input class="auth-modal__form-input type="password" name="password" placeholder="Password" />
-      <div class="auth-modal__footer">
-        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-          Cancel
-        </button>
-        <button type="submit" class="auth-modal__footer-button">Log in</button>
-      </div>
+      <form>
+        <input class="auth-modal__form-input type="text" name="username" placeholder="Username" />
+        <input class="auth-modal__form-input type="password" name="password" placeholder="Password"
+        />
+        <div class="auth-modal__footer">
+          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+            Cancel
+          </button>
+          <button type="submit" class="auth-modal__footer-button">Log in</button>
+        </div>
+      </form>
 
       <p class="auth-modal__text">or</p>
 
@@ -34,11 +37,6 @@
         <a class="auth-modal__google" href="">
           Sign in with
           <img class="google-icon" src="partials/img/google-logo.png" alt="" />
-          <!-- <svg class="google-icon" width="20" height="20" viewBox="0 0 32 32">
-            <path
-              d="M16.319 13.713v5.487h9.075c-0.369 2.356-2.744 6.9-9.075 6.9-5.463 0-9.919-4.525-9.919-10.1s4.456-10.1 9.919-10.1c3.106 0 5.188 1.325 6.375 2.469l4.344-4.181c-2.788-2.612-6.4-4.188-10.719-4.188-8.844 0-16 7.156-16 16s7.156 16 16 16c9.231 0 15.363-6.494 15.363-15.631 0-1.050-0.113-1.85-0.25-2.65l-15.113-0.006z"
-            ></path>
-          </svg> -->
           Google
         </a>
         <a class="auth-modal__facebook" href="">
@@ -54,19 +52,21 @@
     </div>
 
     <div data-auth-modal-reg-form class="hide">
-      <input class="auth-modal__form-input type="text" name="username" placeholder="Username" />
-      <input class="auth-modal__form-input type="text" name="email" placeholder="Email" /> <input
-      class="auth-modal__form-input type="password" name="password" placeholder="Password" />
-      <label class="auth-modal__checkbox" for="check">
-        <input type="checkbox" name="checkbox" id="check" value="1" />
-        I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
-      </label>
-      <div class="auth-modal__footer">
-        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-          Cancel
-        </button>
-        <button type="submit" class="auth-modal__footer-button">Create Account</button>
-      </div>
+      <form>
+        <input class="auth-modal__form-input type="text" name="username" placeholder="Username" />
+        <input class="auth-modal__form-input type="text" name="email" placeholder="Email" /> <input
+        class="auth-modal__form-input type="password" name="password" placeholder="Password" />
+        <label class="auth-modal__checkbox" for="check">
+          <input type="checkbox" name="checkbox" id="check" value="1" />
+          I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
+        </label>
+        <div class="auth-modal__footer">
+          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+            Cancel
+          </button>
+          <button type="submit" class="auth-modal__footer-button">Create Account</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
