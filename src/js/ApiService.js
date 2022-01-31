@@ -8,7 +8,7 @@ export default class ApiService {
     }
 
     set query(newQuery) {
-        this.query = newQuery
+        this.searchQuery = newQuery
     }
 
     get query() {
