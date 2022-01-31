@@ -8,7 +8,7 @@ const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
 
 const refs = {
-    input: document.querySelector('.search-block__input'),
+    input: document.querySelector('.input'),
     list: document.querySelector('.list'),
     modal: document.querySelector('[data-modal]'),
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
@@ -68,7 +68,6 @@ const openModal = (id) => {
    })
 }  
 
-
 const getDetails = (e) => {
 
     if (e.target.nodeName === 'IMG') {
@@ -77,5 +76,11 @@ const getDetails = (e) => {
         }
 }
 
+const findFilm = (e) => {
+    apiService.query = e.currentTarget.value
+    apiService.getFilmsByName().then(renderService.renderAllFilms)
+}
+
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
+refs.input.addEventListener('blur', findFilm)
