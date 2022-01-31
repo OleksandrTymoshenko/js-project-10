@@ -14,12 +14,10 @@ const refs = {
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),
-    
+    headerLib: document.querySelector('header[data-action="library"]'),    
 }
 
 refs.headerLib.style.display = "none";
-
 
 function onNaviListClick(e) {
     if(e.target.textContent === 'Home'){
@@ -34,8 +32,6 @@ function onNaviListClick(e) {
 
 refs.naviListMain.addEventListener('click', onNaviListClick) 
 refs.naviListLib.addEventListener('click', onNaviListClick) 
-
-
 
 const getPopular = () => {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
