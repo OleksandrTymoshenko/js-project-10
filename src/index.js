@@ -4,10 +4,12 @@ import {debounce, throttle } from 'lodash'
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
-import Auth from './js/Auth'
+import Auth from './js/Auth';
+import { propFirebase } from './js/Auth';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
+const isOnlain = propFirebase;
 
 const refs = {
     input: document.querySelector('.input'),
@@ -20,20 +22,19 @@ const refs = {
 }
 
 refs.headerLib.style.display = "none";
+refs.naviListMain.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 function onNaviListClick(e) {
-    if(e.target.textContent === 'Home'){
+    if (e.target.textContent === 'Home') {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if(e.target.textContent === 'My library'){
+    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
 }
-
-refs.naviListMain.addEventListener('click', onNaviListClick) 
-refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 const getPopular = () => {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
@@ -90,4 +91,12 @@ const findFilm = debounce(() => {
 
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
-refs.input.addEventListener('input',  findFilm)
+refs.input.addEventListener('input', findFilm)
+
+function onNaviHomeClick() {
+        refs.headerMain.style.display = "none";
+    refs.headerLib.style.display = "block";
+    
+}
+
+export { onNaviHomeClick };
