@@ -35,7 +35,7 @@ function generesForRender (a) {
 
 export default class RenderService {
     constructor() {
-        this.obj = {}
+        this.filmId = ''
     }
 
     renderAllFilms(filmArray) {
@@ -63,8 +63,8 @@ export default class RenderService {
     renderFilmDetails(film) {
         modal.innerHTML = ''
 
-        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count} = film
-        const imagePath = `https://image.tmdb.org/t/p/w400/${poster_path}`
+        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count, genre_ids} = film
+        const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
         const upperTitle = title.toUpperCase()
         
         const markup = `
@@ -89,7 +89,7 @@ export default class RenderService {
                             <p class="details__name"><span class="vote">${vote_average}</span> / ${vote_count}<p>
                             <p class="details__name popularity">${popularity}<p>
                             <p class="details__name">${upperTitle}<p>
-                            <p class="details__name">Western<p>
+                            <p class="details__name">Action<p>
                         </div>
                     </div>
 
