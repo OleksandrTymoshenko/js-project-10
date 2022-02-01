@@ -45,6 +45,7 @@ const closeModal = () => {
 const openModal = (id) => {
     
     refs.modal.classList.remove('hidden')
+
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
 
     refs.modal.addEventListener('click', e => {

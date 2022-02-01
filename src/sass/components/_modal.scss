@@ -9,7 +9,12 @@
     padding: 20px;
 
     background-color: rgba(0,0,0,0.6);
-    overflow: scroll;
+
+    overflow: hidden;
+
+    body & {
+        overflow: scroll;
+    }
 
     &.hidden {
         display: none;
@@ -169,15 +174,20 @@
 
 .close-btn {
     position: absolute;
+
+    display: block;
     height: 30px;
     width: 30px;
-    top: 30px;
-    right: 30px;
-    border-radius: 50%;
+    top: 15px;
+    right: 15px;
+
     border-radius: 50%;
     background-color: $white-text-and-bg;
     background-image: url('./../partials/img/close.png');
+}
 
-
+.close-btn:focus,
+.close-btn:hover {
+    background-color: $accent;
 }
 
