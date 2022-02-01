@@ -6,10 +6,12 @@ import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
+import footerModal from './js/footerModal';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
 const isOnlain = propFirebase;
+import Notiflix from 'notiflix';
 
 const refs = {
     input: document.querySelector('.input'),
@@ -84,7 +86,13 @@ const findFilm = debounce(() => {
     apiService.query = refs.input.value.trim()
     
     if (apiService.query.length >= 2) {
-        apiService.getFilmsByName().then(renderService.renderAllFilms)
+        apiService.getFilmsByName().then(filmsArr => {
+            if (filmsArr.length === 0) {
+               return Notiflix.Notify.warning('Search result not successful. Enter the correct movie name')
+            }
+
+            renderService.renderAllFilms(filmsArr)
+        })
     }
     
 }, 500)
