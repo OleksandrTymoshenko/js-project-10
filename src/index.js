@@ -5,6 +5,7 @@ import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth'
+import footerModal from './js/footerModal';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
