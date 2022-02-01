@@ -2,6 +2,8 @@ const list = document.querySelector('.list')
 const modal = document.querySelector('[data-modal]')
 const library = document.querySelector('[data-lib]')
 
+import noPoster from '../partials/img/no_poster.jpg'
+
 const generes = [
     {id: 28, name: "Action"},
 {id: 12, name: "Adventure"},
@@ -38,15 +40,17 @@ export default class RenderService {
 
     renderAllFilms(filmArray) {
         const markup = filmArray.map(({id, title, poster_path, genre_ids}) => {
-
-            const imagePath = `https://image.tmdb.org/t/p/w500/${poster_path}`
+           
+            const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
+            
             const upperTitle = title.toUpperCase();
             const generesFilmArray = generesForRender(genre_ids);
 
             return `
-                    <li class="list__item" id=${id}> 
-                        <img class="item__img" src=${imagePath} alt="poster"> 
+                    <li class="list__item" id=${id}>
                         
+                        <img class="item__img" src=${imagePath} alt="poster" width="396"> 
+        
                         <p class="item__title">${upperTitle}</p>
                         <p class="item__genre">${generesFilmArray} | 2020</p>
                     </li>
@@ -67,7 +71,7 @@ export default class RenderService {
             <div class="film-details" id=${id}>
 
                 <div class="img-thumb" id=${id}>
-                    <img class="film-details__path" src=${imagePath} alt="poster" width="396">
+                    <img class="film-details__path" src=${imagePath} alt="poster" width="500">
                 </div>
 
                 <div class="about">
