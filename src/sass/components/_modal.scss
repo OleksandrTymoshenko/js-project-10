@@ -10,10 +10,10 @@
 
     background-color: rgba(0,0,0,0.6);
 
-    overflow: hidden;
+    overflow: auto;
 
     body & {
-        overflow: scroll;
+        overflow: hidden;
     }
 
     &.hidden {

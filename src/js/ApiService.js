@@ -16,7 +16,7 @@ export default class ApiService {
     }
 
     async getPopularFilms() {
-        return await fetch(`https://api.themoviedb.org/3/trending/movie/week?api_key=${this._apiKey}`)
+        return await fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this._apiKey}`)
             .then(response => response.json())
             .then(data => data.results)
             .catch(error => console.error(error))

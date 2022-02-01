@@ -1,5 +1,6 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
+import {debounce, throttle } from 'lodash'
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
@@ -78,11 +79,15 @@ const getDetails = (e) => {
         }
 }
 
-const findFilm = (e) => {
-    apiService.query = e.currentTarget.value
-    apiService.getFilmsByName().then(renderService.renderAllFilms)
-}
+const findFilm = debounce(() => {
+    apiService.query = refs.input.value.trim()
+    
+    if (apiService.query.length >= 2) {
+        apiService.getFilmsByName().then(renderService.renderAllFilms)
+    }
+    
+}, 500)
 
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
-refs.input.addEventListener('blur', findFilm)
+refs.input.addEventListener('input',  findFilm)
