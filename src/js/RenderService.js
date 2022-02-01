@@ -1,6 +1,8 @@
 const list = document.querySelector('.list')
 const modal = document.querySelector('[data-modal]')
-const library = document.querySelector('[data-lib]')
+
+import { memberInfo } from './memberInfo'
+
 
 import noPoster from '../partials/img/no_poster.jpg'
 
@@ -35,7 +37,7 @@ function generesForRender (a) {
 
 export default class RenderService {
     constructor() {
-        this.filmId = ''
+       
     }
 
     renderAllFilms(filmArray) {
@@ -62,7 +64,6 @@ export default class RenderService {
 
     renderFilmDetails(film) {
         modal.innerHTML = ''
-
         const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count, genre_ids} = film
         const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
         const upperTitle = title.toUpperCase()
@@ -113,5 +114,45 @@ export default class RenderService {
 
         modal.insertAdjacentHTML('afterbegin', markup)
     }
+
+    renderMembers() {
+        
+        modal.innerHTML = ''
+        const memberList = document.createElement('ul')
+        memberList.classList.add('member-list')
+        modal.appendChild(memberList)
+        
+        const markup = memberInfo.map(({ id, photo, name, role, linkedIn, gitHub, telegram }) => {
+            return  `<li class="member-item" id="${id}">
+            <div class="member-card">
+                        <div class="member-photo">
+                            <img class="photo" src="${photo}" width="292" height="292" alt="team member">
+                        </div>
+                        <div class="member-description">
+                            <p class="member-name">${name}</p>
+                            <p class="member-role">${role}</p>
+                        </div>
+                        <div class="member-socials">
+                            <ul class="socials-list">
+                                <li class="socials-item">
+                                    <a href="${linkedIn}">LinkedIn</a>
+                                </li>
+                                <li class="socials-item">
+                                    <a href="${gitHub}"> GitHub</a>
+                                </li>
+                                <li class="socials-item">
+                                    <a href="${telegram}">Telegram</a>
+                                </li>
+                            </ul>
+                        </div>          
+                    </div>
+                </li>        
+            `
+            }).join("");
+
+            memberList.insertAdjacentHTML('afterbegin', markup)
+    }
+
+
 
 }
