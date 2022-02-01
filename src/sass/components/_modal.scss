@@ -33,7 +33,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    max-width: 1024px;
     margin-right: auto;
     margin-left: auto;
     padding: 48px 20px;
@@ -46,6 +45,7 @@
 
     @media screen and (min-width: $desktop) {
         padding: 50px 30px 40px 30px;
+        max-width: 1024px;
     }
 }
 
@@ -186,7 +186,7 @@
 
     border-radius: 50%;
     background-color: $white-text-and-bg;
-    background-image: url('./../partials/img/close.png');
+    background-image: url('./../partials/img/close.svg');
 }
 
 .close-btn:focus,
