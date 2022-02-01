@@ -8,7 +8,7 @@ const refs = {
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
 };
   
-
+export default { refs };
 refs.openModalBtn.addEventListener('click', toggleModal);
 refs.closeModalBtn.forEach(el => el.addEventListener('click', toggleModal));
 refs.openSignInFormBtn.addEventListener('click', openSignInForm);
