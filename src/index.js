@@ -1,18 +1,15 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import {debounce, throttle } from 'lodash'
+import { debounce, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 
 import footerModal from './js/footerModal';
- 
-const apiService = new ApiService()
+ const apiService = new ApiService()
+// const propFirebase = new FirebaseClass;
 const renderService = new RenderService()
-
-const isOnlain = propFirebase;
 
 import Notiflix from 'notiflix';
 
@@ -50,7 +47,22 @@ const closeModal = () => {
     refs.modal.classList.add('hidden')  
 }
 
-const openModal = (id) => {
+function writeUserData(object) {
+  const db = getDatabase();
+  set(ref(db, `${Uid.uid}`), {
+      wathed: object,
+  });
+    // console.log(propFirebase.uid)
+}
+function writeUserData(queue) {
+  const db = getDatabase();
+  set(ref(db,  `${Uid.uid}`), {
+      queue: queue,
+  });
+}
+
+
+const openModal = (id,object,queue) => {
     
     refs.modal.classList.remove('hidden')
 
@@ -71,9 +83,31 @@ const openModal = (id) => {
                 path: filmElem.querySelector('.film-details__path').getAttribute('src'),
                 popularity: filmElem.querySelector('.popularity').innerText,
             }
-           
+            object = obj;
+            
+            writeUserData(object)
+            console.log(Uid)
+        }
+    })
+       refs.modal.addEventListener('click', e => {
+        if (e.target.dataset.action === 'close') {
+            closeModal()
+        }
 
-           localStorageService.addToLibrary(obj)
+        if (e.target.dataset.action === 'addToQue') {
+           const filmElem = document.querySelector('.film-details')
+           
+            const obj = {
+                id: filmElem.id,
+                title: filmElem.querySelector('.about__title').innerText,
+                overview: filmElem.querySelector('.about__description--text').innerText,
+                path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+                popularity: filmElem.querySelector('.popularity').innerText,
+            }
+            queue = obj;
+            
+            writeUserData(queue)
+            console.log(Uid)
         }
    })
 }  

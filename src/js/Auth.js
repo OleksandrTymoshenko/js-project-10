@@ -3,7 +3,6 @@ import FirebaseClass from "./firebaseApi";
 import { refs, toggleModal } from './auth-modal';
 
 const propFirebase = new FirebaseClass;
-
 const firebaseConfig = {
     apiKey: "AIzaSyCqVUBbVgMQVw7F0Ui6UZiRCfFX4vTUtNU",
     authDomain: "fir-8926a.firebaseapp.com",
@@ -42,6 +41,7 @@ async function signWithGoogl(e) {
     await propFirebase.signUserInAccountWithGoogle();
     toggleModal();
     refs.openModalBtn.removeEventListener('click', toggleModal)
+
 }
 
 export { propFirebase }
