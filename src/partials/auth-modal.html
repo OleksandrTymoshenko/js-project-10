@@ -1,6 +1,6 @@
 <div data-auth-modal class="auth-modal__backdrop visually-hidden">
   <div class="auth-modal">
-    <button data-auth-modal-close class="auth-modal__btn-close">
+    <button data-auth-modal-close class="auth-modal__btn-close close-btn">
       <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 8L22 22" stroke="black" stroke-width="2" />
         <path d="M8 22L22 8" stroke="black" stroke-width="2" />
@@ -16,17 +16,20 @@
       </button>
     </div>
 
-      <form data-auth-modal-signin-form class="form">
-        <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
-        <input class="auth-modal__form-input" type="password" name="password" placeholder="Password"
-        />
-        <div class="auth-modal__footer">
-          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-            Cancel
-          </button>
-          <button type="submit" class="auth-modal__footer-button">Log in</button>
-        </div>
-      
+    <form data-auth-modal-signin-form class="form">
+      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+      <input
+        class="auth-modal__form-input"
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+      <div class="auth-modal__footer">
+        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+          Cancel
+        </button>
+        <button disabled="disabled" type="submit" class="auth-modal__footer-button">Log in</button>
+      </div>
 
       <p class="auth-modal__text">or</p>
 
@@ -37,31 +40,36 @@
           Google
         </a>
       </div>
-      </form>
+    </form>
 
-
-      <form data-auth-modal-reg-form class="hide form">
-        <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" /> <input
-        class="auth-modal__form-input" type="password" name="password" placeholder="Password" />
-        <label class="auth-modal__checkbox" for="check">
-          <input type="checkbox" name="checkbox" id="check" value="1" />
-          I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
-        </label>
-        <div class="auth-modal__footer">
-          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-            Cancel
-          </button>
-          <button type="submit" class="auth-modal__footer-button">Create Account</button>
-        </div>
-        <p class="auth-modal__text">or</p>
-        <div class="auth-modal__socials">
-<a class="auth-modal__google" href="">
-  Sign in with
-  <img class="google-icon" src="partials/img/google-logo.png" alt="" />
-  Google
-</a>
-        </div>
-        
-      </form>
+    <form data-auth-modal-reg-form class="hide form">
+      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+      <input
+        class="auth-modal__form-input"
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+      <label class="auth-modal__checkbox" for="check">
+        <input type="checkbox" name="checkbox" id="check" value="1" />
+        I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
+      </label>
+      <div class="auth-modal__footer">
+        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+          Cancel
+        </button>
+        <button disabled="disabled" type="submit" class="auth-modal__footer-button">
+          Create Account
+        </button>
+      </div>
+      <p class="auth-modal__text">or</p>
+      <div class="auth-modal__socials">
+        <a class="auth-modal__google" href="">
+          Sign in with
+          <img class="google-icon" src="partials/img/google-logo.png" alt="" />
+          Google
+        </a>
+      </div>
+    </form>
   </div>
 </div>
