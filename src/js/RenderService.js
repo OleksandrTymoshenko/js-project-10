@@ -34,11 +34,11 @@ export default class RenderService {
 
     renderFilmDetails(film) {
         modal.innerHTML = ''
-        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count, genre_ids} = film
+        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count} = film
         const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
         const upperTitle = title.toUpperCase()
-        
-        
+        const genresFilm = genres.map(genre => genre.name).join(', ')       
+
         const markup = `
             <div class="film-details" id=${id}>
 
@@ -61,7 +61,7 @@ export default class RenderService {
                             <p class="details__name"><span class="vote">${vote_average}</span> / ${vote_count}<p>
                             <p class="details__name popularity">${popularity}<p>
                             <p class="details__name">${upperTitle}<p>
-                            <p class="details__name">Action<p>
+                            <p class="details__name">${genresFilm}<p>
                         </div>
                     </div>
 
