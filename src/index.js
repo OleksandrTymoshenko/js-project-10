@@ -3,14 +3,17 @@ import './js/auth-modal.js';
 import {debounce, throttle } from 'lodash'
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-import LocalStorageService from './js/LocalStorageService';
+
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
+
 import footerModal from './js/footerModal';
+ 
 const apiService = new ApiService()
 const renderService = new RenderService()
-const localStorageService = new LocalStorageService()
+
 const isOnlain = propFirebase;
+
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -20,7 +23,8 @@ const refs = {
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),    
+    headerLib: document.querySelector('header[data-action="library"]'),
+    footerBtnModal: document.querySelector('.footer__team-button')    
 }
 
 refs.headerLib.style.display = "none";
@@ -43,7 +47,7 @@ const getPopular = () => {
 }
 
 const closeModal = () => {
-    refs.modal.classList.add('hidden')
+    refs.modal.classList.add('hidden')  
 }
 
 const openModal = (id) => {
@@ -97,9 +101,18 @@ const findFilm = debounce(() => {
     
 }, 500)
 
+function getMembers () {
+    refs.modal.classList.remove('hidden')
+    renderService.renderMembers()
+    const list = document.querySelector('.member-list')
+    list.addEventListener('click', closeModal)
+}
+
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
-refs.input.addEventListener('input', findFilm)
+refs.input.addEventListener('input',  findFilm)
+refs.footerBtnModal.addEventListener('click', getMembers)
+
 
 function onNaviHomeClick() {
         refs.headerMain.style.display = "none";
