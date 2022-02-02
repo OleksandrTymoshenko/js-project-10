@@ -1,12 +1,14 @@
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { openSignInForm } from './auth-modal'
+import { onNaviHomeClick } from '../index';
 export default class FirebaseClass {
 
-    constructor(status, email, password) {
+    constructor( logIn = false, email, password) {
         this.email = email;
         this.password = password;
-        this.status = status
+        this.logIn = logIn;
     }
 
     async createUser(email, password) {
@@ -14,9 +16,8 @@ export default class FirebaseClass {
         await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                const user = userCredential.user;
-                Notiflix.Notify.success('You are registration')
-                console.log(userCredential, user)
+                Notiflix.Notify.success('Поздравляем! Вы успешно зарегистрированы на нашем сайте:)')
+                openSignInForm();
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -28,12 +29,17 @@ export default class FirebaseClass {
     async signUserInAccount(email, password) {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
-            // this.status = 'Ok';
-            console.log(result.user.uid);
-        }).catch(function (error) {
+
+            Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+            this.logIn = true;
+            onNaviHomeClick();
+            return;
+            }).catch(function (error) {
+
             if (error.code === 'auth/wrong-password') {
                 Notiflix.Notify.warning('Неверный пароль');
             } else {
+                console.log(error);
                 Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
             }
         });
@@ -50,6 +56,8 @@ export default class FirebaseClass {
                 // The signed-in user info.
                 const user = result.user;
                 Notiflix.Notify.success('Вы вошли в свой аккаунт')
+                this.logIn = true;
+                onNaviHomeClick();
 
             }).catch((error) => {
                 // Handle Errors here.

@@ -8,7 +8,6 @@ const footerModal = document.querySelector('.member-list')
 footerBtnModal.addEventListener('click', onClickModalOpen)
 closeModal.addEventListener('click', onClickModalClose)
 
-
 function onClickModalOpen() {
     modal.classList.remove('hidden')
     modal.classList.remove('modal')
@@ -53,4 +52,3 @@ function onClickModalClose() {
     modal.classList.add('modal')
     footerModal.innerHTML = ''
 }
-
