@@ -5,7 +5,9 @@ import { initializeApp } from "firebase/app";
 import FirebaseClass from "./firebaseApi";
 
 const propFiebase = new FirebaseClass;
+
 import refs from './auth-modal';
+import { uniqueId } from "lodash";
 const firebaseConfig = {
     apiKey: "AIzaSyCqVUBbVgMQVw7F0Ui6UZiRCfFX4vTUtNU",
     authDomain: "fir-8926a.firebaseapp.com",
@@ -33,6 +35,7 @@ async function signInAccount(e) {
     const email = e.currentTarget.elements.email.value;
     const password = e.currentTarget.elements.password.value;
     await propFiebase.signUserInAccount(email, password);
+    console.log(propFiebase.uid)
 }
 // console.log(refs.refs.signWithGoogle)
 // refs.refs.signWithGoogle.addEventListener('submit', signWithGoogl)
@@ -40,3 +43,4 @@ async function signInAccount(e) {
 // async function signWithGoogl() {
 //     await propFiebase.signUserInAccountWithGoogle();
 // }
+export { propFiebase}

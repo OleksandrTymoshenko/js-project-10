@@ -3,10 +3,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 export default class FirebaseClass {
 
-    constructor(status, email, password) {
+    constructor(uid, email, password) {
         this.email = email;
         this.password = password;
-        this.status = status
+        this.uid = uid;
     }
 
     async createUser(email, password) {
@@ -28,8 +28,8 @@ export default class FirebaseClass {
     async signUserInAccount(email, password) {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
-            // this.status = 'Ok';
-            console.log(result.user.uid);
+            this.uid = result.user.uid;
+           // console.log(result.user.uid);
         }).catch(function (error) {
             if (error.code === 'auth/wrong-password') {
                 Notiflix.Notify.warning('Неверный пароль');
