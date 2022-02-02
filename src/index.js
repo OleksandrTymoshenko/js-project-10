@@ -3,13 +3,16 @@ import './js/auth-modal.js';
 import {debounce, throttle } from 'lodash'
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-import Auth from './js/Auth'
+
+import Auth from './js/Auth';
+import { propFirebase } from './js/Auth';
 
 import footerModal from './js/footerModal';
  
-
 const apiService = new ApiService()
 const renderService = new RenderService()
+
+const isOnlain = propFirebase;
 
 import Notiflix from 'notiflix';
 
@@ -25,20 +28,19 @@ const refs = {
 }
 
 refs.headerLib.style.display = "none";
+refs.naviListMain.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 function onNaviListClick(e) {
-    if(e.target.textContent === 'Home'){
+    if (e.target.textContent === 'Home') {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if(e.target.textContent === 'My library'){
+    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
 }
-
-refs.naviListMain.addEventListener('click', onNaviListClick) 
-refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 const getPopular = () => {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
@@ -110,3 +112,12 @@ window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
 refs.input.addEventListener('input',  findFilm)
 refs.footerBtnModal.addEventListener('click', getMembers)
+
+
+function onNaviHomeClick() {
+        refs.headerMain.style.display = "none";
+    refs.headerLib.style.display = "block";
+    
+}
+
+export { onNaviHomeClick };
