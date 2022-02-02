@@ -3,19 +3,14 @@ import './js/auth-modal.js';
 import { debounce, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
-import footerModal from './js/footerModal';
-import watched from './js/watched';
-import FirebaseClass from './js/firebaseApi';
-import { propFiebase } from './js/Auth';
-import { getDatabase, ref, set } from "firebase/database";
+import { propFirebase } from './js/Auth';
 
-const apiService = new ApiService()
+import footerModal from './js/footerModal';
+ const apiService = new ApiService()
 // const propFirebase = new FirebaseClass;
 const renderService = new RenderService()
-const localStorageService = new LocalStorageService()
-const Uid = propFiebase
+
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -25,31 +20,31 @@ const refs = {
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),    
+    headerLib: document.querySelector('header[data-action="library"]'),
+    footerBtnModal: document.querySelector('.footer__team-button')    
 }
 
 refs.headerLib.style.display = "none";
+refs.naviListMain.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 function onNaviListClick(e) {
-    if(e.target.textContent === 'Home'){
+    if (e.target.textContent === 'Home') {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if(e.target.textContent === 'My library'){
+    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
 }
-
-refs.naviListMain.addEventListener('click', onNaviListClick) 
-refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 const getPopular = () => {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
 }
 
 const closeModal = () => {
-    refs.modal.classList.add('hidden')
+    refs.modal.classList.add('hidden')  
 }
 
 function writeUserData(object) {
@@ -140,6 +135,23 @@ const findFilm = debounce(() => {
     
 }, 500)
 
+function getMembers () {
+    refs.modal.classList.remove('hidden')
+    renderService.renderMembers()
+    const list = document.querySelector('.member-list')
+    list.addEventListener('click', closeModal)
+}
+
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
 refs.input.addEventListener('input',  findFilm)
+refs.footerBtnModal.addEventListener('click', getMembers)
+
+
+function onNaviHomeClick() {
+        refs.headerMain.style.display = "none";
+    refs.headerLib.style.display = "block";
+    
+}
+
+export { onNaviHomeClick };

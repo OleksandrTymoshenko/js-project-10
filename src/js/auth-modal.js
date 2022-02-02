@@ -6,9 +6,10 @@ const refs = {
   openRegFormBtn: document.querySelector('[data-auth-modal-reg]'),
   signInForm: document.querySelector('[data-auth-modal-signin-form]'),
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
+  signWithGoogle: document.querySelector('.auth-modal__google')
 };
   
-export default { refs };
+
 refs.openModalBtn.addEventListener('click', toggleModal);
 refs.closeModalBtn.forEach(el => el.addEventListener('click', toggleModal));
 refs.openSignInFormBtn.addEventListener('click', openSignInForm);
@@ -16,8 +17,7 @@ refs.openRegFormBtn.addEventListener('click', openRegForm);
 refs.modal.addEventListener('click', onBackDropClick);
 
 
-function toggleModal(e) {
-  e.preventDefault();
+function toggleModal() {
   refs.modal.classList.toggle('visually-hidden');
 }
 
@@ -41,3 +41,5 @@ function onBackDropClick(e) {
     toggleModal();
   }
 }
+
+export { refs, toggleModal, openSignInForm};
