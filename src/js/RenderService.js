@@ -11,11 +11,12 @@ export default class RenderService {
     }
 
     renderAllFilms(filmArray) {
-        const markup = filmArray.map(({id, title, poster_path, genre_ids}) => {
+        const markup = filmArray.map(({id, title, poster_path, genre_ids, release_date}) => {
            
             const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
             const upperTitle = title.toUpperCase();
             const generesFilmArray = getGenres(genre_ids)
+            const date = release_date.slice(0, 4)
 
             return `
                     <li class="list__item" id=${id}>
@@ -23,7 +24,7 @@ export default class RenderService {
                         <img class="item__img" src=${imagePath} alt="poster" width="396"> 
         
                         <p class="item__title">${upperTitle}</p>
-                        <p class="item__genre">${generesFilmArray} | 2020</p>
+                        <p class="item__genre">${generesFilmArray} | ${date}</p>
                     </li>
                 `
         }).join('')
