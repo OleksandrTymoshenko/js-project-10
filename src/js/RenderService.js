@@ -1,52 +1,21 @@
 const list = document.querySelector('.list')
 const modal = document.querySelector('[data-modal]')
 
+import { getGenres } from './genresInfo'
 import { memberInfo } from './memberInfo'
-
-
 import noPoster from '../partials/img/no_poster.jpg'
-
-const generes = [
-    {id: 28, name: "Action"},
-{id: 12, name: "Adventure"},
-{id: 16, name: "Animation"},
-{id: 35, name: "Comedy"},
-{id: 80, name: "Crime"},
-{id: 99, name: "Documentary"},
-{id: 18, name: "Drama"},
-{id: 10751, name: "Family"},
-{id: 14, name: "Fantasy"},
-{id: 36, name: "History"},
-{id: 27, name: "Horror"},
-{id: 10402, name: "Music"},
-{id: 9648, name: "Mystery"},
-{id: 10749, name: "Romance"},
-{id: 878, name: "Science Fiction"},
-{id: 10770, name: "TV Movie"},
-{id: 53, name: "Thriller"},
-{id: 10752, name: "War"},
-{id: 37, name: "Western"},
-]
-
-
-function generesForRender (a) {
-    let generesArray = [];
-    a.map((element) => generesArray.push(generes.find(gener => gener.id === element).name))
-    return generesArray.splice(0, 2).join(", ")
-}
 
 export default class RenderService {
     constructor() {
-       
+    
     }
 
     renderAllFilms(filmArray) {
         const markup = filmArray.map(({id, title, poster_path, genre_ids}) => {
            
             const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
-            
             const upperTitle = title.toUpperCase();
-            const generesFilmArray = generesForRender(genre_ids);
+            const generesFilmArray = getGenres(genre_ids)
 
             return `
                     <li class="list__item" id=${id}>
@@ -67,6 +36,7 @@ export default class RenderService {
         const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count, genre_ids} = film
         const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
         const upperTitle = title.toUpperCase()
+        
         
         const markup = `
             <div class="film-details" id=${id}>
@@ -152,7 +122,4 @@ export default class RenderService {
 
             memberList.insertAdjacentHTML('afterbegin', markup)
     }
-
-
-
 }
