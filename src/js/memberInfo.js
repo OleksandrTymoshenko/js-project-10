@@ -1,7 +1,7 @@
 export const memberInfo = [
     {
         id: 1,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/tymoshenko.jpg',
         name: 'Александр Тимошенко',
         role: 'Team Lead',
         linkedIn: '',
@@ -10,7 +10,7 @@ export const memberInfo = [
     },
     {
         id: 2,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/nelovka.jpg',
         name: 'Марк Неловка',
         role: 'Scrum Master',
         linkedIn: 'https://www.linkedin.com/in/mark-nelovka/',
@@ -19,7 +19,7 @@ export const memberInfo = [
     },
     {
         id: 3,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/malakhova.jpg',
         name: 'Евгения Малахова',
         role: 'Developer',
         linkedIn: '',
@@ -28,7 +28,7 @@ export const memberInfo = [
     },
     {
         id: 4,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/malik.jpg',
         name: 'Дмитрий Малик',
         role: 'Developer',
         linkedIn: '',
@@ -37,7 +37,7 @@ export const memberInfo = [
     },
     {
         id: 5,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/bodachevskyi.jpg',
         name: 'Александр Бодачевский',
         role: 'Developer',
         linkedIn: '',
@@ -46,7 +46,7 @@ export const memberInfo = [
     },
     {
         id: 6,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/akulov.jpg',
         name: 'Артем Акулов',
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/artem-akulov-b264aa1b1/',
@@ -55,7 +55,7 @@ export const memberInfo = [
     },
     {
         id: 7,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/gladkyi.jpg',
         name: 'Игорь Гладкий',
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/igor-gladkiy-530b211b3/',
@@ -64,7 +64,7 @@ export const memberInfo = [
     },
     {
         id: 8,
-        photo: '',
+        photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/berezovskyi.jpg',
         name: 'Андрей Березовский',
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/andriy-berezovskyi/',
