@@ -75,23 +75,8 @@
 }
 
 .auth-modal__btn-close {
-  position: absolute;
   top: 8px;
   right: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  width: 30px;
-  color: #000000;
-  background-color: #ffffff;
-
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover,
-  &:focus {
-    color: $accent;
-  }
 }
 
 .auth-modal__form-icon {
@@ -122,7 +107,7 @@
 }
 
 .auth-modal__header {
-  background: #eee;
+  background: #eeeeee;
   margin-bottom: 30px;
   overflow: hidden;
   border-radius: 3px 3px 0 0;
@@ -134,25 +119,29 @@
   width: 50%;
   padding: 0;
   text-align: center;
-  background: #ddd;
-  color: #999;
+  background: #dddddd;
+  color: #999999;
   height: 73px;
   line-height: 73px;
 
   &.active {
-    background: #fff;
-    color: #777;
+    background: #ffffff;
+    color: #777777;
   }
 }
 
 .auth-modal__footer {
   overflow: hidden;
   margin-top: 30px;
+
+  [data-auth-modal-signin-form] & {
+    margin-top: 64px;
+  }
 }
 
 .auth-modal__footer-button {
   background: $accent;
-  color: white;
+  color: #ffffff;
   margin: 0;
   border: 0;
   width: 50%;
@@ -165,7 +154,7 @@
 
   &:nth-child(1) {
     border-radius: 3px 0 0 3px;
-    background: #aaa;
+    background: #aaaaaa;
   }
 
   &:nth-child(2) {
@@ -173,15 +162,17 @@
   }
 
   &:disabled {
-    opacity: 0.8;
+    opacity: 0.4;
+    color: #aaaaaa;
   }
 }
 
 .auth-modal__checkbox {
   display: flex;
   margin-top: 20px;
-  color: #777;
+  color: #777777;
   align-items: center;
+  font-size: 12px;
 
   & input {
     margin-right: 10px;
@@ -218,18 +209,6 @@
   border-color: #4285f4;
   color: #4285f4;
   margin-bottom: 10px;
-}
-
-.auth-modal__facebook {
-  color: #ffffff;
-  background-color: #3b5998;
-  border-color: #3b5998;
-}
-
-.facebook-icon {
-  fill: #ffffff;
-  margin-right: 10px;
-  margin-left: 10px;
 }
 
 .google-icon {
