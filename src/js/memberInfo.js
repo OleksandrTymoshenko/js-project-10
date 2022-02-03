@@ -5,8 +5,8 @@ export const memberInfo = [
         name: 'Александр Тимошенко',
         role: 'Team Lead',
         linkedIn: '',
-        gitHub: '',
-        telegram: '',
+        gitHub: 'https://github.com/OleksandrTymoshenko',
+        telegram: 'https://t.me/AlxTxlA',
     },
     {
         id: 2,
@@ -15,7 +15,7 @@ export const memberInfo = [
         role: 'Scrum Master',
         linkedIn: 'https://www.linkedin.com/in/mark-nelovka/',
         gitHub: 'https://github.com/Mark-Nelovka',
-        telegram: '@MarkNelovka',
+        telegram: 'https://t.me/MarkNelovka',
     },
     {
         id: 3,
@@ -23,8 +23,8 @@ export const memberInfo = [
         name: 'Евгения Малахова',
         role: 'Developer',
         linkedIn: '',
-        gitHub: '',
-        telegram: '',
+        gitHub: 'https://github.com/jennmala',
+        telegram: 'https://t.me/jennmala',
     },
     {
         id: 4,
@@ -33,7 +33,7 @@ export const memberInfo = [
         role: 'Developer',
         linkedIn: '',
         gitHub: 'https://github.com/salat4',
-        telegram: '@Stalt4',
+        telegram: 'https://t.me/Stalt4',
     },
     {
         id: 5,
@@ -41,8 +41,8 @@ export const memberInfo = [
         name: 'Александр Бодачевский',
         role: 'Developer',
         linkedIn: '',
-        gitHub: '',
-        telegram: '',
+        gitHub: 'https://github.com/AlexBodach',
+        telegram: 'https://t.me/BodachevskyOl',
     },
     {
         id: 6,
@@ -51,7 +51,7 @@ export const memberInfo = [
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/artem-akulov-b264aa1b1/',
         gitHub: 'https://github.com/artyomakulov',
-        telegram: '@artyomakulov',
+        telegram: 'https://t.me/artyomakulov',
     },
     {
         id: 7,
@@ -60,7 +60,7 @@ export const memberInfo = [
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/igor-gladkiy-530b211b3/',
         gitHub: 'https://github.com/chetkiy777',
-        telegram: '@Igorek_Chetkiy',
+        telegram: 'https://t.me/Igorek_Chetkiy',
     },
     {
         id: 8,
@@ -69,6 +69,6 @@ export const memberInfo = [
         role: 'Developer',
         linkedIn: 'https://www.linkedin.com/in/andriy-berezovskyi/',
         gitHub: 'https://github.com/AndriyBerezovskyi',
-        telegram: '@dyus95',
+        telegram: 'https://t.me/dyus95',
     },
 ];

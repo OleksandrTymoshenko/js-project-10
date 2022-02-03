@@ -4,6 +4,7 @@ const footerBtnModal = document.querySelector('.footer__team-button')
 const closeModal = document.querySelector('.close-btn')
 const modal = document.querySelector('[data-modal]')
 const footerModal = document.querySelector('.member-list')
+const footerModalWrapper = document.querySelector('.footer__modal-wrapper')
 
 footerBtnModal.addEventListener('click', onClickModalOpen)
 closeModal.addEventListener('click', onClickModalClose)
@@ -20,7 +21,7 @@ function createMarkup(memberInfo) {
       return `<li class="member-item" id="${id}">
                 <div class="member-card">
                     <div class="member-photo">
-                        <img class="photo" src="${photo}" width="200" height="200" alt="team member">
+                        <img class="photo" src="${photo}" width="250" height="250" alt="team member">
                     </div>
                     <div class="member-description">
                         <p class="member-name">${name}</p>
@@ -29,13 +30,13 @@ function createMarkup(memberInfo) {
                     <div class="member-socials">
                         <ul class="socials-list">
                             <li class="socials-item">
-                                <a class="socials-linkedin" href="${linkedIn}">LinkedIn</a>
+                                <a class="socials-linkedin" href="${linkedIn}" target=”_blank”>LinkedIn</a>
                             </li>
                             <li class="socials-item">
-                                <a class="socials-github" href="${gitHub}">GitHub</a>
+                                <a class="socials-github" href="${gitHub}" target=”_blank”>GitHub</a>
                             </li>
                             <li class="socials-item">
-                                <a class="socials-telegram" href="${telegram}">Telegram</a>
+                                <a class="socials-telegram" href="${telegram}" target=”_blank”>Telegram</a>
                             </li>
                         </ul>
                     </div>          
