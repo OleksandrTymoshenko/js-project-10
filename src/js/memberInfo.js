@@ -4,7 +4,7 @@ export const memberInfo = [
         photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/tymoshenko.jpg',
         name: 'Александр Тимошенко',
         role: 'Team Lead',
-        linkedIn: '',
+        linkedIn: 'https://www.linkedin.com/in/александр-тимошенко-75994941',
         gitHub: 'https://github.com/OleksandrTymoshenko',
         telegram: 'https://t.me/AlxTxlA',
     },
