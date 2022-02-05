@@ -1,6 +1,6 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import { debounce, throttle } from 'lodash'
+import { debounce, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
