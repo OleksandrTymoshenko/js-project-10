@@ -39,9 +39,24 @@ async function signInAccount(e) {
 async function signWithGoogl(e) {
     e.preventDefault();
     await propFirebase.signUserInAccountWithGoogle();
+    if (propFirebase.logIn) {
     toggleModal();
-    refs.openModalBtn.removeEventListener('click', toggleModal)
+        refs.openModalBtn.removeEventListener('click', toggleModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
 
+}
+
+async function signWithGooglReg(e) {
+    e.preventDefault();
+    await propFirebase.signUserInAccountWithGoogle();
+    if (propFirebase.logIn) {
+    toggleModal();
+        refs.openModalBtn.removeEventListener('click', toggleModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
 }
 
 export { propFirebase }
