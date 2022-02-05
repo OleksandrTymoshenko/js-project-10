@@ -14,10 +14,13 @@ const refs = {
   eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
   signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
 
-
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
+
   inputPasswordSignin: document.querySelector('[name="passwordSign"]'),
   submitBtnSignin: document.querySelector('[data-auth-modal-signin-form] [type="submit"]'),
+
+//   inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
+//   submitBtnSignin: document.querySelector('[type="submit"]'),
 
   inputEmailReg: document.querySelector('[data-auth-modal-reg-form] [name="email"]'),
   inputPasswordReg: document.querySelector('[name="passwordReg"]'),
