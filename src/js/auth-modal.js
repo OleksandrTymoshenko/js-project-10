@@ -1,3 +1,5 @@
+import { ref } from "firebase/database";
+
 const refs = {
   openModalBtn: document.querySelector('[data-auth-modal-open]'),
   closeModalBtn: document.querySelectorAll('[data-auth-modal-close]'),
@@ -6,9 +8,13 @@ const refs = {
   openRegFormBtn: document.querySelector('[data-auth-modal-reg]'),
   signInForm: document.querySelector('[data-auth-modal-signin-form]'),
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
-  signWithGoogle: document.querySelector('.auth-modal__google')
+  signWithGoogle: document.querySelector('.auth-modal__google'),
+  eyeBtnSignPassword: document.querySelector('.auth-modal__form-sign-eye'),
+  eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
+  inputPasswordSign: document.querySelector('input[name=passwordSign]'),
+  inputPasswordReg: document.querySelector('input[name=passwordReg]'),
+  signWithGoogleReg: document.querySelector('.auth-modal__google-reg')
 };
-  
 
 refs.openModalBtn.addEventListener('click', toggleModal);
 refs.closeModalBtn.forEach(el => el.addEventListener('click', toggleModal));

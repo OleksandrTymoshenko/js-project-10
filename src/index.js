@@ -1,16 +1,16 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import {debounce, throttle } from 'lodash'
+import { debounce, throttle } from 'lodash'
+import { getDatabase,child, ref, onValue ,push,set, update} from "firebase/database";
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
-import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 import footerModal from './js/footerModal';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
-const isOnlain = propFirebase;
+const Uid = propFirebase; // Перед пушем поменять на Uid !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -32,7 +32,7 @@ function onNaviListClick(e) {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
+    if (e.target.textContent === 'My library' && Uid.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
@@ -43,10 +43,26 @@ const getPopular = () => {
 }
 
 const closeModal = () => {
+    refs.modal.removeEventListener('click', listener)
     refs.modal.classList.add('hidden')
+    
 }
 
-const openModal = (id) => {
+function writeUserData(object) {
+  const db = getDatabase();
+  set(ref(db, `${Uid.uid}`), {
+      wathed: object,
+  });
+    // console.log(propFirebase.uid)
+}
+function writeUserData(queue) {
+  const db = getDatabase();
+  set(ref(db,  `${Uid.uid}`), {
+      queue: queue,
+  });
+}
+
+const openModal = (id,object,queue) => {
     
     refs.modal.classList.remove('hidden')
 
@@ -67,9 +83,31 @@ const openModal = (id) => {
                 path: filmElem.querySelector('.film-details__path').getAttribute('src'),
                 popularity: filmElem.querySelector('.popularity').innerText,
             }
-           
+            object = obj;
+            
+            writeUserData(object)
+            console.log(Uid)
+        }
+    })
+       refs.modal.addEventListener('click', e => {
+        if (e.target.dataset.action === 'close') {
+            closeModal()
+        }
 
-           localStorageService.addToLibrary(obj)
+        if (e.target.dataset.action === 'addToQue') {
+           const filmElem = document.querySelector('.film-details')
+           
+            const obj = {
+                id: filmElem.id,
+                title: filmElem.querySelector('.about__title').innerText,
+                overview: filmElem.querySelector('.about__description--text').innerText,
+                path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+                popularity: filmElem.querySelector('.popularity').innerText,
+            }
+            queue = obj;
+            
+            writeUserData(queue)
+            console.log(Uid)
         }
    })
 }  

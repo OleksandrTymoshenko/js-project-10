@@ -5,10 +5,11 @@ import { openSignInForm } from './auth-modal'
 import { onNaviHomeClick } from '../index';
 export default class FirebaseClass {
 
-    constructor( logIn = false, email, password) {
+    constructor( logIn = false, email, password, uid) {
         this.email = email;
         this.password = password;
         this.logIn = logIn;
+        this.uid = uid
     }
 
     async createUser(email, password) {
@@ -31,6 +32,7 @@ export default class FirebaseClass {
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
             Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
             this.logIn = true;
+            this.uid = result.user.uid;
             onNaviHomeClick();
             return;
             }).catch(function (error) {
@@ -55,6 +57,7 @@ export default class FirebaseClass {
                 const user = result.user;
                 Notiflix.Notify.success('Вы вошли в свой аккаунт')
                 this.logIn = true;
+                this.uid = result.user.uid;
                 onNaviHomeClick();
 
             }).catch((error) => {
