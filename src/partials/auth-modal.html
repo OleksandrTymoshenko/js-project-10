@@ -16,22 +16,22 @@
       </button>
     </div>
 
-    <form data-auth-modal-signin-form class="form">
-      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
-      <input
-        class="auth-modal__form-input"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
-      <div class="auth-modal__footer">
-        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-          Cancel
+      <form data-auth-modal-signin-form class="form">
+        <div class="auth-modal__form-container">
+        <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+        <input class="auth-modal__form-input" type="password" name="passwordSign" placeholder="Password" />
+        <button class="auth-modal__form-sign-eye" type="button">
+          <img src="partials/img/Eye-min.png" alt="eye" />
         </button>
-        <button disabled="disabled" type="submit" class="auth-modal__footer-button">Log in</button>
-      </div>
-
-      <p class="auth-modal__text">or</p>
+        </div>
+        <div class="auth-modal__footer">
+          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+            Cancel
+          </button>
+          <button type="submit" class="auth-modal__footer-button">Log in</button>
+        </div>
+      
+     <p class="auth-modal__text">or</p>
 
       <div class="auth-modal__socials">
         <a class="auth-modal__google" href="">
@@ -42,34 +42,33 @@
       </div>
     </form>
 
-    <form data-auth-modal-reg-form class="hide form">
-      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
-      <input
-        class="auth-modal__form-input"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
-      <label class="auth-modal__checkbox" for="check">
-        <input type="checkbox" name="checkbox" id="check" value="1" />
-        I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
-      </label>
-      <div class="auth-modal__footer">
-        <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
-          Cancel
-        </button>
-        <button disabled="disabled" type="submit" class="auth-modal__footer-button">
-          Create Account
-        </button>
-      </div>
-      <p class="auth-modal__text">or</p>
-      <div class="auth-modal__socials">
-        <a class="auth-modal__google" href="">
-          Sign in with
-          <img class="google-icon" src="partials/img/google-logo.png" alt="" />
-          Google
+      <form data-auth-modal-reg-form class="hide form">
+        <div class="auth-modal__form-container">
+          <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+          <input class="auth-modal__form-input" type="password" name="passwordReg" placeholder="Password" />
+          <button class="auth-modal__form-reg-eye" type="button">
+            <img  src="partials/img/Eye-min.png" alt="eye" />
+          </button>
+        </div>
+        
+        <label class="auth-modal__checkbox" for="check">
+          <input type="checkbox" name="checkbox" id="check" value="1" />
+          I agree to the <a class="auth-modal__trems-link" href="#">Terms</a>
+        </label>
+        <div class="auth-modal__footer">
+          <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
+            Cancel
+          </button>
+          <button type="submit" class="auth-modal__footer-button">Create Account</button>
+        </div>
+        <p class="auth-modal__text">or</p>
+        <div class="auth-modal__socials">
+        <a class="auth-modal__google-reg" href="">
+        Sign in with
+        <img class="google-icon" src="partials/img/google-logo.png" alt="" />
+        Google
         </a>
-      </div>
-    </form>
+        </div>
+      </form>
   </div>
 </div>

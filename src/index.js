@@ -1,16 +1,16 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import { debounce, throttle } from 'lodash';
+import { debounce, throttle } from 'lodash'
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
+import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
-
 import footerModal from './js/footerModal';
- const apiService = new ApiService()
-// const propFirebase = new FirebaseClass;
+const apiService = new ApiService()
 const renderService = new RenderService()
-
+const localStorageService = new LocalStorageService()
+const Uid = propFirebase; 
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -33,7 +33,7 @@ function onNaviListClick(e) {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
+    if (e.target.textContent === 'My library' && Uid.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
@@ -52,7 +52,6 @@ function writeUserData(object) {
   set(ref(db, `${Uid.uid}`), {
       wathed: object,
   });
-    // console.log(propFirebase.uid)
 }
 function writeUserData(queue) {
   const db = getDatabase();
@@ -60,7 +59,6 @@ function writeUserData(queue) {
       queue: queue,
   });
 }
-
 
 const openModal = (id,object,queue) => {
     
