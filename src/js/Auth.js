@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import FirebaseClass from "./firebaseApi";
 import { refs, toggleModal } from './auth-modal';
 import Notiflix from "notiflix";
+import { ref } from "firebase/database";
 
 const propFirebase = new FirebaseClass;
 const firebaseConfig = {
@@ -22,9 +23,8 @@ refs.signWithGoogleReg.addEventListener('click', signWithGooglReg)
 refs.eyeBtnSignPassword.addEventListener('click', eyeSignPassword)
 refs.eyeBtnRegPassword.addEventListener('click', eyeRegPassword)
 
-
 function eyeSignPassword() {
-    const typeSign = refs.inputPasswordSign;
+    const typeSign = refs.inputPasswordSignin;
     if (typeSign.getAttribute('type') === 'password') {
         typeSign.setAttribute('type', 'text');
     } else {
