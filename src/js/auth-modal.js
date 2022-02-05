@@ -1,3 +1,5 @@
+import { ref } from "firebase/database";
+
 const refs = {
   openModalBtn: document.querySelector('[data-auth-modal-open]'),
   closeModalBtn: document.querySelectorAll('[data-auth-modal-close]'),
@@ -7,6 +9,13 @@ const refs = {
   signInForm: document.querySelector('[data-auth-modal-signin-form]'),
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
   signWithGoogle: document.querySelector('.auth-modal__google'),
+
+  eyeBtnSignPassword: document.querySelector('.auth-modal__form-sign-eye'),
+  eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
+  inputPasswordSign: document.querySelector('input[name=passwordSign]'),
+  inputPasswordReg: document.querySelector('input[name=passwordReg]'),
+  signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
+
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
   inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
   submitBtnSignin: document.querySelector('[type="submit"]'),
@@ -14,8 +23,8 @@ const refs = {
   inputPasswordReg: document.querySelector('[data-auth-modal-reg-form] [name="password"]'),
   submitBtnReg: document.querySelector('[data-auth-modal-reg-form] [type="submit"]'),
   inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'),  
+
 };
-  
 
 refs.openModalBtn.addEventListener('click', toggleModal);
 refs.closeModalBtn.forEach(el => el.addEventListener('click', toggleModal));
