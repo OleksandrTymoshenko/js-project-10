@@ -16,11 +16,9 @@ const refs = {
   inputPasswordReg: document.querySelector('input[name=passwordReg]'),
   signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
 
-
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
   inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
   submitBtnSignin: document.querySelector('[type="submit"]'),
-
   inputEmailReg: document.querySelector('[data-auth-modal-reg-form] [name="email"]'),
   inputPasswordReg: document.querySelector('[data-auth-modal-reg-form] [name="password"]'),
   submitBtnReg: document.querySelector('[data-auth-modal-reg-form] [type="submit"]'),
