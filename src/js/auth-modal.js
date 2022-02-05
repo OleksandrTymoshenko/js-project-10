@@ -14,7 +14,7 @@ const refs = {
   eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
   inputPasswordSign: document.querySelector('input[name=passwordSign]'),
   inputPasswordReg: document.querySelector('input[name=passwordReg]'),
-  signWithGoogleReg: document.querySelector('.auth-modal__google-reg')
+  signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
 
 
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
