@@ -12,20 +12,17 @@ const refs = {
 
   eyeBtnSignPassword: document.querySelector('.auth-modal__form-sign-eye'),
   eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
-  inputPasswordSign: document.querySelector('input[name=passwordSign]'),
-  inputPasswordReg: document.querySelector('input[name=passwordReg]'),
   signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
 
 
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
-  inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
-  submitBtnSignin: document.querySelector('[type="submit"]'),
+  inputPasswordSignin: document.querySelector('[name="passwordSign"]'),
+  submitBtnSignin: document.querySelector('[data-auth-modal-signin-form] [type="submit"]'),
 
   inputEmailReg: document.querySelector('[data-auth-modal-reg-form] [name="email"]'),
-  inputPasswordReg: document.querySelector('[data-auth-modal-reg-form] [name="password"]'),
+  inputPasswordReg: document.querySelector('[name="passwordReg"]'),
   submitBtnReg: document.querySelector('[data-auth-modal-reg-form] [type="submit"]'),
-  inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'),  
-
+  inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'), 
 };
 
 refs.openModalBtn.addEventListener('click', toggleModal);
