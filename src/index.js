@@ -72,6 +72,7 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToLib') {
+            document.querySelector('[data-auth-modal]').classList.remove('visually-hidden');
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -93,6 +94,7 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToQue') {
+            document.querySelector('[data-auth-modal]').classList.remove('visually-hidden');
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
