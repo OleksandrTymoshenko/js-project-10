@@ -30,12 +30,14 @@ export default class FirebaseClass {
     async signUserInAccount(email, password) {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
+
             Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
             this.logIn = true;
             this.uid = result.user.uid;
             onNaviHomeClick();
             return;
             }).catch(function (error) {
+
             if (error.code === 'auth/wrong-password') {
                 Notiflix.Notify.warning('Неверный пароль');
             } else {

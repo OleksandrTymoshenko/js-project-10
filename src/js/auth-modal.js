@@ -9,11 +9,23 @@ const refs = {
   signInForm: document.querySelector('[data-auth-modal-signin-form]'),
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
   signWithGoogle: document.querySelector('.auth-modal__google'),
+
   eyeBtnSignPassword: document.querySelector('.auth-modal__form-sign-eye'),
   eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
   inputPasswordSign: document.querySelector('input[name=passwordSign]'),
   inputPasswordReg: document.querySelector('input[name=passwordReg]'),
   signWithGoogleReg: document.querySelector('.auth-modal__google-reg')
+
+
+  inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
+  inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
+  submitBtnSignin: document.querySelector('[type="submit"]'),
+
+  inputEmailReg: document.querySelector('[data-auth-modal-reg-form] [name="email"]'),
+  inputPasswordReg: document.querySelector('[data-auth-modal-reg-form] [name="password"]'),
+  submitBtnReg: document.querySelector('[data-auth-modal-reg-form] [type="submit"]'),
+  inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'),  
+
 };
 
 refs.openModalBtn.addEventListener('click', toggleModal);
@@ -22,6 +34,12 @@ refs.openSignInFormBtn.addEventListener('click', openSignInForm);
 refs.openRegFormBtn.addEventListener('click', openRegForm);
 refs.modal.addEventListener('click', onBackDropClick);
 
+refs.inputEmailSignin.addEventListener('input', updateSubmitBtnSignin);
+refs.inputPasswordSignin.addEventListener('input', updateSubmitBtnSignin);
+
+refs.inputEmailReg.addEventListener('input', updateSubmitBtnReg);
+refs.inputPasswordReg.addEventListener('input', updateSubmitBtnReg);
+refs.inputCheckboxReg.addEventListener('change', updateSubmitBtnReg);
 
 function toggleModal() {
   refs.modal.classList.toggle('visually-hidden');
@@ -49,3 +67,26 @@ function onBackDropClick(e) {
 }
 
 export { refs, toggleModal, openSignInForm};
+
+function updateSubmitBtnSignin() {
+  const email = refs.inputEmailSignin.value.trim();
+  const password = refs.inputPasswordSignin.value.trim();
+  
+  if (email && password) {
+    refs.submitBtnSignin.removeAttribute('disabled');
+  } else {
+    refs.submitBtnSignin.setAttribute('disabled', 'disabled');
+  }
+}
+
+function updateSubmitBtnReg() {
+  const email = refs.inputEmailReg.value.trim();
+  const password = refs.inputPasswordReg.value.trim();
+  const isTermsAgree = refs.inputCheckboxReg.checked;
+  
+  if (email && password && isTermsAgree){
+    refs.submitBtnReg.removeAttribute('disabled');
+  } else {
+    refs.submitBtnReg.setAttribute('disabled', 'disabled');
+  }
+}

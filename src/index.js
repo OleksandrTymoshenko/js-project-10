@@ -1,16 +1,16 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
 import { debounce, throttle } from 'lodash'
-import { getDatabase,child, ref, onValue ,push,set, update} from "firebase/database";
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
+import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 import footerModal from './js/footerModal';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
-const Uid = propFirebase; // Перед пушем поменять на Uid !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const Uid = propFirebase; 
 import Notiflix from 'notiflix';
 
 const refs = {
@@ -20,7 +20,8 @@ const refs = {
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),    
+    headerLib: document.querySelector('header[data-action="library"]'),
+    footerBtnModal: document.querySelector('.footer__team-button')    
 }
 
 refs.headerLib.style.display = "none";
@@ -43,9 +44,7 @@ const getPopular = () => {
 }
 
 const closeModal = () => {
-    refs.modal.removeEventListener('click', listener)
-    refs.modal.classList.add('hidden')
-    
+    refs.modal.classList.add('hidden')  
 }
 
 function writeUserData(object) {
@@ -53,7 +52,6 @@ function writeUserData(object) {
   set(ref(db, `${Uid.uid}`), {
       wathed: object,
   });
-    // console.log(propFirebase.uid)
 }
 function writeUserData(queue) {
   const db = getDatabase();
@@ -135,9 +133,18 @@ const findFilm = debounce(() => {
     
 }, 500)
 
+function getMembers () {
+    refs.modal.classList.remove('hidden')
+    renderService.renderMembers()
+    const list = document.querySelector('.member-list')
+    list.addEventListener('click', closeModal)
+}
+
 window.addEventListener('load', getPopular)
 refs.list.addEventListener('click', getDetails)
-refs.input.addEventListener('input', findFilm)
+refs.input.addEventListener('input',  findFilm)
+refs.footerBtnModal.addEventListener('click', getMembers)
+
 
 function onNaviHomeClick() {
         refs.headerMain.style.display = "none";

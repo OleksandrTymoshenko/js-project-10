@@ -4,7 +4,6 @@ import { refs, toggleModal } from './auth-modal';
 import Notiflix from "notiflix";
 
 const propFirebase = new FirebaseClass;
-
 const firebaseConfig = {
     apiKey: "AIzaSyCqVUBbVgMQVw7F0Ui6UZiRCfFX4vTUtNU",
     authDomain: "fir-8926a.firebaseapp.com",
