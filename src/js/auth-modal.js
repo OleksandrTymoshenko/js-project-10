@@ -85,8 +85,6 @@ function onBackDropClick(e) {
   }
 }
 
-export { refs, openModal, openSignInForm};
-
 function updateSubmitBtnSignin() {
   const email = refs.inputEmailSignin.value.trim();
   const password = refs.inputPasswordSignin.value.trim();
@@ -137,3 +135,5 @@ function onEscKeyPressTerms(e) {
     closeTerms();
   }
 }
+
+export { refs, openModal, openSignInForm};

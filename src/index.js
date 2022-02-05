@@ -7,6 +7,7 @@ import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 import footerModal from './js/footerModal';
+import { openModal as openAuthModal } from './js/auth-modal';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
@@ -73,7 +74,7 @@ const openModal = (id,object,queue) => {
 
         if (e.target.dataset.action === 'addToLib') {
             if (Uid.logIn !== true) {
-                document.querySelector('[data-auth-modal]').classList.remove('visually-hidden');
+                openAuthModal();
                 return;
             }
            const filmElem = document.querySelector('.film-details')
@@ -98,7 +99,7 @@ const openModal = (id,object,queue) => {
 
         if (e.target.dataset.action === 'addToQue') {
             if (Uid.logIn !== true) {
-                document.querySelector('[data-auth-modal]').classList.remove('visually-hidden');
+                openAuthModal();
                 return;
             }
            const filmElem = document.querySelector('.film-details')
