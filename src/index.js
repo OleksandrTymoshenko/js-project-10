@@ -65,6 +65,16 @@ const openModal = (id,object,queue) => {
     refs.modal.classList.remove('hidden')
 
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
+        .then(() => {
+            document.querySelector('[data-action="addToLib"]').addEventListener('click', () => {
+                    document.querySelector('[data-auth-modal]').classList.toggle('visually-hidden');
+            });
+            document.querySelector('[data-action="addToQue"]').addEventListener('click', () => {
+                    document.querySelector('[data-auth-modal]').classList.toggle('visually-hidden');
+                    });
+            })
+
+    
 
     refs.modal.addEventListener('click', e => {
         if (e.target.dataset.action === 'close') {
