@@ -136,4 +136,4 @@ function onEscKeyPressTerms(e) {
   }
 }
 
-export { refs, openModal, openSignInForm};
+export { refs, openModal, openSignInForm, closeModal};
