@@ -41,10 +41,11 @@ function onNaviListClick(e) {
     }
 }
 
-const getPopular = () => {
-    apiService.incrementPage()
-    // window.addEventListener('scroll',)
+function getPopular() {
+    
+    window.addEventListener('scroll', debounce(onScroll, 1000) )
     apiService.getPopularFilms().then(renderService.renderAllFilms)
+
 }
 
 const closeModal = () => {
@@ -157,6 +158,22 @@ refs.list.addEventListener('click', getDetails)
 refs.input.addEventListener('input',  findFilm)
 refs.footerBtnModal.addEventListener('click', getMembers)
 
+function  onScroll() {  
+    const height = document.body.offsetHeight
+    const screenHeight = window.innerHeight
+  
+    const scrolled = window.scrollY
+  
+    const threshold = height - screenHeight / 4
+  
+    const position = scrolled + screenHeight
+  
+      if (position >= threshold) {
+        apiService.incrementPage()
+        getPopular()
+        window.removeEventListener('scroll', onScroll )
+    }
+  }
 
 function onNaviHomeClick() {
         refs.headerMain.style.display = "none";

@@ -29,7 +29,7 @@ export default class RenderService {
                 `
         }).join('')
 
-        list.insertAdjacentHTML('afterbegin', markup)
+        list.insertAdjacentHTML('beforeend', markup)
     }
 
     renderFilmDetails(film) {
