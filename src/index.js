@@ -93,7 +93,7 @@ const openModal = (id,object,queue) => {
             object = obj;
             
             writeUserData(object)
-            console.log(Uid)
+            console.log(Uid.uid)
         }
     })
        refs.modal.addEventListener('click', e => {
