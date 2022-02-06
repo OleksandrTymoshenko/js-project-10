@@ -1,7 +1,8 @@
 .loader {
+  justify-content: center;
   opacity: 0;
   display: flex;
-  position: fixed;
+  // position: fixed;
   bottom: 75px;
   transition: opacity 0.3s ease-in;
 }
