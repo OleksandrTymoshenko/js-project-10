@@ -15,6 +15,7 @@ const localStorageService = new LocalStorageService()
 const Uid = propFirebase; 
 import Notiflix from 'notiflix';
 
+
 const refs = {
     input: document.querySelector('.input'),
     list: document.querySelector('.list'),
@@ -48,7 +49,7 @@ function getPopular() {
 
 }
 
-const closeModal = () => {
+function closeModal  ()  {
     refs.modal.classList.add('hidden')  
 }
 
@@ -65,11 +66,21 @@ function writeUserData(queue) {
   });
 }
 
+
+function EscCloseModal(e) {
+if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal)
+  }
+}
+
 const openModal = (id,object,queue) => {
     
     refs.modal.classList.remove('hidden')
 
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
+
+    window.addEventListener('keydown', EscCloseModal)
 
     refs.modal.addEventListener('click', e => {
         if (e.target.dataset.action === 'close') {
