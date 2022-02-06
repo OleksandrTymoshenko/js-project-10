@@ -12,6 +12,7 @@ const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
+import {addFilmToLibrary, getFilmsFromLibrary} from './js/serviceFirebase'
 
 const refs = {
   input: document.querySelector('.input'),
@@ -24,20 +25,12 @@ const refs = {
   footerBtnModal: document.querySelector('.footer__team-button'),
 };
 
+const Uid = propFirebase;
+
 refs.headerLib.style.display = 'none';
 refs.naviListMain.addEventListener('click', onNaviListClick);
 refs.naviListLib.addEventListener('click', onNaviListClick);
 
-function onNaviListClick(e) {
-  if (e.target.textContent === 'Home') {
-    refs.headerMain.style.display = 'block';
-    refs.headerLib.style.display = 'none';
-  }
-  if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
-    refs.headerMain.style.display = 'none';
-    refs.headerLib.style.display = 'block';
-  }
-}
 
 function getPopular() {
   apiService.getPopularFilms().then(films => {
@@ -70,20 +63,22 @@ function closeModal() {
   renderService.clearList();
 }
 
-function writeUserData(object) {
-  const db = getDatabase();
-  set(ref(db, `${Uid.uid}`), {
-    wathed: object,
-  });
-  // console.log(propFirebase.uid)
-}
 
-function writeUserData(queue) {
-  const db = getDatabase();
-  set(ref(db, `${Uid.uid}`), {
-    queue: queue,
-  });
-}
+
+// function writeUserData(object) {
+//   const db = getDatabase();
+//   set(ref(db, `${Uid.uid}`), {
+//     wathed: object,
+//   });
+//   // console.log(propFirebase.uid)
+// }
+
+// function writeUserData(queue) {
+//   const db = getDatabase();
+//   set(ref(db, `${Uid.uid}`), {
+//     queue: queue,
+//   });
+// }
 
 function EscCloseModal(e) {
   if (e.code === 'Escape') {
@@ -119,14 +114,15 @@ const openModal = (id, object, queue) => {
         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
         popularity: filmElem.querySelector('.popularity').innerText,
       };
-      object = obj;
+      // object = obj;
 
-      writeUserData(object);
-      console.log(Uid.uid);
+      addFilmToLibrary(obj);
+      // writeUserData(object);
+      // console.log(Uid.uid);
     }
 
     if (e.target.dataset.action === 'addToQue') {
-      if (Uid.logIn !== true) {
+      if (Uid.uid !== true) {
         openAuthModal();
         return;
       }
@@ -181,6 +177,17 @@ window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
 refs.input.addEventListener('input', findFilm);
 refs.footerBtnModal.addEventListener('click', getMembers);
+
+function onNaviListClick(e) {
+  if (e.target.textContent === 'Home') {
+    refs.headerMain.style.display = 'block';
+    refs.headerLib.style.display = 'none';
+  }
+  if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
+    refs.headerMain.style.display = 'none';
+    refs.headerLib.style.display = 'block';
+  }
+}
 
 function onNaviHomeClick() {
   refs.headerMain.style.display = 'none';
