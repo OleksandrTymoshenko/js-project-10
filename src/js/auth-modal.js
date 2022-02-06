@@ -52,11 +52,13 @@ refs.termsModal.addEventListener('click', onTermsBackdropClick);
 function openModal() {
   refs.modal.classList.remove('visually-hidden');
   window.addEventListener('keydown', onEscKeyPress);
+  document.querySelector('body').classList.add('modal-open');
 }
 
 function closeModal() {
   refs.modal.classList.add('visually-hidden');  
   window.removeEventListener('keydown', onEscKeyPress);
+  document.querySelector('body').classList.remove('modal-open');
 }
 
 function onEscKeyPress(e) {
