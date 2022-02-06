@@ -1,9 +1,8 @@
 <div data-auth-modal class="auth-modal__backdrop visually-hidden">
   <div class="auth-modal">
     <button data-auth-modal-close class="auth-modal__btn-close close-btn">
-      <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 8L22 22" stroke="black" stroke-width="2" />
-        <path d="M8 22L22 8" stroke="black" stroke-width="2" />
+      <svg width="30" height="30">
+        <use href="partials/img/close.svg"></use>
       </svg>
     </button>
 
@@ -17,13 +16,18 @@
     </div>
 
     <form data-auth-modal-signin-form class="form">
-      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
-      <input
-        class="auth-modal__form-input"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
+      <div class="auth-modal__form-container">
+        <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+        <input
+          class="auth-modal__form-input"
+          type="password"
+          name="passwordSign"
+          placeholder="Password"
+        />
+        <button class="auth-modal__form-sign-eye" type="button">
+          <img src="partials/img/Eye-min.png" alt="eye" />
+        </button>
+      </div>
       <div class="auth-modal__footer">
         <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
           Cancel
@@ -43,16 +47,23 @@
     </form>
 
     <form data-auth-modal-reg-form class="hide form">
-      <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
-      <input
-        class="auth-modal__form-input"
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
+      <div class="auth-modal__form-container">
+        <input class="auth-modal__form-input" type="email" name="email" placeholder="Email" />
+        <input
+          class="auth-modal__form-input"
+          type="password"
+          name="passwordReg"
+          placeholder="Password"
+        />
+        <button class="auth-modal__form-reg-eye" type="button">
+          <img src="partials/img/Eye-min.png" alt="eye" />
+        </button>
+      </div>
+
       <label class="auth-modal__checkbox" for="check">
         <input type="checkbox" name="checkbox" id="check" value="1" />
-        I agree to the <a class="auth-modal__trems-link" href="">Terms</a>.
+        I agree to the
+        <a class="auth-modal__trems-link" href="">Terms</a>
       </label>
       <div class="auth-modal__footer">
         <button type="button" class="auth-modal__footer-button" data-auth-modal-close>
@@ -64,12 +75,23 @@
       </div>
       <p class="auth-modal__text">or</p>
       <div class="auth-modal__socials">
-        <a class="auth-modal__google" href="">
+        <a class="auth-modal__google-reg" href="">
           Sign in with
           <img class="google-icon" src="partials/img/google-logo.png" alt="" />
           Google
         </a>
       </div>
     </form>
+  </div>
+</div>
+
+<div class="terms-modal__backdrop visually-hidden">
+  <div class="terms-modal">
+    <button class="close-btn">
+      <svg width="30" height="30">
+        <use href="partials/img/close.svg"></use>
+      </svg>
+    </button>
+    <embed class="terms" src="partials/img/termsOfUse.pdf" />
   </div>
 </div>

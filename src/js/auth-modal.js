@@ -1,3 +1,5 @@
+import { ref } from "firebase/database";
+
 const refs = {
   openModalBtn: document.querySelector('[data-auth-modal-open]'),
   closeModalBtn: document.querySelectorAll('[data-auth-modal-close]'),
@@ -8,19 +10,26 @@ const refs = {
   regForm: document.querySelector('[data-auth-modal-reg-form]'),
   signWithGoogle: document.querySelector('.auth-modal__google'),
 
+  eyeBtnSignPassword: document.querySelector('.auth-modal__form-sign-eye'),
+  eyeBtnRegPassword: document.querySelector('.auth-modal__form-reg-eye'),
+  signWithGoogleReg: document.querySelector('.auth-modal__google-reg'),
+
   inputEmailSignin: document.querySelector('[data-auth-modal-signin-form] [name="email"]'),
-  inputPasswordSignin: document.querySelector('[data-auth-modal-signin-form] [name="password"]'),
-  submitBtnSignin: document.querySelector('[type="submit"]'),
+
+  inputPasswordSignin: document.querySelector('[name="passwordSign"]'),
+  submitBtnSignin: document.querySelector('[data-auth-modal-signin-form] [type="submit"]'),
 
   inputEmailReg: document.querySelector('[data-auth-modal-reg-form] [name="email"]'),
-  inputPasswordReg: document.querySelector('[data-auth-modal-reg-form] [name="password"]'),
+  inputPasswordReg: document.querySelector('[name="passwordReg"]'),
   submitBtnReg: document.querySelector('[data-auth-modal-reg-form] [type="submit"]'),
-  inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'),  
+  inputCheckboxReg: document.querySelector('[data-auth-modal-reg-form] [name="checkbox"]'), 
+  termsLink: document.querySelector('.auth-modal__trems-link'),
+  termsModal: document.querySelector('.terms-modal__backdrop'),  
+  closeTermsBtn: document.querySelector('.terms-modal .close-btn'),  
 };
-  
 
-refs.openModalBtn.addEventListener('click', toggleModal);
-refs.closeModalBtn.forEach(el => el.addEventListener('click', toggleModal));
+refs.openModalBtn.addEventListener('click', openModal);
+refs.closeModalBtn.forEach(el => el.addEventListener('click', closeModal));
 refs.openSignInFormBtn.addEventListener('click', openSignInForm);
 refs.openRegFormBtn.addEventListener('click', openRegForm);
 refs.modal.addEventListener('click', onBackDropClick);
@@ -32,10 +41,29 @@ refs.inputEmailReg.addEventListener('input', updateSubmitBtnReg);
 refs.inputPasswordReg.addEventListener('input', updateSubmitBtnReg);
 refs.inputCheckboxReg.addEventListener('change', updateSubmitBtnReg);
 
-function toggleModal() {
-  refs.modal.classList.toggle('visually-hidden');
+refs.termsLink.addEventListener('click', showTerms);
+refs.closeTermsBtn.addEventListener('click', closeTerms);
+refs.termsModal.addEventListener('click', onTermsBackdropClick);
+
+// function toggleModal() {
+//   refs.modal.classList.toggle('visually-hidden');
+// }
+
+function openModal() {
+  refs.modal.classList.remove('visually-hidden');
+  window.addEventListener('keydown', onEscKeyPress);
 }
 
+function closeModal() {
+  refs.modal.classList.add('visually-hidden');  
+  window.removeEventListener('keydown', onEscKeyPress);
+}
+
+function onEscKeyPress(e) {
+  if (e.code === 'Escape') {
+    closeModal();
+  }
+}
 
 function openSignInForm() {
   refs.signInForm.classList.remove('hide');
@@ -53,11 +81,9 @@ function openRegForm() {
 
 function onBackDropClick(e) {
   if (e.currentTarget === e.target) {
-    toggleModal();
+    closeModal();
   }
 }
-
-export { refs, toggleModal, openSignInForm};
 
 function updateSubmitBtnSignin() {
   const email = refs.inputEmailSignin.value.trim();
@@ -81,3 +107,33 @@ function updateSubmitBtnReg() {
     refs.submitBtnReg.setAttribute('disabled', 'disabled');
   }
 }
+
+function showTerms(e) {
+  e.preventDefault();
+  refs.termsModal.classList.remove('visually-hidden');
+  refs.modal.removeEventListener('click', onBackDropClick);
+  window.addEventListener('keydown', onEscKeyPressTerms);
+  window.removeEventListener('keydown', onEscKeyPress);
+
+}
+
+function closeTerms() {
+  refs.termsModal.classList.add('visually-hidden');
+  refs.modal.addEventListener('click', onBackDropClick);
+  window.removeEventListener('keydown', onEscKeyPressTerms);
+  window.addEventListener('keydown', onEscKeyPress);
+}
+
+function onTermsBackdropClick(e) {
+  if (e.currentTarget === e.target) {
+    closeTerms();
+  }
+}
+
+function onEscKeyPressTerms(e) {
+  if (e.code === 'Escape') {
+    closeTerms();
+  }
+}
+
+export { refs, openModal, openSignInForm};
