@@ -1,6 +1,6 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import { debounce, throttle } from 'lodash';
+import { debounce, keyBy, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
@@ -9,11 +9,19 @@ import { propFirebase } from './js/Auth';
 import './js/loader.js';
 import footerModal from './js/footerModal';
 import { openModal as openAuthModal } from './js/auth-modal';
+import Server from './js/server';
 const apiService = new ApiService()
 const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
+const server = new Server()
 const Uid = propFirebase; 
 import Notiflix from 'notiflix';
+
+
+
+
+
+
 
 const refs = {
     input: document.querySelector('.input'),
@@ -40,6 +48,8 @@ function onNaviListClick(e) {
         refs.headerLib.style.display = "block";
     }
 }
+
+refs.headerLib.addEventListener('click', server.getFilms)
 
 function getPopular() {
     
@@ -70,7 +80,7 @@ const openModal = (id,object,queue) => {
     refs.modal.classList.remove('hidden')
 
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
-
+ 
     refs.modal.addEventListener('click', e => {
         if (e.target.dataset.action === 'close') {
             closeModal()
@@ -81,6 +91,8 @@ const openModal = (id,object,queue) => {
                 openAuthModal();
                 return;
             }
+
+            
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -91,9 +103,8 @@ const openModal = (id,object,queue) => {
                 popularity: filmElem.querySelector('.popularity').innerText,
             }
             object = obj;
-            
             writeUserData(object)
-            console.log(Uid)
+            // console.log(Uid)
         }
     })
        refs.modal.addEventListener('click', e => {
@@ -118,7 +129,7 @@ const openModal = (id,object,queue) => {
             queue = obj;
             
             writeUserData(queue)
-            console.log(Uid)
+            // console.log(Uid)
         }
    })
 }  
