@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import FirebaseClass from "./firebaseApi";
-import { refs, closeModal, openModal } from './auth-modal';
+import { refs, closeModal, openModal, openSignInForm } from './auth-modal';
 import Notiflix from "notiflix";
 import { ref } from "firebase/database";
 
@@ -47,7 +47,9 @@ async function registration(e) {
     const password = e.currentTarget.elements.passwordReg.value;
     await propFirebase.createUser(email, password)
     refs.regForm.reset();
-    closeModal();
+    // openRegForm()
+    // closeModal();
+    openSignInForm()
     
 }
 
@@ -56,8 +58,13 @@ async function signInAccount(e) {
     const email = e.currentTarget.elements.email.value;
     const password = e.currentTarget.elements.passwordSign.value;
     await propFirebase.signUserInAccount(email, password);
-    closeModal();
-    refs.openModalBtn.removeEventListener('click', openModal)
+    if (propFirebase.logIn) {
+        closeModal();
+        refs.openModalBtn.removeEventListener('click', openModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
 }
 
 async function signWithGoogl(e) {
@@ -69,6 +76,7 @@ async function signWithGoogl(e) {
         return;
     }
     Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
 
 }
 
@@ -81,6 +89,7 @@ async function signWithGooglReg(e) {
         return;
     }
     Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
 }
 
 export { propFirebase }

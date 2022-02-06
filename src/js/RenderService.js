@@ -4,6 +4,7 @@ const modal = document.querySelector('[data-modal]')
 import { getGenres } from './genresInfo'
 import { memberInfo } from './memberInfo'
 import noPoster from '../partials/img/no_poster.jpg'
+import { refs } from './auth-modal'
 
 export default class RenderService {
     constructor() {
@@ -29,7 +30,7 @@ export default class RenderService {
                 `
         }).join('')
 
-        list.insertAdjacentHTML('afterbegin', markup)
+        list.insertAdjacentHTML('beforeend', markup)
     }
 
     renderFilmDetails(film) {
@@ -87,40 +88,62 @@ export default class RenderService {
     }
 
     renderMembers() {
-        
-        modal.innerHTML = ''
+
+        modal.classList.remove('modal')
+        modal.classList.add('footer__modal')
+
+        const wrapper = document.createElement('div')
+        wrapper.classList.add('footer__modal-wrapper')    
+        // modal.innerHTML = ''
         const memberList = document.createElement('ul')
         memberList.classList.add('member-list')
-        modal.appendChild(memberList)
+        const closeBtn = document.createElement('button')
+        closeBtn.classList.add('close-btn')
+        wrapper.appendChild(memberList)
+        modal.appendChild(wrapper)
+        wrapper.appendChild(closeBtn)
         
         const markup = memberInfo.map(({ id, photo, name, role, linkedIn, gitHub, telegram }) => {
             return  `<li class="member-item" id="${id}">
             <div class="member-card">
-                        <div class="member-photo">
-                            <img class="photo" src="${photo}" width="292" height="292" alt="team member">
-                        </div>
-                        <div class="member-description">
-                            <p class="member-name">${name}</p>
-                            <p class="member-role">${role}</p>
-                        </div>
-                        <div class="member-socials">
-                            <ul class="socials-list">
-                                <li class="socials-item">
-                                    <a href="${linkedIn}">LinkedIn</a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="${gitHub}"> GitHub</a>
-                                </li>
-                                <li class="socials-item">
-                                    <a href="${telegram}">Telegram</a>
-                                </li>
-                            </ul>
-                        </div>          
+                <a href="${gitHub}" target="_blank">
+                    <div class="member-photo">
+                        <img class="photo" src="${photo}" width="250" height="250" alt="team member">
                     </div>
-                </li>        
+                </a>
+                <div class="member-description">
+                    <p class="member-name">${name}</p>
+                    <p class="member-role">${role}</p>
+                </div>
+                <div class="member-socials">
+                    <ul class="socials-list">
+                        <li class="socials-item">
+                            <a href="${linkedIn}" class="socials-linkedin" target="_blank">LinkedIn</a>
+                        </li>
+                        <li class="socials-item">
+                            <a href="${gitHub}" class="socials-github" target="_blank"> GitHub</a>
+                        </li>
+                        <li class="socials-item">
+                            <a href="${telegram}" class="socials-telegram" target="_blank">Telegram</a>
+                        </li>
+                    </ul>
+                </div>          
+            </div>
+        </li>        
             `
             }).join("");
 
+            const btn = document.querySelector('.close-btn')
+            btn.addEventListener('click', () => {
+                modal.classList.add('hidden')
+                modal.classList.remove('footer__modal')
+                modal.classList.add('modal')
+                modal.innerHTML = ''
+            })
+
             memberList.insertAdjacentHTML('afterbegin', markup)
+    }
+    clearList() {
+        modal.innerHTML = ""
     }
 }

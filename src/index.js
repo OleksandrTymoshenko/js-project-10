@@ -11,8 +11,13 @@ import footerModal from './js/footerModal';
 // const propFirebase = new FirebaseClass;
 const renderService = new RenderService()
 const Uid = propFirebase
-import Notiflix from 'notiflix';
 const qwe = [];
+
+import Notiflix from 'notiflix';
+import './js/btn-up.js';
+
+
+
 const refs = {
     input: document.querySelector('.input'),
     list: document.querySelector('.list'),
@@ -33,18 +38,23 @@ function onNaviListClick(e) {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if (e.target.textContent === 'My library' && Uid.logIn === true) {
+    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
 }
 
-const getPopular = () => {
+
+function getPopular() {
+    
+    window.addEventListener('scroll', debounce(onScroll, 1000) )
     apiService.getPopularFilms().then(renderService.renderAllFilms)
+
 }
 
-const closeModal = () => {
+function closeModal  ()  {
     refs.modal.classList.add('hidden')  
+    renderService.clearList()
 }
 
 async function writeUserWatched(object) {
@@ -184,10 +194,23 @@ async function writeUserWatched(object) {
 
 // }
 const openModal = (id,object,fgh) => {
+
+
+
+function EscCloseModal(e) {
+if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal)
+  }
+}
+
+const openModal = (id,object,queue) => {
     
     refs.modal.classList.remove('hidden')
 
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
+
+    window.addEventListener('keydown', EscCloseModal)
 
     refs.modal.addEventListener('click', e => {
         if (e.target.dataset.action === 'close') {
@@ -195,7 +218,14 @@ const openModal = (id,object,fgh) => {
             return;
         }
         if (e.target.dataset.action === 'addToLib') {
-            const filmElem = document.querySelector('.film-details')
+
+
+            if (Uid.logIn !== true) {
+                openAuthModal();
+                return;
+            }
+
+           const filmElem = document.querySelector('.film-details')
            
             const obj = {
                 id: filmElem.id,
@@ -207,7 +237,10 @@ const openModal = (id,object,fgh) => {
                 
             }
             object = obj;
+
             writeUserWatched(object)
+
+
 
         }
         // console.log(e)
@@ -261,6 +294,13 @@ const openModal = (id,object,fgh) => {
         }
 
         if (e.target.dataset.action === 'addToQue') {
+
+
+            if (Uid.logIn !== true) {
+                openAuthModal();
+                return;
+            }
+
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -307,7 +347,6 @@ function getMembers () {
     refs.modal.classList.remove('hidden')
     renderService.renderMembers()
     const list = document.querySelector('.member-list')
-    list.addEventListener('click', closeModal)
 }
 
 window.addEventListener('load', getPopular)
@@ -315,6 +354,22 @@ refs.list.addEventListener('click', getDetails)
 refs.input.addEventListener('input',  findFilm)
 refs.footerBtnModal.addEventListener('click', getMembers)
 
+function  onScroll() {  
+    const height = document.body.offsetHeight
+    const screenHeight = window.innerHeight
+  
+    const scrolled = window.scrollY
+  
+    const threshold = height - screenHeight / 4
+  
+    const position = scrolled + screenHeight
+  
+      if (position >= threshold) {
+        apiService.incrementPage()
+        getPopular()
+        window.removeEventListener('scroll', onScroll )
+    }
+  }
 
 function onNaviHomeClick() {
         refs.headerMain.style.display = "none";
