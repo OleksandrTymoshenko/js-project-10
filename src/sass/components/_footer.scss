@@ -1,4 +1,10 @@
 .footer {
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+}
+
+.footer__wrapper {
     padding-top: 29px;    
     padding-bottom: 29px;
     background-color: $footer-bg;
@@ -94,9 +100,9 @@
         height: 100%;
     }
 
-    // @media screen and (min-width: $tablet) {
-    //     padding: 40px 20px 40px 20px;
-    // }
+    @media screen and (min-width: $desktop) {
+        padding: 0;
+    }
 }
 
 .footer__modal-wrapper {
@@ -108,7 +114,7 @@
 
     @media screen and (min-width: $tablet) {
         flex-direction: row;
-        padding: 40px 30px 20px 30px;
+        padding: 40px 30px 40px 30px;
     }
 
     @media screen and (min-width: $desktop) {

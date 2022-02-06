@@ -3,7 +3,6 @@ import './js/auth-modal.js';
 import { debounce, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 import './js/loader.js';
@@ -11,8 +10,6 @@ import footerModal from './js/footerModal';
 import { openModal as openAuthModal } from './js/auth-modal';
 const apiService = new ApiService()
 const renderService = new RenderService()
-const localStorageService = new LocalStorageService()
-const Uid = propFirebase; 
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
 
@@ -37,7 +34,7 @@ function onNaviListClick(e) {
         refs.headerMain.style.display = "block";
         refs.headerLib.style.display = "none";
     }
-    if (e.target.textContent === 'My library' && Uid.logIn === true) {
+    if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
         refs.headerMain.style.display = "none";
         refs.headerLib.style.display = "block";
     }
@@ -52,13 +49,16 @@ function getPopular() {
 
 function closeModal  ()  {
     refs.modal.classList.add('hidden')  
+    renderService.clearList()
 }
+
 
 function writeUserData(object) {
   const db = getDatabase();
   set(ref(db, `${Uid.uid}`), {
       wathed: object,
   });
+    // console.log(propFirebase.uid)
 }
 function writeUserData(queue) {
   const db = getDatabase();
@@ -89,10 +89,12 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToLib') {
+
             if (Uid.logIn !== true) {
                 openAuthModal();
                 return;
             }
+
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -114,10 +116,12 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToQue') {
+
             if (Uid.logIn !== true) {
                 openAuthModal();
                 return;
             }
+
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -162,7 +166,6 @@ function getMembers () {
     refs.modal.classList.remove('hidden')
     renderService.renderMembers()
     const list = document.querySelector('.member-list')
-    list.addEventListener('click', closeModal)
 }
 
 window.addEventListener('load', getPopular)
