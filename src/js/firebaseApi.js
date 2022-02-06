@@ -18,7 +18,6 @@ export default class FirebaseClass {
             .then((userCredential) => {
                 // Signed in 
                 Notiflix.Notify.success('Поздравляем! Вы успешно зарегистрированы на нашем сайте:)')
-                openSignInForm();
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -36,10 +35,10 @@ export default class FirebaseClass {
             this.uid = result.user.uid;
             onNaviHomeClick();
             return;
-            }).catch(function (error) {
-
+            }).catch((error) => {
             if (error.code === 'auth/wrong-password') {
                 Notiflix.Notify.warning('Неверный пароль');
+                
             } else {
                 console.log(error);
                 Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
