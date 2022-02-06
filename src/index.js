@@ -22,7 +22,10 @@ const refs = {
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
     headerLib: document.querySelector('header[data-action="library"]'),
-    footerBtnModal: document.querySelector('.footer__team-button')    
+    footerBtnModal: document.querySelector('.footer__team-button'),
+    naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
+    naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
+
 }
 
 refs.headerLib.style.display = "none";
@@ -197,3 +200,16 @@ function onNaviHomeClick() {
 }
 
 export { onNaviHomeClick };
+
+refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
+refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick)
+
+function onNaviLogoButtonClick (e) {
+    e.preventDefault;
+    refs.list.innerHTML ='';
+    refs.input.value = ''; 
+    apiService.resetPage()
+    apiService.getPopularFilms().then(renderService.renderAllFilms)
+     refs.headerMain.style.display = "block";
+    refs.headerLib.style.display = "none";
+}
