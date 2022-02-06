@@ -25,6 +25,7 @@
     font-size: 25px;
     bottom: 75px;
     right: 28px;
+    background-color: $white-text-and-bg;
   }
 }
 .back-to-top-icon {
@@ -32,9 +33,12 @@
   height: 30px;
   color: #ff6b08;
   border-radius: 20px;
+  background-color: $footer-bg;
   @media screen and (min-width: $tablet) {
     width: 36px;
     height: 36px;
+  }
+  @media screen and (min-width: $desktop) {
     background-color: $white-text-and-bg;
   }
 }
