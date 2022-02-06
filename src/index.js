@@ -5,13 +5,14 @@ import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
-
+import './js/loader.js';
 import footerModal from './js/footerModal';
- const apiService = new ApiService()
-// const propFirebase = new FirebaseClass;
+import { openModal as openAuthModal } from './js/auth-modal';
+const apiService = new ApiService()
 const renderService = new RenderService()
-
 import Notiflix from 'notiflix';
+import './js/btn-up.js';
+
 
 const refs = {
     input: document.querySelector('.input'),
@@ -39,11 +40,14 @@ function onNaviListClick(e) {
     }
 }
 
-const getPopular = () => {
+function getPopular() {
+    
+    window.addEventListener('scroll', debounce(onScroll, 1000) )
     apiService.getPopularFilms().then(renderService.renderAllFilms)
+
 }
 
-const closeModal = () => {
+function closeModal  ()  {
     refs.modal.classList.add('hidden')  
     renderService.clearList()
 }
@@ -64,11 +68,20 @@ function writeUserData(queue) {
 }
 
 
+function EscCloseModal(e) {
+if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal)
+  }
+}
+
 const openModal = (id,object,queue) => {
     
     refs.modal.classList.remove('hidden')
 
     apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
+
+    window.addEventListener('keydown', EscCloseModal)
 
     refs.modal.addEventListener('click', e => {
         if (e.target.dataset.action === 'close') {
@@ -76,6 +89,12 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToLib') {
+
+            if (Uid.logIn !== true) {
+                openAuthModal();
+                return;
+            }
+
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -88,7 +107,7 @@ const openModal = (id,object,queue) => {
             object = obj;
             
             writeUserData(object)
-            console.log(Uid)
+            console.log(Uid.uid)
         }
     })
        refs.modal.addEventListener('click', e => {
@@ -97,6 +116,12 @@ const openModal = (id,object,queue) => {
         }
 
         if (e.target.dataset.action === 'addToQue') {
+
+            if (Uid.logIn !== true) {
+                openAuthModal();
+                return;
+            }
+
            const filmElem = document.querySelector('.film-details')
            
             const obj = {
@@ -148,6 +173,22 @@ refs.list.addEventListener('click', getDetails)
 refs.input.addEventListener('input',  findFilm)
 refs.footerBtnModal.addEventListener('click', getMembers)
 
+function  onScroll() {  
+    const height = document.body.offsetHeight
+    const screenHeight = window.innerHeight
+  
+    const scrolled = window.scrollY
+  
+    const threshold = height - screenHeight / 4
+  
+    const position = scrolled + screenHeight
+  
+      if (position >= threshold) {
+        apiService.incrementPage()
+        getPopular()
+        window.removeEventListener('scroll', onScroll )
+    }
+  }
 
 function onNaviHomeClick() {
         refs.headerMain.style.display = "none";

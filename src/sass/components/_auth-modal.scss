@@ -6,7 +6,8 @@
   height: 290px;
 }
 
-.auth-modal__backdrop {
+.auth-modal__backdrop,
+.terms-modal__backdrop {
   z-index: 9999;
   position: fixed;
   top: 0;
@@ -25,7 +26,16 @@
   }
 }
 
-.auth-modal__backdrop.visually-hidden {
+.terms-modal__backdrop {
+  z-index: 99999;
+
+  @media screen and (max-width: $tablet) {
+    padding: 5px;
+  }
+}
+
+.auth-modal__backdrop.visually-hidden,
+.terms-modal__backdrop.visually-hidden {
   opacity: 0;
   pointer-events: none;
 
@@ -46,7 +56,8 @@
   }
 }
 
-.auth-modal {
+.auth-modal,
+.terms-modal {
   position: relative;
   display: block;
   padding: 40px;
@@ -76,6 +87,18 @@
     width: 530px;
     transform: translate(-50%, -50%) scale(1);
   }
+}
+
+.terms-modal {
+  padding: 5px;
+  width: 850px;
+  height: 700px;
+  max-width: 100%;
+}
+
+.terms {
+  width: 100%;
+  height: 100%;
 }
 
 .auth-modal__btn-close {
