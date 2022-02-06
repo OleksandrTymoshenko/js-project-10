@@ -14,6 +14,7 @@ const renderService = new RenderService()
 const localStorageService = new LocalStorageService()
 const Uid = propFirebase; 
 import Notiflix from 'notiflix';
+import './js/btn-up.js';
 
 const refs = {
     input: document.querySelector('.input'),
