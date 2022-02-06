@@ -1,9 +1,40 @@
 .back_to_top {
-    font-weight: bold;
-    position: fixed;
-    bottom: 28px;
+  font-weight: bold;
+  font-size: 14px;
+  position: fixed;
+  bottom: 50px;
+  right: 0px;
+  display: none;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 20px;
+  //   background-color: rgb(39, 177, 92);
+  background-color: $footer-bg;
+
+  @media screen and (min-width: 420px) {
+    font-size: 18px;
+    // bottom: 55px;
+    // right: 28px;
+  }
+  @media screen and (min-width: $tablet) {
+    font-size: 25px;
+    bottom: 30px;
     right: 28px;
-    display: none;
-    z-index: 22;
-    cursor: pointer;
+  }
+  @media screen and (min-width: $desktop) {
+    font-size: 25px;
+    bottom: 75px;
+    right: 28px;
+  }
+}
+.back-to-top-icon {
+  width: 30px;
+  height: 30px;
+  color: black;
+  @media screen and (min-width: $tablet) {
+    width: 36px;
+    height: 36px;
+    // right: 28px;
+    background-color: $white-text-and-bg;
+  }
 }

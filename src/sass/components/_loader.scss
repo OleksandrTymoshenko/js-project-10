@@ -2,9 +2,12 @@
   justify-content: center;
   opacity: 0;
   display: flex;
-  // position: fixed;
+  position: relative;
   bottom: 75px;
   transition: opacity 0.3s ease-in;
+  z-index: 1;
+  // top: 90%;
+  // left: 45%;
 }
 
 .loader.show {
