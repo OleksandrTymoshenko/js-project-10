@@ -6,6 +6,7 @@ import RenderService from './js/RenderService';
 import LocalStorageService from './js/LocalStorageService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
+import './js/loader.js';
 import footerModal from './js/footerModal';
 import { openModal as openAuthModal } from './js/auth-modal';
 const apiService = new ApiService()
@@ -41,6 +42,8 @@ function onNaviListClick(e) {
 }
 
 const getPopular = () => {
+    apiService.incrementPage()
+    // window.addEventListener('scroll',)
     apiService.getPopularFilms().then(renderService.renderAllFilms)
 }
 
