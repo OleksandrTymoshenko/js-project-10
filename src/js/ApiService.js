@@ -13,6 +13,14 @@ export default class ApiService {
     return this.searchQuery;
   }
 
+  get currentPage() {
+    return this.page;
+  }
+
+  set currentPage(nextPage) {
+    this.page = nextPage;
+  }
+
   incrementPage() {
     this.page += 1;
   }
@@ -26,7 +34,10 @@ export default class ApiService {
       `https://api.themoviedb.org/3/trending/movie/day?api_key=${this._apiKey}&page=${this.page}`,
     )
       .then(response => response.json())
-      .then(data => data.results)
+      .then(data => {
+        this.incrementPage();
+        return data.results;
+      })
       .catch(error => console.error(error));
   }
 
