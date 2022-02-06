@@ -14,19 +14,25 @@ import Notiflix from 'notiflix';
 import './js/btn-up.js';
 
 const refs = {
-  input: document.querySelector('.input'),
-  list: document.querySelector('.list'),
-  modal: document.querySelector('[data-modal]'),
-  naviListMain: document.querySelector('.navi__list[data-action="main"]'),
-  naviListLib: document.querySelector('.navi__list[data-action="library"]'),
-  headerMain: document.querySelector('header[data-action="main"]'),
-  headerLib: document.querySelector('header[data-action="library"]'),
-  footerBtnModal: document.querySelector('.footer__team-button'),
-};
 
-refs.headerLib.style.display = 'none';
-refs.naviListMain.addEventListener('click', onNaviListClick);
-refs.naviListLib.addEventListener('click', onNaviListClick);
+    input: document.querySelector('.input'),
+    list: document.querySelector('.list'),
+    modal: document.querySelector('[data-modal]'),
+    naviListMain: document.querySelector('.navi__list[data-action="main"]'),
+    naviListLib: document.querySelector('.navi__list[data-action="library"]'),
+    headerMain: document.querySelector('header[data-action="main"]'),
+    headerLib: document.querySelector('header[data-action="library"]'),
+    footerBtnModal: document.querySelector('.footer__team-button'),
+    naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
+    naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
+
+}
+
+refs.headerLib.style.display = "none";
+refs.naviListMain.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick) 
+
+
 
 function onNaviListClick(e) {
   if (e.target.textContent === 'Home') {
@@ -188,3 +194,16 @@ function onNaviHomeClick() {
 }
 
 export { onNaviHomeClick };
+
+refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
+refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick)
+
+function onNaviLogoButtonClick (e) {
+    e.preventDefault;
+    refs.list.innerHTML ='';
+    refs.input.value = ''; 
+    apiService.resetPage()
+    apiService.getPopularFilms().then(renderService.renderAllFilms)
+     refs.headerMain.style.display = "block";
+    refs.headerLib.style.display = "none";
+}
