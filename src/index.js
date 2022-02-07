@@ -28,17 +28,9 @@ const refs = {
 const Uid = propFirebase;
 
 refs.headerLib.style.display = 'none';
-refs.naviListMain.addEventListener('click', onNaviListClick);
-refs.naviListLib.addEventListener('click', onNaviListClick);
 
-function getPopular() {
-  apiService.getPopularFilms().then(films => {
-    renderService.renderAllFilms(films);
-    window.addEventListener('scroll', debounce(onScroll, 1500));
-  });
-}
-
-function onScroll() {
+// функция для запуска Infiniti Scroll
+const onScroll = debounce(function () {
   const height = document.body.offsetHeight;
   const screenHeight = window.innerHeight;
 
@@ -53,8 +45,39 @@ function onScroll() {
       renderService.renderAllFilms(films);
     });
   }
+}, 1200);
 
-  window.removeEventListener('scroll', debounce(onScroll, 1500));
+//Отрисрвка популярных фильмов
+function getPopular() {
+  apiService.getPopularFilms().then(films => {
+    renderService.renderAllFilms(films);
+    window.addEventListener('scroll', onScroll);
+  });
+}
+
+// Функция поиска фильма в хедере
+function findFilm() {
+  apiService.query = refs.input.value.trim();
+
+  if (apiService.query.length >= 2) {
+    window.removeEventListener('scroll', onScroll);
+    apiService.getFilmsByName().then(filmsArr => {
+      if (filmsArr.length === 0) {
+        return Notiflix.Notify.warning(
+          'Search result not successful. Enter the correct movie name',
+        );
+      }
+
+      renderService.renderFinders(filmsArr);
+    });
+  }
+}
+
+// Отрисовка карточек героев в футере
+function getMembers() {
+  refs.modal.classList.remove('hidden');
+  renderService.renderMembers();
+  const list = document.querySelector('.member-list');
 }
 
 function closeModal() {
@@ -62,7 +85,7 @@ function closeModal() {
   renderService.clearList();
 }
 
-const openModal = id => {
+function openModal(id) {
   refs.modal.classList.remove('hidden');
 
   apiService.getFilmDetails(id).then(data => {
@@ -71,6 +94,7 @@ const openModal = id => {
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
 
+    // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
       if (Uid.logIn !== true) {
         openAuthModal();
@@ -90,6 +114,7 @@ const openModal = id => {
       addToLibrary(obj);
     });
 
+    // Кнопка Queue в модалке
     addToQueBtn.addEventListener('click', () => {
       removeFilm(id);
     });
@@ -108,53 +133,10 @@ const openModal = id => {
     if (e.target.dataset.action === 'close') {
       closeModal();
     }
-
-    // if (e.target.dataset.action === 'addToLib') {
-    //   if (Uid.logIn !== true) {
-    //     openAuthModal();
-    //     return;
-    //   }
-
-    //   const filmElem = document.querySelector('.film-details');
-
-    //   const obj = {
-    //     id: filmElem.id,
-    //     title: filmElem.querySelector('.about__title').innerText,
-    //     overview: filmElem.querySelector('.about__description--text').innerText,
-    //     path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-    //     popularity: filmElem.querySelector('.popularity').innerText,
-    //   };
-    //   object = obj;
-    //   addToLibrary(object);
-    //   // addFilmToLibrary(obj);
-    //   // writeUserData(object);
-    //   // console.log(Uid.uid);
-    // }
-
-    // if (e.target.dataset.action === 'addToQue') {
-    //   if (Uid.logIn !== true) {
-    //     openAuthModal();
-    //     return;
-    //   }
-
-    //   const filmElem = document.querySelector('.film-details');
-
-    //   const obj = {
-    //     id: filmElem.id,
-    //     title: filmElem.querySelector('.about__title').innerText,
-    //     overview: filmElem.querySelector('.about__description--text').innerText,
-    //     path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-    //     popularity: filmElem.querySelector('.popularity').innerText,
-    //   };
-    //   queue = obj;
-
-    //   getFilmsFromLibrary();
-    //   // writeUserData(queue);
-    //   // console.log(Uid);
-    // }
   });
-};
+}
 
+// Получение карточки фильма и открытие в модалке
 const getDetails = e => {
   if (e.target.nodeName === 'IMG') {
     const { id } = e.target.parentNode;
@@ -162,28 +144,7 @@ const getDetails = e => {
   }
 };
 
-const findFilm = debounce(() => {
-  apiService.query = refs.input.value.trim();
-
-  if (apiService.query.length >= 2) {
-    apiService.getFilmsByName().then(filmsArr => {
-      if (filmsArr.length === 0) {
-        return Notiflix.Notify.warning(
-          'Search result not successful. Enter the correct movie name',
-        );
-      }
-
-      renderService.renderAllFilms(filmsArr);
-    });
-  }
-}, 500);
-
-function getMembers() {
-  refs.modal.classList.remove('hidden');
-  renderService.renderMembers();
-  const list = document.querySelector('.member-list');
-}
-
+// Переключение стилей хедера
 function onNaviListClick(e) {
   if (e.target.textContent === 'Home') {
     refs.headerMain.style.display = 'block';
@@ -200,9 +161,11 @@ function onNaviHomeClick() {
   refs.headerLib.style.display = 'block';
 }
 
+export { onNaviHomeClick };
+
 window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
-refs.input.addEventListener('input', findFilm);
+refs.input.addEventListener('input', debounce(findFilm, 1200));
 refs.footerBtnModal.addEventListener('click', getMembers);
-
-export { onNaviHomeClick };
+refs.naviListMain.addEventListener('click', onNaviListClick);
+refs.naviListLib.addEventListener('click', onNaviListClick);
