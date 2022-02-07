@@ -16,6 +16,7 @@ import './js/btn-up.js';
 const refs = {
 
     input: document.querySelector('.input'),
+    inputButton: document.querySelector('.button__search'),
     list: document.querySelector('.list'),
     modal: document.querySelector('[data-modal]'),
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
@@ -165,6 +166,7 @@ const findFilm = debounce(() => {
   apiService.query = refs.input.value.trim();
 
   if (apiService.query.length >= 2) {
+    refs.list.innerHTML ='';
     apiService.getFilmsByName().then(filmsArr => {
       if (filmsArr.length === 0) {
         return Notiflix.Notify.warning(
@@ -185,7 +187,9 @@ function getMembers() {
 
 window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
-refs.input.addEventListener('input', findFilm);
+refs.input.addEventListener('input', findFilm); 
+refs.inputButton.addEventListener('click', findFilm);
+
 refs.footerBtnModal.addEventListener('click', getMembers);
 
 function onNaviHomeClick() {
