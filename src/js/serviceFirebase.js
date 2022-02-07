@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { ref, set, get, getDatabase, child, onValue, push, update } from 'firebase/database';
+import { remove } from 'lodash';
 import { propFirebase } from './Auth';
 
 const firebaseConfig = {
@@ -11,13 +12,12 @@ const firebaseConfig = {
   appId: '1:789848914440:web:0c1d36ce7d4d9e020befbd',
 };
 
+const Uid = propFirebase;
+
 const app = initializeApp(firebaseConfig);
-// const database = getDatabase(app);
-// const Uid = propFirebase;
 
 export function addToLibrary({ id, title, overview, path, popularity }) {
   const db = getDatabase();
-
   const filmData = {
     id,
     title,
@@ -32,7 +32,6 @@ export function addToLibrary({ id, title, overview, path, popularity }) {
     }
 
     const newFilmKey = push(child(ref(db), 'films')).key;
-
     const updates = {};
     updates['/films/' + newFilmKey] = filmData;
 
@@ -42,7 +41,7 @@ export function addToLibrary({ id, title, overview, path, popularity }) {
 
 export async function getFilmsFromLibrary() {
   const dbRef = ref(getDatabase());
-  await get(child(dbRef, `films/`))
+  await get(child(dbRef, `/films`))
     .then(snapshot => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
@@ -66,4 +65,40 @@ async function getIdsFromLibrary() {
     });
   });
   return idsArr;
+}
+
+async function getArrayFromLibrary() {
+  const db = getDatabase();
+  const dbRef = ref(db, '/films/');
+  let filmsArr = [];
+  onValue(dbRef, snapshot => {
+    snapshot.forEach(childSnapshot => {
+      const childData = childSnapshot.val();
+      filmsArr.push(childData);
+    });
+  });
+  return filmsArr;
+}
+
+export function removeFilm(id) {
+  const db = getDatabase();
+  const dbRef = ref(db, '/films/');
+  // const findedFilmKey = push(child(ref(db), 'films')).key;
+  // const updates = {};
+  // updates['/films/' + newFilmKey] = filmData;
+
+  // return update(ref(db), updates);
+  onValue(dbRef, snapshot => {
+    snapshot.forEach(childSnapshot => {
+      const childData = childSnapshot.val();
+      const childKey = childSnapshot.key;
+
+      if (childData.id === id) {
+        const updates = {};
+        const finded = ref('/films/' + childKey);
+
+        remove(finded);
+      }
+    });
+  });
 }

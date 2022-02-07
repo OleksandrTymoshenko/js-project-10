@@ -12,7 +12,7 @@ const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
-import { addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
+import { removeFilm, addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
 
 const refs = {
   input: document.querySelector('.input'),
@@ -90,7 +90,9 @@ const openModal = id => {
       addToLibrary(obj);
     });
 
-    addToQueBtn.addEventListener('click', getFilmsFromLibrary);
+    addToQueBtn.addEventListener('click', () => {
+      removeFilm(id);
+    });
   });
 
   function EscCloseModal(e) {
