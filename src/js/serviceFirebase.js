@@ -12,8 +12,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const Uid = propFirebase;
+// const database = getDatabase(app);
+// const Uid = propFirebase;
 
 export function addToLibrary({ id, title, overview, path, popularity }) {
   const db = getDatabase();
@@ -26,19 +26,23 @@ export function addToLibrary({ id, title, overview, path, popularity }) {
     popularity,
   };
 
-  // Get a key for a new Post.
-  const newFilmKey = push(child(ref(db), 'films')).key;
+  getIdsFromLibrary().then(data => {
+    if (data.includes(filmData.id)) {
+      return;
+    }
 
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  const updates = {};
-  updates['/films/' + newFilmKey] = filmData;
+    const newFilmKey = push(child(ref(db), 'films')).key;
 
-  return update(ref(db), updates);
+    const updates = {};
+    updates['/films/' + newFilmKey] = filmData;
+
+    return update(ref(db), updates);
+  });
 }
 
 export async function getFilmsFromLibrary() {
   const dbRef = ref(getDatabase());
-  get(child(dbRef, `films/`))
+  await get(child(dbRef, `films/`))
     .then(snapshot => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
@@ -49,4 +53,17 @@ export async function getFilmsFromLibrary() {
     .catch(error => {
       console.error(error);
     });
+}
+
+async function getIdsFromLibrary() {
+  const db = getDatabase();
+  const dbRef = ref(db, '/films/');
+  let idsArr = [];
+  onValue(dbRef, snapshot => {
+    snapshot.forEach(childSnapshot => {
+      const childData = childSnapshot.val();
+      idsArr.push(childData.id);
+    });
+  });
+  return idsArr;
 }

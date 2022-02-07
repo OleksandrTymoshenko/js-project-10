@@ -62,28 +62,6 @@ function closeModal() {
   renderService.clearList();
 }
 
-// function writeUserData(object) {
-//   const db = getDatabase();
-//   set(ref(db, `${Uid.uid}`), {
-//     wathed: object,
-//   });
-//   // console.log(propFirebase.uid)
-// }
-
-// function writeUserData(queue) {
-//   const db = getDatabase();
-//   set(ref(db, `${Uid.uid}`), {
-//     queue: queue,
-//   });
-// }
-
-function EscCloseModal(e) {
-  if (e.code === 'Escape') {
-    closeModal();
-    window.removeEventListener('keydown', EscCloseModal);
-  }
-}
-
 const openModal = id => {
   refs.modal.classList.remove('hidden');
 
@@ -92,7 +70,13 @@ const openModal = id => {
 
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
+
     addToLibBtn.addEventListener('click', () => {
+      if (Uid.logIn !== true) {
+        openAuthModal();
+        return;
+      }
+
       const filmElem = document.querySelector('.film-details');
 
       const obj = {
@@ -102,10 +86,19 @@ const openModal = id => {
         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
         popularity: filmElem.querySelector('.popularity').innerText,
       };
+
       addToLibrary(obj);
     });
+
     addToQueBtn.addEventListener('click', getFilmsFromLibrary);
   });
+
+  function EscCloseModal(e) {
+    if (e.code === 'Escape') {
+      closeModal();
+      window.removeEventListener('keydown', EscCloseModal);
+    }
+  }
 
   window.addEventListener('keydown', EscCloseModal);
 
@@ -189,11 +182,6 @@ function getMembers() {
   const list = document.querySelector('.member-list');
 }
 
-window.addEventListener('load', getPopular);
-refs.list.addEventListener('click', getDetails);
-refs.input.addEventListener('input', findFilm);
-refs.footerBtnModal.addEventListener('click', getMembers);
-
 function onNaviListClick(e) {
   if (e.target.textContent === 'Home') {
     refs.headerMain.style.display = 'block';
@@ -209,5 +197,10 @@ function onNaviHomeClick() {
   refs.headerMain.style.display = 'none';
   refs.headerLib.style.display = 'block';
 }
+
+window.addEventListener('load', getPopular);
+refs.list.addEventListener('click', getDetails);
+refs.input.addEventListener('input', findFilm);
+refs.footerBtnModal.addEventListener('click', getMembers);
 
 export { onNaviHomeClick };
