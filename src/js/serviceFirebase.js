@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { ref, set, get, getDatabase, child, onValue } from 'firebase/database';
+import { ref, set, get, getDatabase, child, onValue, push, update } from 'firebase/database';
 import { propFirebase } from './Auth';
 
 const firebaseConfig = {
@@ -12,9 +12,41 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+const database = getDatabase(app);
 const Uid = propFirebase;
 
-export const addFilmToLibrary = film => {};
+export function addToLibrary({ id, title, overview, path, popularity }) {
+  const db = getDatabase();
 
-export const getFilmsFromLibrary = () => {};
+  const filmData = {
+    id,
+    title,
+    overview,
+    path,
+    popularity,
+  };
+
+  // Get a key for a new Post.
+  const newFilmKey = push(child(ref(db), 'films')).key;
+
+  // Write the new post's data simultaneously in the posts list and the user's post list.
+  const updates = {};
+  updates['/films/' + newFilmKey] = filmData;
+
+  return update(ref(db), updates);
+}
+
+export async function getFilmsFromLibrary() {
+  const dbRef = ref(getDatabase());
+  get(child(dbRef, `films/`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+      } else {
+        console.log('No data available');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}

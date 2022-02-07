@@ -12,7 +12,7 @@ const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
-import {addFilmToLibrary, getFilmsFromLibrary} from './js/serviceFirebase'
+import { addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
 
 const refs = {
   input: document.querySelector('.input'),
@@ -30,7 +30,6 @@ const Uid = propFirebase;
 refs.headerLib.style.display = 'none';
 refs.naviListMain.addEventListener('click', onNaviListClick);
 refs.naviListLib.addEventListener('click', onNaviListClick);
-
 
 function getPopular() {
   apiService.getPopularFilms().then(films => {
@@ -63,8 +62,6 @@ function closeModal() {
   renderService.clearList();
 }
 
-
-
 // function writeUserData(object) {
 //   const db = getDatabase();
 //   set(ref(db, `${Uid.uid}`), {
@@ -87,10 +84,28 @@ function EscCloseModal(e) {
   }
 }
 
-const openModal = (id, object, queue) => {
+const openModal = id => {
   refs.modal.classList.remove('hidden');
 
-  apiService.getFilmDetails(id).then(renderService.renderFilmDetails);
+  apiService.getFilmDetails(id).then(data => {
+    renderService.renderFilmDetails(data);
+
+    const addToLibBtn = document.querySelector('[data-action="addToLib"]');
+    const addToQueBtn = document.querySelector('[data-action="addToQue"]');
+    addToLibBtn.addEventListener('click', () => {
+      const filmElem = document.querySelector('.film-details');
+
+      const obj = {
+        id: filmElem.id,
+        title: filmElem.querySelector('.about__title').innerText,
+        overview: filmElem.querySelector('.about__description--text').innerText,
+        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+        popularity: filmElem.querySelector('.popularity').innerText,
+      };
+      addToLibrary(obj);
+    });
+    addToQueBtn.addEventListener('click', getFilmsFromLibrary);
+  });
 
   window.addEventListener('keydown', EscCloseModal);
 
@@ -99,48 +114,49 @@ const openModal = (id, object, queue) => {
       closeModal();
     }
 
-    if (e.target.dataset.action === 'addToLib') {
-      if (Uid.uid !== true) {
-        openAuthModal();
-        return;
-      }
+    // if (e.target.dataset.action === 'addToLib') {
+    //   if (Uid.logIn !== true) {
+    //     openAuthModal();
+    //     return;
+    //   }
 
-      const filmElem = document.querySelector('.film-details');
+    //   const filmElem = document.querySelector('.film-details');
 
-      const obj = {
-        id: filmElem.id,
-        title: filmElem.querySelector('.about__title').innerText,
-        overview: filmElem.querySelector('.about__description--text').innerText,
-        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-        popularity: filmElem.querySelector('.popularity').innerText,
-      };
-      // object = obj;
+    //   const obj = {
+    //     id: filmElem.id,
+    //     title: filmElem.querySelector('.about__title').innerText,
+    //     overview: filmElem.querySelector('.about__description--text').innerText,
+    //     path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+    //     popularity: filmElem.querySelector('.popularity').innerText,
+    //   };
+    //   object = obj;
+    //   addToLibrary(object);
+    //   // addFilmToLibrary(obj);
+    //   // writeUserData(object);
+    //   // console.log(Uid.uid);
+    // }
 
-      addFilmToLibrary(obj);
-      // writeUserData(object);
-      // console.log(Uid.uid);
-    }
+    // if (e.target.dataset.action === 'addToQue') {
+    //   if (Uid.logIn !== true) {
+    //     openAuthModal();
+    //     return;
+    //   }
 
-    if (e.target.dataset.action === 'addToQue') {
-      if (Uid.uid !== true) {
-        openAuthModal();
-        return;
-      }
+    //   const filmElem = document.querySelector('.film-details');
 
-      const filmElem = document.querySelector('.film-details');
+    //   const obj = {
+    //     id: filmElem.id,
+    //     title: filmElem.querySelector('.about__title').innerText,
+    //     overview: filmElem.querySelector('.about__description--text').innerText,
+    //     path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+    //     popularity: filmElem.querySelector('.popularity').innerText,
+    //   };
+    //   queue = obj;
 
-      const obj = {
-        id: filmElem.id,
-        title: filmElem.querySelector('.about__title').innerText,
-        overview: filmElem.querySelector('.about__description--text').innerText,
-        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-        popularity: filmElem.querySelector('.popularity').innerText,
-      };
-      queue = obj;
-
-      writeUserData(queue);
-      console.log(Uid);
-    }
+    //   getFilmsFromLibrary();
+    //   // writeUserData(queue);
+    //   // console.log(Uid);
+    // }
   });
 };
 
@@ -183,7 +199,7 @@ function onNaviListClick(e) {
     refs.headerMain.style.display = 'block';
     refs.headerLib.style.display = 'none';
   }
-  if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
+  if (e.target.textContent === 'My library' && Uid.logIn === true) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
   }
