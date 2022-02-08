@@ -22,7 +22,7 @@ export const memberInfo = [
         photo: 'https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/main/src/partials/img/members/malakhova.jpg',
         name: 'Yevheniia Malakhova',
         role: 'Developer',
-        linkedIn: '',
+        linkedIn: 'https://www.linkedin.com/in/yevheniia-malakhova',
         gitHub: 'https://github.com/jennmala',
         telegram: 'https://t.me/jennmala',
     },

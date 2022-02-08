@@ -15,6 +15,7 @@ import './js/btn-up.js';
 import { removeFilm, addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
 
 const refs = {
+    body: document.querySelector('body'),
     input: document.querySelector('.input'),
     inputButton: document.querySelector('.button__search'),
     list: document.querySelector('.list'),
@@ -85,6 +86,11 @@ function getPopular() {
 
 }
 
+function closeModal() {
+  refs.modal.classList.add('hidden');
+  refs.body.style.overflow = 'visible';
+  renderService.clearList();
+}
 // Функция поиска фильма в хедере
 function findFilm() {
   apiService.query = refs.input.value.trim();
@@ -194,6 +200,12 @@ function onNaviListClick(e) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
   }
+}, 500);
+
+function getMembers() {
+  refs.modal.classList.remove('hidden');
+  renderService.renderMembers();
+  const list = document.querySelector('.member-list');
 }
 
 function onNaviHomeClick() {
