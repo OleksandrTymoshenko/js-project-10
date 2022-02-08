@@ -15,6 +15,7 @@ import './js/btn-up.js';
 
 const refs = {
 
+    body: document.querySelector('body'),
     input: document.querySelector('.input'),
     inputButton: document.querySelector('.button__search'),
     list: document.querySelector('.list'),
@@ -74,6 +75,7 @@ function onScroll() {
 
 function closeModal() {
   refs.modal.classList.add('hidden');
+  refs.body.style.overflow = 'visible';
   renderService.clearList();
 }
 
@@ -101,6 +103,7 @@ function EscCloseModal(e) {
 
 const openModal = (id, object, queue) => {
   refs.modal.classList.remove('hidden');
+  refs.body.style.overflow = 'hidden';
 
   apiService.getFilmDetails(id).then(renderService.renderFilmDetails);
 
@@ -180,6 +183,7 @@ const findFilm = debounce(() => {
 }, 500);
 
 function getMembers() {
+  refs.body.style.overflow = 'hidden';
   refs.modal.classList.remove('hidden');
   renderService.renderMembers();
   const list = document.querySelector('.member-list');

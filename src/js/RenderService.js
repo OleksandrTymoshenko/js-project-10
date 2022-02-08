@@ -103,6 +103,7 @@ export default class RenderService {
         modal.appendChild(wrapper)
         wrapper.appendChild(closeBtn)
         
+        
         const markup = memberInfo.map(({ id, photo, name, role, linkedIn, gitHub, telegram }) => {
             return  `<li class="member-item" id="${id}">
             <div class="member-card">
@@ -118,23 +119,30 @@ export default class RenderService {
                 <div class="member-socials">
                     <ul class="socials-list">
                         <li class="socials-item">
-                            <a href="${linkedIn}" class="socials-linkedin" target="_blank">LinkedIn</a>
+                            <a href="${linkedIn}" class="socials-linkedin" target="_blank">
+                                <img class="socials-linkedin-icon" src="">
+                            </a>
                         </li>
                         <li class="socials-item">
-                            <a href="${gitHub}" class="socials-github" target="_blank"> GitHub</a>
+                            <a href="${gitHub}" class="socials-github" target="_blank">
+                                <img class="socials-github-icon" src="">
+                            </a>
                         </li>
                         <li class="socials-item">
-                            <a href="${telegram}" class="socials-telegram" target="_blank">Telegram</a>
+                            <a href="${telegram}" class="socials-telegram" target="_blank">
+                                <img class="socials-telegram-icon" src="">
+                            </a>
                         </li>
                     </ul>
                 </div>          
             </div>
-        </li>        
+        </li>       
             `
             }).join("");
 
             const btn = document.querySelector('.close-btn')
             btn.addEventListener('click', () => {
+                document.querySelector('body').style.overflow = 'visible'
                 modal.classList.add('hidden')
                 modal.classList.remove('footer__modal')
                 modal.classList.add('modal')
