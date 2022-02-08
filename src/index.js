@@ -6,34 +6,32 @@ import RenderService from './js/RenderService';
 import Auth from './js/Auth';
 import { propFirebase } from './js/Auth';
 import './js/loader.js';
-import footerModal from './js/footerModal';
 import { openModal as openAuthModal } from './js/auth-modal';
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
-import { removeFilm, addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
+import { removeFilm, addToLibrary, getArrayFromLibrary } from './js/serviceFirebase';
 
 const refs = {
-    input: document.querySelector('.input'),
-    inputButton: document.querySelector('.button__search'),
-    list: document.querySelector('.list'),
-    modal: document.querySelector('[data-modal]'),
-    naviListMain: document.querySelector('.navi__list[data-action="main"]'),
-    naviListLib: document.querySelector('.navi__list[data-action="library"]'),
-    headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),
-    footerBtnModal: document.querySelector('.footer__team-button'),
-    naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
-    naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
-}
+  input: document.querySelector('.input'),
+  inputButton: document.querySelector('.button__search'),
+  list: document.querySelector('.list'),
+  modal: document.querySelector('[data-modal]'),
+  naviListMain: document.querySelector('.navi__list[data-action="main"]'),
+  naviListLib: document.querySelector('.navi__list[data-action="library"]'),
+  headerMain: document.querySelector('header[data-action="main"]'),
+  headerLib: document.querySelector('header[data-action="library"]'),
+  footerBtnModal: document.querySelector('.footer__team-button'),
+  naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
+  naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
+};
 
 const Uid = propFirebase;
 
-refs.headerLib.style.display = "none";
-refs.naviListMain.addEventListener('click', onNaviListClick) 
-refs.naviListLib.addEventListener('click', onNaviListClick) 
-
+refs.headerLib.style.display = 'none';
+refs.naviListMain.addEventListener('click', onNaviListClick);
+refs.naviListLib.addEventListener('click', onNaviListClick);
 
 refs.headerLib.style.display = 'none';
 
@@ -92,13 +90,13 @@ function closeModal() {
   document.body.style.overflow = 'auto';
   document.body.style.position = 'static';
   refs.modal.classList.add('hidden');
-  
+
   renderService.clearList();
 }
 
 function openModal(id) {
   refs.modal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden'
+  document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
 
   apiService.getFilmDetails(id).then(data => {
@@ -129,7 +127,7 @@ function openModal(id) {
 
     // Кнопка Queue в модалке
     addToQueBtn.addEventListener('click', () => {
-      removeFilm(id);
+      console.log(getArrayFromLibrary());
     });
   });
 
@@ -157,7 +155,6 @@ const getDetails = e => {
   }
 };
 
-
 // Переключение стилей хедера
 function onNaviListClick(e) {
   if (e.target.textContent === 'Home') {
@@ -184,15 +181,14 @@ refs.footerBtnModal.addEventListener('click', getMembers);
 refs.naviListMain.addEventListener('click', onNaviListClick);
 refs.naviListLib.addEventListener('click', onNaviListClick);
 refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
-refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick)
+refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick);
 
-function onNaviLogoButtonClick (e) {
-    e.preventDefault;
-    refs.list.innerHTML ='';
-    refs.input.value = ''; 
-    apiService.resetPage()
-    apiService.getPopularFilms().then(renderService.renderAllFilms)
-     refs.headerMain.style.display = "block";
-    refs.headerLib.style.display = "none";
+function onNaviLogoButtonClick(e) {
+  e.preventDefault;
+  refs.list.innerHTML = '';
+  refs.input.value = '';
+  apiService.resetPage();
+  apiService.getPopularFilms().then(renderService.renderAllFilms);
+  refs.headerMain.style.display = 'block';
+  refs.headerLib.style.display = 'none';
 }
-

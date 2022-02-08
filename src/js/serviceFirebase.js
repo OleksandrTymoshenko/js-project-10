@@ -67,7 +67,7 @@ async function getIdsFromLibrary() {
   return idsArr;
 }
 
-async function getArrayFromLibrary() {
+export function getArrayFromLibrary() {
   const db = getDatabase();
   const dbRef = ref(db, '/films/');
   let filmsArr = [];

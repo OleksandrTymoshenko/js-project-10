@@ -116,6 +116,8 @@ export default class RenderService {
   renderMembers() {
     modal.classList.remove('modal');
     modal.classList.add('footer__modal');
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
 
     const wrapper = document.createElement('div');
     wrapper.classList.add('footer__modal-wrapper');
@@ -162,6 +164,8 @@ export default class RenderService {
 
     const btn = document.querySelector('.close-btn');
     btn.addEventListener('click', () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.position = 'static';
       modal.classList.add('hidden');
       modal.classList.remove('footer__modal');
       modal.classList.add('modal');
