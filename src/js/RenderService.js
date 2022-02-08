@@ -145,17 +145,17 @@ export default class RenderService {
                     <ul class="socials-list">
                         <li class="socials-item">
                             <a href="${linkedIn}" class="socials-linkedin" target="_blank">
-                                <img class="socials-linkedin-icon" src="">
+                                <img class="socials-linkedin-icon" src="https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/92637c9267bf8d29fbf67853c521c5735d687cbb/src/partials/img/linkedin.svg" width=30 height=30>
                             </a>
                         </li>
                         <li class="socials-item">
                             <a href="${gitHub}" class="socials-github" target="_blank">
-                                <img class="socials-github-icon" src="">
+                                <img class="socials-github-icon" src="https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/92637c9267bf8d29fbf67853c521c5735d687cbb/src/partials/img/github.svg" width=30 height=30>
                             </a>
                         </li>
                         <li class="socials-item">
                             <a href="${telegram}" class="socials-telegram" target="_blank">
-                                <img class="socials-telegram-icon" src="">
+                                <img class="socials-telegram-icon" src="https://raw.githubusercontent.com/OleksandrTymoshenko/js-project-10/92637c9267bf8d29fbf67853c521c5735d687cbb/src/partials/img/telegram.svg" width=30 height=30>
                             </a>
                         </li>
                     </ul>
