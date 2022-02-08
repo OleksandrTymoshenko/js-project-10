@@ -1,196 +1,189 @@
 .modal {
-    position: fixed;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    display: block;
-    height: 100%;
-    width: 100%;
-    padding: 20px;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
 
-    background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 
-    overflow-y: auto;
+  overflow-y: auto;
 
-    body & {
-        overflow: hidden;
-    }
+  &.hidden {
+    display: none;
+  }
 
-    &.hidden {
-        display: none;
-    }
+  @media screen and (min-width: $tablet) {
+    padding: 231px 75px;
+  }
 
-    @media screen and (min-width: $tablet) {
-        padding: 231px 75px;
-    }
-
-    @media screen and (min-width: $desktop) {
-        padding: 100px 71px;
-    }
+  @media screen and (min-width: $desktop) {
+    padding: 100px 71px;
+  }
 }
 
 .film-details {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 48px 20px;
-    background-color: $white-text-and-bg;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 48px 20px;
+  background-color: $white-text-and-bg;
 
-    @media screen and (min-width: $tablet) {
-        flex-direction: row;
-        padding: 42px 30px 40px 28px;
-    }
+  @media screen and (min-width: $tablet) {
+    flex-direction: row;
+    padding: 42px 30px 40px 28px;
+  }
 
-    @media screen and (min-width: $desktop) {
-        padding: 50px 30px 40px 30px;
-        max-width: 1024px;
-    }
+  @media screen and (min-width: $desktop) {
+    padding: 50px 30px 40px 30px;
+    max-width: 1024px;
+  }
 }
 
 .img-thumb {
-    display: inline-block;
-    margin-bottom: 30px;
+  display: inline-block;
+  margin-bottom: 30px;
 
-    @media screen and (min-width: $tablet) {
-        margin-bottom: 0;
-        margin-right: 32px;
-        width: 264px;
-    }
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 0;
+    margin-right: 32px;
+    width: 264px;
+  }
 
-    @media screen and (min-width: $tablet) {
-        margin-bottom: 0;
-        margin-right: 30px;
-        width: 396px;
-    }
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 0;
+    margin-right: 30px;
+    width: 396px;
+  }
 }
 
 .img-thumb > img {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .details {
-    display: flex;
-    margin-top: 20px;
+  display: flex;
+  margin-top: 20px;
 
-    &__names-col {
-        margin-right: 39px;
+  &__names-col {
+    margin-right: 39px;
 
-        @media screen and (min-width: $desktop) {
-            margin-right: 83px;
-        }
+    @media screen and (min-width: $desktop) {
+      margin-right: 83px;
     }
+  }
 
-    &__name {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.33;
-        color: #8C8C8C;
-        margin-top: 10px;
-    }
-
-    &__value {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.33;
-        color: $secondary-text;
-        margin-top: 10px;
-    }
-}
-
-
-.about {
-
-    @media screen and (min-width: $tablet) {
-        width: calc(100% / 2);
-    }
-   
-   &__title {
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 1.15;
-
-        @media screen and (min-width: $tablet) {
-            font-size: 30px;
-            line-height: 1.16;
-        }
-   }
-
-   &__description--title {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.33;
-
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-
-   &__description--text {
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 1.66;
-    }
-}
-
-.btn-block {
-    display: flex;
-    margin-top: 20px;
-}
-
-.about__btn {
-    height: 44px;
-    width: 112px;
-
-    border-radius: 5px;
-
-    font-family: inherit;
+  &__name {
     font-weight: 500;
     font-size: 12px;
     line-height: 1.33;
-    text-align: center;
-    text-transform: uppercase;
+    color: #8c8c8c;
+    margin-top: 10px;
+  }
+
+  &__value {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+    color: $secondary-text;
+    margin-top: 10px;
+  }
+}
+
+.about {
+  @media screen and (min-width: $tablet) {
+    width: calc(100% / 2);
+  }
+
+  &__title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 1.15;
 
     @media screen and (min-width: $tablet) {
-        width: 125px;
+      font-size: 30px;
+      line-height: 1.16;
     }
+  }
 
-    @media screen and (min-width: $desktop) {
-        width: 136px;
-    }
+  &__description--title {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.33;
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  &__description--text {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.66;
+  }
+}
+
+.btn-block {
+  display: flex;
+  margin-top: 20px;
+}
+
+.about__btn {
+  height: 44px;
+  width: 112px;
+
+  border-radius: 5px;
+
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-align: center;
+  text-transform: uppercase;
+
+  @media screen and (min-width: $tablet) {
+    width: 125px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 136px;
+  }
 }
 
 .lib {
-    background-color: $accent;
-    color: $white-text-and-bg;
-    margin-right: 14px;
-    padding-left: 8px;
-    padding-right: 8px;
+  background-color: $accent;
+  color: $white-text-and-bg;
+  margin-right: 14px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .queue {
-    border: 1px solid $secondary-text;
-    background-color: $white-text-and-bg;
-    color: $secondary-text;
-    padding: 14px 6px 12px 6px;
+  border: 1px solid $secondary-text;
+  background-color: $white-text-and-bg;
+  color: $secondary-text;
+  padding: 14px 6px 12px 6px;
 }
 
 .close-btn {
-    position: absolute;
+  position: absolute;
 
-    display: block;
-    height: 30px;
-    width: 30px;
-    top: 10px;
-    right: 10px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  top: 10px;
+  right: 10px;
 
-    border-radius: 50%;
-    background-color: $white-text-and-bg;
-    background-image: url('./../partials/img/close.svg');
+  border-radius: 50%;
+  background-color: $white-text-and-bg;
+  background-image: url('./../partials/img/close.svg');
 }
 
 .close-btn:focus,
 .close-btn:hover {
-    background-color: $accent;
+  background-color: $accent;
 }
-

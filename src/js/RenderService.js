@@ -1,25 +1,25 @@
-const list = document.querySelector('.list')
-const modal = document.querySelector('[data-modal]')
+const list = document.querySelector('.list');
+const modal = document.querySelector('[data-modal]');
 
-import { getGenres } from './genresInfo'
-import { memberInfo } from './memberInfo'
-import noPoster from '../partials/img/no_poster.jpg'
-import { refs } from './auth-modal'
+import { getGenres } from './genresInfo';
+import { memberInfo } from './memberInfo';
+import noPoster from '../partials/img/no_poster.jpg';
+import { refs } from './auth-modal';
 
 export default class RenderService {
-    constructor() {
-    
-    }
+  constructor() {}
 
-    renderAllFilms(filmArray) {
-        const markup = filmArray.map(({id, title, poster_path, genre_ids, release_date}) => {
-           
-            const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
-            const upperTitle = title.toUpperCase();
-            const generesFilmArray = getGenres(genre_ids)
-            const date = release_date.slice(0, 4)
+  renderFinders(filmArray) {
+    this.clearGalleryList();
+    const markup = filmArray
+      .map(({ id, title, poster_path, genre_ids, release_date }) => {
+        const imagePath =
+          poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        const upperTitle = title.toUpperCase();
+        const generesFilmArray = getGenres(genre_ids);
+        const date = release_date.slice(0, 4);
 
-            return `
+        return `
                     <li class="list__item" id=${id}>
                         
                         <img class="item__img" src=${imagePath} alt="poster" width="396"> 
@@ -27,20 +27,46 @@ export default class RenderService {
                         <p class="item__title">${upperTitle}</p>
                         <p class="item__genre">${generesFilmArray} | ${date}</p>
                     </li>
-                `
-        }).join('')
+                `;
+      })
+      .join('');
 
-        list.insertAdjacentHTML('beforeend', markup)
-    }
+    list.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    renderFilmDetails(film) {
-        modal.innerHTML = ''
-        const {id, poster_path, title, popularity, genres, overview, vote_average, vote_count} = film
-        const imagePath = poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`
-        const upperTitle = title.toUpperCase()
-        const genresFilm = genres.map(genre => genre.name).join(', ')       
+  renderAllFilms(filmArray) {
+    const markup = filmArray
+      .map(({ id, title, poster_path, genre_ids, release_date }) => {
+        const imagePath =
+          poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`;
+        const upperTitle = title.toUpperCase();
+        const generesFilmArray = getGenres(genre_ids);
+        const date = release_date.slice(0, 4);
 
-        const markup = `
+        return `
+                    <li class="list__item" id=${id}>
+                        
+                        <img class="item__img" src=${imagePath} alt="poster" width="396"> 
+        
+                        <p class="item__title">${upperTitle}</p>
+                        <p class="item__genre">${generesFilmArray} | ${date}</p>
+                    </li>
+                `;
+      })
+      .join('');
+
+    list.insertAdjacentHTML('beforeend', markup);
+  }
+
+  renderFilmDetails(film) {
+    modal.innerHTML = '';
+    const { id, poster_path, title, popularity, genres, overview, vote_average, vote_count } = film;
+    const imagePath =
+      poster_path === null ? `${noPoster}` : `https://image.tmdb.org/t/p/w500/${poster_path}`;
+    const upperTitle = title.toUpperCase();
+    const genresFilm = genres.map(genre => genre.name).join(', ');
+
+    const markup = `
             <div class="film-details" id=${id}>
 
                 <div class="img-thumb" id=${id}>
@@ -82,29 +108,29 @@ export default class RenderService {
             <button class="close-btn" data-action="close"></button>
                 
             </div>
-        `
+        `;
 
-        modal.insertAdjacentHTML('afterbegin', markup)
-    }
+    modal.insertAdjacentHTML('afterbegin', markup);
+  }
 
-    renderMembers() {
+  renderMembers() {
+    modal.classList.remove('modal');
+    modal.classList.add('footer__modal');
 
-        modal.classList.remove('modal')
-        modal.classList.add('footer__modal')
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('footer__modal-wrapper');
+    // modal.innerHTML = ''
+    const memberList = document.createElement('ul');
+    memberList.classList.add('member-list');
+    const closeBtn = document.createElement('button');
+    closeBtn.classList.add('close-btn');
+    wrapper.appendChild(memberList);
+    modal.appendChild(wrapper);
+    wrapper.appendChild(closeBtn);
 
-        const wrapper = document.createElement('div')
-        wrapper.classList.add('footer__modal-wrapper')    
-        // modal.innerHTML = ''
-        const memberList = document.createElement('ul')
-        memberList.classList.add('member-list')
-        const closeBtn = document.createElement('button')
-        closeBtn.classList.add('close-btn')
-        wrapper.appendChild(memberList)
-        modal.appendChild(wrapper)
-        wrapper.appendChild(closeBtn)
-        
-        const markup = memberInfo.map(({ id, photo, name, role, linkedIn, gitHub, telegram }) => {
-            return  `<li class="member-item" id="${id}">
+    const markup = memberInfo
+      .map(({ id, photo, name, role, linkedIn, gitHub, telegram }) => {
+        return `<li class="member-item" id="${id}">
             <div class="member-card">
                 <a href="${gitHub}" target="_blank">
                     <div class="member-photo">
@@ -130,20 +156,25 @@ export default class RenderService {
                 </div>          
             </div>
         </li>        
-            `
-            }).join("");
+            `;
+      })
+      .join('');
 
-            const btn = document.querySelector('.close-btn')
-            btn.addEventListener('click', () => {
-                modal.classList.add('hidden')
-                modal.classList.remove('footer__modal')
-                modal.classList.add('modal')
-                modal.innerHTML = ''
-            })
+    const btn = document.querySelector('.close-btn');
+    btn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('footer__modal');
+      modal.classList.add('modal');
+      modal.innerHTML = '';
+    });
 
-            memberList.insertAdjacentHTML('afterbegin', markup)
-    }
-    clearList() {
-        modal.innerHTML = ""
-    }
+    memberList.insertAdjacentHTML('afterbegin', markup);
+  }
+  clearList() {
+    modal.innerHTML = '';
+  }
+
+  clearGalleryList() {
+    list.innerHTML = '';
+  }
 }
