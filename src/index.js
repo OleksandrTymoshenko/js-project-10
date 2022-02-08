@@ -23,15 +23,22 @@ const refs = {
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
     headerLib: document.querySelector('header[data-action="library"]'),
+    footer: document.querySelector('.footer__wrapper'),
     footerBtnModal: document.querySelector('.footer__team-button'),
     naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
     naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
+    btnThemeMode: document.querySelector('.theme__switcher'),
+    btnBackToTop: document.querySelector('.back_to_top'),
+    body: document.querySelector('body'),
+    
 
 }
 
 refs.headerLib.style.display = "none";
+let itemTitle = '';
 refs.naviListMain.addEventListener('click', onNaviListClick) 
-refs.naviListLib.addEventListener('click', onNaviListClick) 
+refs.naviListLib.addEventListener('click', onNaviListClick)
+
 
 
 
@@ -66,9 +73,19 @@ function onScroll() {
   if (position >= threshold) {
     apiService.getPopularFilms().then(films => {
       renderService.renderAllFilms(films);
+      console.log(refs.btnThemeMode.dataset.theme)
+      if (refs.btnThemeMode.dataset.theme === 'dark') { 
+        itemTitle = document.querySelectorAll('.item__title')       
+        for (const item of itemTitle) {
+          item.style.color = 'white'      
+          
+        }
+       /*  refs.itemTitle.style.color= 'pink' */
+      
+    }
     });
   }
-
+ 
   window.removeEventListener('scroll', debounce(onScroll, 1500));
 }
 
@@ -210,4 +227,43 @@ function onNaviLogoButtonClick (e) {
     apiService.getPopularFilms().then(renderService.renderAllFilms)
      refs.headerMain.style.display = "block";
     refs.headerLib.style.display = "none";
+    
 }
+
+function onbtnThemeModeClick () {
+ 
+ itemTitle = document.querySelectorAll('.item__title')
+ 
+  if (refs.btnThemeMode.dataset.theme === 'dark') {
+      refs.btnThemeMode.dataset.theme = 'light';
+      refs.btnThemeMode.textContent = 'Daymode';
+      refs.body.style.backgroundColor = '#ffffff';
+      for (const item of itemTitle) {
+        item.style.color = 'black';        
+      }
+      refs.btnBackToTop.style.backgroundColor = '#ffffff'
+      refs.footer.style.backgroundColor = '#ffffff'
+      refs.footer.style.color = 'black'
+     
+     
+  } else if (refs.btnThemeMode.dataset.theme === 'light') {
+      refs.btnThemeMode.dataset.theme = 'dark';
+      refs.btnThemeMode.textContent = 'Nightmode';
+      refs.body.style.backgroundColor = '#1f2026';
+      for (const item of itemTitle) {
+        item.style.color = 'white'         
+      }
+      refs.btnBackToTop.style.backgroundColor = '#1f2026'
+      refs.footer.style.backgroundColor = '#1f2026';
+      refs.footer.style.color = 'white';
+     
+     
+    
+  }
+
+}
+
+
+refs.btnThemeMode.addEventListener('click', onbtnThemeModeClick);
+
+
