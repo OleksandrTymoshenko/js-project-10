@@ -1,94 +1,213 @@
 import './sass/main.scss';
 import './js/auth-modal.js';
-import {debounce, throttle } from 'lodash'
+import { debounce, throttle } from 'lodash';
 import ApiService from './js/ApiService';
 import RenderService from './js/RenderService';
-import LocalStorageService from './js/LocalStorageService';
-import Auth from './js/Auth'
+import Auth from './js/Auth';
+import { propFirebase } from './js/Auth';
+import './js/loader.js';
 import footerModal from './js/footerModal';
-const apiService = new ApiService()
-const renderService = new RenderService()
-const localStorageService = new LocalStorageService()
+import { openModal as openAuthModal } from './js/auth-modal';
+const apiService = new ApiService();
+const renderService = new RenderService();
+import Notiflix from 'notiflix';
+import './js/btn-up.js';
 
 const refs = {
+
     input: document.querySelector('.input'),
+    inputButton: document.querySelector('.button__search'),
     list: document.querySelector('.list'),
     modal: document.querySelector('[data-modal]'),
     naviListMain: document.querySelector('.navi__list[data-action="main"]'),
     naviListLib: document.querySelector('.navi__list[data-action="library"]'),
     headerMain: document.querySelector('header[data-action="main"]'),
-    headerLib: document.querySelector('header[data-action="library"]'),    
+    headerLib: document.querySelector('header[data-action="library"]'),
+    footerBtnModal: document.querySelector('.footer__team-button'),
+    naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
+    naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
+
 }
 
 refs.headerLib.style.display = "none";
-
-function onNaviListClick(e) {
-    if(e.target.textContent === 'Home'){
-        refs.headerMain.style.display = "block";
-        refs.headerLib.style.display = "none";
-    }
-    if(e.target.textContent === 'My library'){
-        refs.headerMain.style.display = "none";
-        refs.headerLib.style.display = "block";
-    }
-}
-
 refs.naviListMain.addEventListener('click', onNaviListClick) 
 refs.naviListLib.addEventListener('click', onNaviListClick) 
 
-const getPopular = () => {
-    apiService.getPopularFilms().then(renderService.renderAllFilms)
+
+
+function onNaviListClick(e) {
+  if (e.target.textContent === 'Home') {
+    refs.headerMain.style.display = 'block';
+    refs.headerLib.style.display = 'none';
+  }
+  if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
+    refs.headerMain.style.display = 'none';
+    refs.headerLib.style.display = 'block';
+  }
 }
 
-const closeModal = () => {
-    refs.modal.classList.add('hidden')
+function getPopular() {
+  apiService.getPopularFilms().then(films => {
+    renderService.renderAllFilms(films);
+    window.addEventListener('scroll', debounce(onScroll, 1500));
+  });
 }
 
-const openModal = (id) => {
-    
-    refs.modal.classList.remove('hidden')
+function onScroll() {
+  const height = document.body.offsetHeight;
+  const screenHeight = window.innerHeight;
 
-    apiService.getFilmDetails(id).then(renderService.renderFilmDetails)
+  const scrolled = window.scrollY;
 
-    refs.modal.addEventListener('click', e => {
-        if (e.target.dataset.action === 'close') {
-            closeModal()
-        }
+  const threshold = height - screenHeight / 4;
 
-        if (e.target.dataset.action === 'addToLib') {
-           const filmElem = document.querySelector('.film-details')
-           
-            const obj = {
-                id: filmElem.id,
-                title: filmElem.querySelector('.about__title').innerText,
-                overview: filmElem.querySelector('.about__description--text').innerText,
-                path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-                popularity: filmElem.querySelector('.popularity').innerText,
-            }
-           
+  const position = scrolled + screenHeight;
 
-           localStorageService.addToLibrary(obj)
-        }
-   })
-}  
+  if (position >= threshold) {
+    apiService.getPopularFilms().then(films => {
+      renderService.renderAllFilms(films);
+    });
+  }
 
-const getDetails = (e) => {
-
-    if (e.target.nodeName === 'IMG') {
-            const { id } = e.target.parentNode
-            openModal(id)
-        }
+  window.removeEventListener('scroll', debounce(onScroll, 1500));
 }
+
+function closeModal() {
+  refs.modal.classList.add('hidden');
+  renderService.clearList();
+}
+
+function writeUserData(object) {
+  const db = getDatabase();
+  set(ref(db, `${Uid.uid}`), {
+    wathed: object,
+  });
+  // console.log(propFirebase.uid)
+}
+
+function writeUserData(queue) {
+  const db = getDatabase();
+  set(ref(db, `${Uid.uid}`), {
+    queue: queue,
+  });
+}
+
+function EscCloseModal(e) {
+  if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal);
+  }
+}
+
+const openModal = (id, object, queue) => {
+  refs.modal.classList.remove('hidden');
+
+  apiService.getFilmDetails(id).then(renderService.renderFilmDetails);
+
+  window.addEventListener('keydown', EscCloseModal);
+
+  refs.modal.addEventListener('click', e => {
+    if (e.target.dataset.action === 'close') {
+      closeModal();
+    }
+
+    if (e.target.dataset.action === 'addToLib') {
+      if (Uid.uid !== true) {
+        openAuthModal();
+        return;
+      }
+
+      const filmElem = document.querySelector('.film-details');
+
+      const obj = {
+        id: filmElem.id,
+        title: filmElem.querySelector('.about__title').innerText,
+        overview: filmElem.querySelector('.about__description--text').innerText,
+        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+        popularity: filmElem.querySelector('.popularity').innerText,
+      };
+      object = obj;
+
+      writeUserData(object);
+      console.log(Uid.uid);
+    }
+
+    if (e.target.dataset.action === 'addToQue') {
+      if (Uid.logIn !== true) {
+        openAuthModal();
+        return;
+      }
+
+      const filmElem = document.querySelector('.film-details');
+
+      const obj = {
+        id: filmElem.id,
+        title: filmElem.querySelector('.about__title').innerText,
+        overview: filmElem.querySelector('.about__description--text').innerText,
+        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+        popularity: filmElem.querySelector('.popularity').innerText,
+      };
+      queue = obj;
+
+      writeUserData(queue);
+      console.log(Uid);
+    }
+  });
+};
+
+const getDetails = e => {
+  if (e.target.nodeName === 'IMG') {
+    const { id } = e.target.parentNode;
+    openModal(id);
+  }
+};
 
 const findFilm = debounce(() => {
-    apiService.query = refs.input.value.trim()
-    
-    if (apiService.query.length >= 2) {
-        apiService.getFilmsByName().then(renderService.renderAllFilms)
-    }
-    
-}, 500)
+  apiService.query = refs.input.value.trim();
 
-window.addEventListener('load', getPopular)
-refs.list.addEventListener('click', getDetails)
-refs.input.addEventListener('input',  findFilm)
+  if (apiService.query.length >= 2) {
+    refs.list.innerHTML ='';
+    apiService.getFilmsByName().then(filmsArr => {
+      if (filmsArr.length === 0) {
+        return Notiflix.Notify.warning(
+          'Search result not successful. Enter the correct movie name',
+        );
+      }
+
+      renderService.renderAllFilms(filmsArr);
+    });
+  }
+}, 500);
+
+function getMembers() {
+  refs.modal.classList.remove('hidden');
+  renderService.renderMembers();
+  const list = document.querySelector('.member-list');
+}
+
+window.addEventListener('load', getPopular);
+refs.list.addEventListener('click', getDetails);
+refs.input.addEventListener('input', findFilm); 
+refs.inputButton.addEventListener('click', findFilm);
+
+refs.footerBtnModal.addEventListener('click', getMembers);
+
+function onNaviHomeClick() {
+  refs.headerMain.style.display = 'none';
+  refs.headerLib.style.display = 'block';
+}
+
+export { onNaviHomeClick };
+
+refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
+refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick)
+
+function onNaviLogoButtonClick (e) {
+    e.preventDefault;
+    refs.list.innerHTML ='';
+    refs.input.value = ''; 
+    apiService.resetPage()
+    apiService.getPopularFilms().then(renderService.renderAllFilms)
+     refs.headerMain.style.display = "block";
+    refs.headerLib.style.display = "none";
+}
