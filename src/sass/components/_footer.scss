@@ -114,16 +114,20 @@
     @media screen and (min-width: $desktop) {
         top: 8%;
     }
+
+    @media  screen and (max-width: 767px) {
+        padding-bottom: 20px;
+    }
 }
 
 .member-list {
-    display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     margin-left: auto;
     margin-right: auto;
     align-items: center;
     
     @media screen and(min-width: $tablet) {
+        display: flex;
         flex-flow: row wrap;
         justify-content: center;
         // margin-left: -10px;
@@ -132,24 +136,41 @@
 }
 
 .member-item {
-    margin-bottom: 20px;  
+    margin-bottom: 20px;
+    background-color: rgb(34 50 80 / 5%);
     border-radius: 2px;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 
     @media screen and (min-width: $desktop) {
         flex-basis: calc(100% / 4 - 10px);
         margin-bottom: 10px;   
-        margin-left: 10px; 
+        margin-left: 10px;
+        margin-right: 0;
+
+        &:nth-last-child(-n+4) {
+            margin-bottom: 0;
+        }
+        &:first-child, &:nth-child(5n) {
+            margin-left: 0;
+        }
+        
     }
     
-    @media screen and (max-width: 1023px) {
+    @media screen and (min-width: $tablet) and (max-width: 1023px) {
         width: calc((100% - 30px) / 2);
         margin-right: 10px;
-        &:nth-last-child(-n) {
+        &:nth-last-child(-n+2) {
           margin-bottom: 0;
         }
         &:nth-child(2n) {
             margin-right: 0;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        margin-right: 0;
+        &:last-child {
+            margin-bottom: 0;
         }
     }
 }
@@ -170,6 +191,10 @@
     display: block;
     max-width: 100%;
     height: auto;
+
+    @media screen and (max-width: 1023px) {
+        width: 400px;  
+    }
 }
 
 .member-description {
@@ -189,6 +214,10 @@
     padding-top: 5px;
     margin-bottom: 5px;
     text-align: center;
+
+    @media screen and (max-width: 1023px) {
+        font-size: 20px;
+    }
 }
 
 .member-role {
