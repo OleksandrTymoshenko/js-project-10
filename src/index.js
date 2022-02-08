@@ -128,7 +128,11 @@ function openModal(id) {
     });
 
     // Кнопка Queue в модалке
-    addToQueBtn.addEventListener('click', () => {
+      addToQueBtn.addEventListener('click', () => {
+              if (Uid.logIn !== true) {
+        openAuthModal();
+        return;
+      }
       removeFilm(id);
     });
   });
