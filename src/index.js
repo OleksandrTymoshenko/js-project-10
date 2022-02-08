@@ -200,7 +200,7 @@ function onNaviListClick(e) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
   }
-}, 500);
+}
 
 function getMembers() {
   refs.modal.classList.remove('hidden');
