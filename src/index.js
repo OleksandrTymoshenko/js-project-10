@@ -12,9 +12,9 @@ const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import './js/btn-up.js';
+import { removeFilm, addToLibrary, getFilmsFromLibrary } from './js/serviceFirebase';
 
 const refs = {
-
     body: document.querySelector('body'),
     input: document.querySelector('.input'),
     inputButton: document.querySelector('.button__search'),
@@ -27,34 +27,19 @@ const refs = {
     footerBtnModal: document.querySelector('.footer__team-button'),
     naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
     naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
-
 }
+
+const Uid = propFirebase;
 
 refs.headerLib.style.display = "none";
 refs.naviListMain.addEventListener('click', onNaviListClick) 
 refs.naviListLib.addEventListener('click', onNaviListClick) 
 
 
+refs.headerLib.style.display = 'none';
 
-function onNaviListClick(e) {
-  if (e.target.textContent === 'Home') {
-    refs.headerMain.style.display = 'block';
-    refs.headerLib.style.display = 'none';
-  }
-  if (e.target.textContent === 'My library' && isOnlain.logIn === true) {
-    refs.headerMain.style.display = 'none';
-    refs.headerLib.style.display = 'block';
-  }
-}
-
-function getPopular() {
-  apiService.getPopularFilms().then(films => {
-    renderService.renderAllFilms(films);
-    window.addEventListener('scroll', debounce(onScroll, 1500));
-  });
-}
-
-function onScroll() {
+// функция для запуска Infiniti Scroll
+const onScroll = debounce(function () {
   const height = document.body.offsetHeight;
   const screenHeight = window.innerHeight;
 
@@ -69,8 +54,14 @@ function onScroll() {
       renderService.renderAllFilms(films);
     });
   }
+}, 1200);
 
-  window.removeEventListener('scroll', debounce(onScroll, 1500));
+//Отрисрвка популярных фильмов
+function getPopular() {
+  apiService.getPopularFilms().then(films => {
+    renderService.renderAllFilms(films);
+    window.addEventListener('scroll', onScroll);
+  });
 }
 
 function closeModal() {
@@ -78,64 +69,52 @@ function closeModal() {
   refs.body.style.overflow = 'visible';
   renderService.clearList();
 }
+// Функция поиска фильма в хедере
+function findFilm() {
+  apiService.query = refs.input.value.trim();
 
-function writeUserData(object) {
-  const db = getDatabase();
-  set(ref(db, `${Uid.uid}`), {
-    wathed: object,
-  });
-  // console.log(propFirebase.uid)
-}
+  if (apiService.query.length >= 2) {
+    window.removeEventListener('scroll', onScroll);
+    apiService.getFilmsByName().then(filmsArr => {
+      if (filmsArr.length === 0) {
+        return Notiflix.Notify.warning(
+          'Search result not successful. Enter the correct movie name',
+        );
+      }
 
-function writeUserData(queue) {
-  const db = getDatabase();
-  set(ref(db, `${Uid.uid}`), {
-    queue: queue,
-  });
-}
-
-function EscCloseModal(e) {
-  if (e.code === 'Escape') {
-    closeModal();
-    window.removeEventListener('keydown', EscCloseModal);
+      renderService.renderFinders(filmsArr);
+    });
   }
 }
 
-const openModal = (id, object, queue) => {
+// Отрисовка карточек героев в футере
+function getMembers() {
   refs.modal.classList.remove('hidden');
-  refs.body.style.overflow = 'hidden';
+  renderService.renderMembers();
+  const list = document.querySelector('.member-list');
+}
 
-  apiService.getFilmDetails(id).then(renderService.renderFilmDetails);
+function closeModal() {
+  document.body.style.overflow = 'auto';
+  document.body.style.position = 'static';
+  refs.modal.classList.add('hidden');
+  
+  renderService.clearList();
+}
 
-  window.addEventListener('keydown', EscCloseModal);
+function openModal(id) {
+  refs.modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden'
+  document.body.style.position = 'fixed';
 
-  refs.modal.addEventListener('click', e => {
-    if (e.target.dataset.action === 'close') {
-      closeModal();
-    }
+  apiService.getFilmDetails(id).then(data => {
+    renderService.renderFilmDetails(data);
 
-    if (e.target.dataset.action === 'addToLib') {
-      if (Uid.uid !== true) {
-        openAuthModal();
-        return;
-      }
+    const addToLibBtn = document.querySelector('[data-action="addToLib"]');
+    const addToQueBtn = document.querySelector('[data-action="addToQue"]');
 
-      const filmElem = document.querySelector('.film-details');
-
-      const obj = {
-        id: filmElem.id,
-        title: filmElem.querySelector('.about__title').innerText,
-        overview: filmElem.querySelector('.about__description--text').innerText,
-        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-        popularity: filmElem.querySelector('.popularity').innerText,
-      };
-      object = obj;
-
-      writeUserData(object);
-      console.log(Uid.uid);
-    }
-
-    if (e.target.dataset.action === 'addToQue') {
+    // Кнопка Library в модалке
+    addToLibBtn.addEventListener('click', () => {
       if (Uid.logIn !== true) {
         openAuthModal();
         return;
@@ -150,14 +129,37 @@ const openModal = (id, object, queue) => {
         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
         popularity: filmElem.querySelector('.popularity').innerText,
       };
-      queue = obj;
 
-      writeUserData(queue);
-      console.log(Uid);
+      addToLibrary(obj);
+    });
+
+    // Кнопка Queue в модалке
+      addToQueBtn.addEventListener('click', () => {
+              if (Uid.logIn !== true) {
+        openAuthModal();
+        return;
+      }
+      removeFilm(id);
+    });
+  });
+
+  function EscCloseModal(e) {
+    if (e.code === 'Escape') {
+      closeModal();
+      window.removeEventListener('keydown', EscCloseModal);
+    }
+  }
+
+  window.addEventListener('keydown', EscCloseModal);
+
+  refs.modal.addEventListener('click', e => {
+    if (e.target.dataset.action === 'close') {
+      closeModal();
     }
   });
-};
+}
 
+// Получение карточки фильма и открытие в модалке
 const getDetails = e => {
   if (e.target.nodeName === 'IMG') {
     const { id } = e.target.parentNode;
@@ -165,36 +167,24 @@ const getDetails = e => {
   }
 };
 
-const findFilm = debounce(() => {
-  apiService.query = refs.input.value.trim();
 
-  if (apiService.query.length >= 2) {
-    refs.list.innerHTML ='';
-    apiService.getFilmsByName().then(filmsArr => {
-      if (filmsArr.length === 0) {
-        return Notiflix.Notify.warning(
-          'Search result not successful. Enter the correct movie name',
-        );
-      }
-
-      renderService.renderAllFilms(filmsArr);
-    });
+// Переключение стилей хедера
+function onNaviListClick(e) {
+  if (e.target.textContent === 'Home') {
+    refs.headerMain.style.display = 'block';
+    refs.headerLib.style.display = 'none';
+  }
+  if (e.target.textContent === 'My library' && Uid.logIn === true) {
+    refs.headerMain.style.display = 'none';
+    refs.headerLib.style.display = 'block';
   }
 }, 500);
 
 function getMembers() {
-  refs.body.style.overflow = 'hidden';
   refs.modal.classList.remove('hidden');
   renderService.renderMembers();
   const list = document.querySelector('.member-list');
 }
-
-window.addEventListener('load', getPopular);
-refs.list.addEventListener('click', getDetails);
-refs.input.addEventListener('input', findFilm); 
-refs.inputButton.addEventListener('click', findFilm);
-
-refs.footerBtnModal.addEventListener('click', getMembers);
 
 function onNaviHomeClick() {
   refs.headerMain.style.display = 'none';
@@ -203,6 +193,12 @@ function onNaviHomeClick() {
 
 export { onNaviHomeClick };
 
+window.addEventListener('load', getPopular);
+refs.list.addEventListener('click', getDetails);
+refs.input.addEventListener('input', debounce(findFilm, 1200));
+refs.footerBtnModal.addEventListener('click', getMembers);
+refs.naviListMain.addEventListener('click', onNaviListClick);
+refs.naviListLib.addEventListener('click', onNaviListClick);
 refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
 refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick)
 
@@ -215,3 +211,4 @@ function onNaviLogoButtonClick (e) {
      refs.headerMain.style.display = "block";
     refs.headerLib.style.display = "none";
 }
+
