@@ -157,9 +157,12 @@
 .lib {
   background-color: $accent;
   color: $white-text-and-bg;
+  border: none;
   margin-right: 14px;
   padding-left: 8px;
   padding-right: 8px;
+  box-shadow: 0 -3px #cc5200 inset;
+  transition: 0.2s;
 }
 
 .queue {
@@ -167,6 +170,27 @@
   background-color: $white-text-and-bg;
   color: $secondary-text;
   padding: 14px 6px 12px 6px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 -3px #cccccc inset;
+  transition: 0.2s;
+}
+
+.lib:hover {
+  background-color: #e65c00;
+}
+
+.queue:hover {
+  background-color: #cccccc;
+}
+
+.lib:active {
+  background: #b34700;
+  box-shadow: 0 3px #b34700 inset;
+}
+
+.queue:active {
+  background: #999999;
+  box-shadow: 0 3px #999999 inset;
 }
 
 .close-btn {
