@@ -2,14 +2,21 @@
     <div class="header__container">
      <div class="navi__box">
       <div class="navi__logoblock">
-        <img src="../src/partials/img/film.svg" height="24" width="24" alt="Films icon">
-        <a class="navi__logo" href="">Filmoteka</a>
+        <button type="button" class="button-logo" data-action="main">
+          <img src="../src/partials/img/film.svg" height="24" width="24" alt="Films icon">
+          <p class="navi__logo" href="">Filmoteka</p>
+        </button>
       </div>
        <div class="navi__list" data-action="main">
          <button id="1"  type="button" class="navi__item navi__item--active" href="">Home</и>
          <button id="1" data-auth-modal-open type="button" class="navi__item" href="">My library</button>
        </div>
      </div>
-     <input class="input " type="text" placeholder="Поиск фильмов">  
+    <div class="input__case">
+      <input class="input " type="text" placeholder="Movie search">
+      <button type="button" class="button__search">
+         <img src="../src/partials/img/search 2.svg" alt="" width="16" height="16">
+      </button>  
+    </div>
    </div>    
 </header>
