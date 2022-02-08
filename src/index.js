@@ -89,12 +89,17 @@ function getMembers() {
 }
 
 function closeModal() {
+  document.body.style.overflow = 'auto';
+  document.body.style.position = 'static';
   refs.modal.classList.add('hidden');
+  
   renderService.clearList();
 }
 
 function openModal(id) {
   refs.modal.classList.remove('hidden');
+  document.body.style.overflow = 'hidden'
+  document.body.style.position = 'fixed';
 
   apiService.getFilmDetails(id).then(data => {
     renderService.renderFilmDetails(data);
