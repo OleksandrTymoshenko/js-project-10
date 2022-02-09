@@ -1,20 +1,13 @@
 .header-library__container {
-  /* display: none; */
+  
   width: 100vw;
   height: 230px;
-  padding-top: 45px;
-  padding-bottom: 45px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 0 auto;
+  
   background-image: linear-gradient($for-grad-header-lib, $for-grad-header-lib),
     url(../partials/img/Rectangle_lib_x1.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
-    padding-top: 40px;
-    padding-bottom: 100px;
-    padding-left: 75px;
-    padding-right: 75px;
+    
     background-image: linear-gradient($for-grad-header-lib, $for-grad-header-lib),
       url(../partials/img/Rectangle_lib_tabl_x1.jpg);
     @media screen and (min-width: $desktop) {
