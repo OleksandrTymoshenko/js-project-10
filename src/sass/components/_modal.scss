@@ -63,9 +63,9 @@
 }
 
 .img-thumb > img {
-    border-radius: 5px;
-    margin-right: auto;
-    margin-left: auto;
+  border-radius: 5px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .details {
@@ -188,4 +188,9 @@
 .close-btn:focus,
 .close-btn:hover {
   background-color: $accent;
+}
+
+.vis {
+  display: none;
+  opacity: 0;
 }
