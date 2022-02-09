@@ -1,5 +1,15 @@
 import { initializeApp } from 'firebase/app';
-import { ref, set, get, getDatabase, child, onValue, push, update } from 'firebase/database';
+import {
+  ref,
+  set,
+  get,
+  getDatabase,
+  child,
+  onValue,
+  push,
+  update,
+  remove,
+} from 'firebase/database';
 import { propFirebase } from './Auth';
 
 const firebaseConfig = {
@@ -56,4 +66,27 @@ export async function getArrayFromLibrary() {
     });
   });
   return filmsArr;
+}
+
+export async function removeFilm(id) {
+  const db = getDatabase();
+  const dbRef = ref(db, 'films');
+
+  onValue(
+    dbRef,
+    snapshot => {
+      snapshot.forEach(childSnapshot => {
+        const childKey = childSnapshot.key;
+        const childData = childSnapshot.val();
+        if (childData.id === id) {
+          console.log(childKey);
+          const childRef = ref(db, `films/${childKey}`);
+          remove(childRef);
+        }
+      });
+    },
+    {
+      onlyOnce: true,
+    },
+  );
 }
