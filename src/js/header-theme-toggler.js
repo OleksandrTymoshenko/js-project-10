@@ -45,11 +45,11 @@ refs.headerLib.style.display = 'none';
 
 // Переключение стилей хедера
 function onNaviListClick(e) {
-  if (e.target.textContent === 'Home') {
+  if (e.target.textContent.trim() === 'Home') {
     refs.headerMain.style.display = 'block';
     refs.headerLib.style.display = 'none';
   }
-  if (e.target.textContent === 'My library' && Uid.logIn === true) {
+  if (e.target.textContent.trim() === 'My library' && Uid.logIn) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
   }
