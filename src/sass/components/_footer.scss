@@ -1,7 +1,24 @@
 .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+} 
+
+.footer__wrapper {   
     padding-top: 29px;    
     padding-bottom: 29px;
-    background-color: $footer-bg;
+    background-color: $footer-bg; 
+    color: $secondary-text;
+
+    @media screen and (max-width: 767px) {
+        padding-top: 10px;
+        padding-bottom: 5px;
+    }
+
+    @media screen and (min-width: $tablet) and (max-width: 1023px) {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
 }
 .footer__info {
     width:100%;      
