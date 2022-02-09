@@ -1,20 +1,14 @@
-.header__container {
+.header__container-img {
    display: block; 
   width: 100vw;
   height: 230px;
-  padding-top: 45px;
-  padding-bottom: 45px;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin: 0 auto;
+  
   background-image: linear-gradient($for-grad-header, $for-grad-header),
     url(../partials/img/Rectangle_x1.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
-    padding-top: 40px;
-    padding-bottom: 100px;
-    padding-left: 75px;
-    padding-right: 75px;
+  
+
     background-image: linear-gradient($for-grad-header, $for-grad-header),
       url(../partials/img/Rectangle_tabl_x1.jpg);
     @media screen and (min-width: $desktop) {
@@ -24,13 +18,53 @@
   }
 }
 
+.header__container {
+  display: flexbox;
+ padding-top: 45px;
+ padding-bottom: 45px;
+ padding-left: 15px;
+ padding-right: 15px;
+ max-width: 500px;
+ margin-left:auto;
+ margin-right: auto;
+ justify-content: center;
+ 
+ 
+ @media screen and (min-width: $tablet) {
+ 
+  max-width: 993px; 
+  padding-top: 40px;
+  padding-bottom: 100px;
+
+  @media screen and (min-width: $desktop) {
+    max-width: 1200px; 
+   }
+ }
+}
+
 .navi__box {
   display: flex;
   justify-content: space-between;
+  
 }
 
 .navi__logoblock {
   display: flex;
+  @media screen and (min-width: $tablet) {
+  margin-left: 30px;
+  }
+  @media screen and (min-width: $desktop) {
+    margin-left: 60px;
+    }
+}
+
+.navi__list {
+  @media screen and (min-width: $tablet) {
+    margin-right: 30px;
+  }
+  @media screen and (min-width: $desktop) {
+    margin-right: 60px;
+  }
 }
 
 .navi__logo {
@@ -46,11 +80,14 @@
   }
 }
 
+
+
 .button-logo {
   background-color: transparent;
   display: flex;
   align-items: center;
 }
+
 .input__case {
   position:relative;
   width: 276px;
@@ -59,6 +96,7 @@
    @media screen and (min-width: $tablet) {
     width: 336px;
    }
+   
  
 }
 

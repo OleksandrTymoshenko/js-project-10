@@ -15,6 +15,7 @@ import {
   getDetails,
   renderMyFilms,
   renderMyQueue,
+  onNaviLogoButtonClick,
 } from './js/renderFunctions';
 
 const refs = {
@@ -24,8 +25,8 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
   naviListMain: document.querySelector('.navi__list[data-action="main"]'),
   naviListLib: document.querySelector('.navi__list[data-action="library"]'),
-  headerMain: document.querySelector('header[data-action="main"]'),
-  headerLib: document.querySelector('header[data-action="library"]'),
+   headerMain: document.querySelector('header[data-action="main"]'),
+  headerLib: document.querySelector('header[data-action="library"]'), 
   footer: document.querySelector('.footer__wrapper'),
   footerBtnModal: document.querySelector('.footer__team-button'),
   naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
@@ -73,15 +74,7 @@ refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick);
 refs.watchedBtn.addEventListener('click', renderMyFilms);
 refs.queueBtn.addEventListener('click', renderMyQueue);
 
-function onNaviLogoButtonClick(e) {
-  e.preventDefault;
-  refs.list.innerHTML = '';
-  refs.input.value = '';
-  apiService.resetPage();
-  getPopular();
-  refs.headerMain.style.display = 'block';
-  refs.headerLib.style.display = 'none';
-}
+
 
 function onbtnThemeModeClick() {
   itemTitle = document.querySelectorAll('.item__title');
