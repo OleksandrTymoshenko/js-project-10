@@ -119,11 +119,10 @@ export function openModal(id) {
     addToLibBtn.addEventListener('click', () => {
       if (Uid.logIn !== true) {
         openAuthModal();
-        
-        
+
         return;
       }
-      addToLibBtn.classList.toggle('vis')
+      addToLibBtn.classList.toggle('vis');
       removeToLibBtn.classList.toggle('vis');
       const filmElem = document.querySelector('.film-details');
 
