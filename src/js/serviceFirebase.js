@@ -1,6 +1,5 @@
 import { initializeApp } from 'firebase/app';
 import { ref, set, get, getDatabase, child, onValue, push, update } from 'firebase/database';
-import { remove } from 'lodash';
 import { propFirebase } from './Auth';
 
 const firebaseConfig = {
@@ -16,15 +15,9 @@ const Uid = propFirebase;
 
 const app = initializeApp(firebaseConfig);
 
-export function addToLibrary({ id, title, overview, path, popularity }) {
+export function addToLibrary({ id, title, path, genres }) {
   const db = getDatabase();
-  const filmData = {
-    id,
-    title,
-    overview,
-    path,
-    popularity,
-  };
+  const filmData = { id, title, path, genres };
 
   getIdsFromLibrary().then(data => {
     if (data.includes(filmData.id)) {
@@ -37,21 +30,6 @@ export function addToLibrary({ id, title, overview, path, popularity }) {
 
     return update(ref(db), updates);
   });
-}
-
-export async function getFilmsFromLibrary() {
-  const dbRef = ref(getDatabase());
-  await get(child(dbRef, `/films`))
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        console.log(snapshot.val());
-      } else {
-        console.log('No data available');
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
 }
 
 async function getIdsFromLibrary() {
@@ -67,7 +45,7 @@ async function getIdsFromLibrary() {
   return idsArr;
 }
 
-async function getArrayFromLibrary() {
+export async function getArrayFromLibrary() {
   const db = getDatabase();
   const dbRef = ref(db, '/films/');
   let filmsArr = [];
@@ -78,27 +56,4 @@ async function getArrayFromLibrary() {
     });
   });
   return filmsArr;
-}
-
-export function removeFilm(id) {
-  const db = getDatabase();
-  const dbRef = ref(db, '/films/');
-  // const findedFilmKey = push(child(ref(db), 'films')).key;
-  // const updates = {};
-  // updates['/films/' + newFilmKey] = filmData;
-
-  // return update(ref(db), updates);
-  onValue(dbRef, snapshot => {
-    snapshot.forEach(childSnapshot => {
-      const childData = childSnapshot.val();
-      const childKey = childSnapshot.key;
-
-      if (childData.id === id) {
-        const updates = {};
-        const finded = ref('/films/' + childKey);
-
-        remove(finded);
-      }
-    });
-  });
 }
