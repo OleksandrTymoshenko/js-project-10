@@ -110,14 +110,19 @@ export function openModal(id) {
 
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
+    const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
+    const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
 
     // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
       if (Uid.logIn !== true) {
         openAuthModal();
+        
+        
         return;
       }
-
+      addToLibBtn.classList.toggle('vis')
+      removeToLibBtn.classList.toggle('vis');
       const filmElem = document.querySelector('.film-details');
 
       const obj = {

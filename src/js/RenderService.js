@@ -119,7 +119,9 @@ export default class RenderService {
 
                     <div class="btn-block">
                         <button class="about__btn lib" data-action="addToLib">add to watched</button>
+                        <button class="about__btn lib vis" data-action="removeToLib">remove from watched</button>
                         <button class="about__btn queue" data-action="addToQue">add to queue</button>
+                        <button class="about__btn queue vis" data-action="removeToQue">remove from queue</button>
                     </div>
 
                 </div>
