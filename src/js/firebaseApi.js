@@ -1,8 +1,6 @@
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { openSignInForm } from './auth-modal'
-import { onNaviHomeClick } from '../index';
 export default class FirebaseClass {
 
     constructor( logIn = false, email, password, uid) {
@@ -33,7 +31,6 @@ export default class FirebaseClass {
             Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
             this.logIn = true;
             this.uid = result.user.uid;
-            onNaviHomeClick();
             return;
             }).catch((error) => {
             if (error.code === 'auth/wrong-password') {
@@ -59,7 +56,6 @@ export default class FirebaseClass {
                 Notiflix.Notify.success('Вы вошли в свой аккаунт')
                 this.logIn = true;
                 this.uid = result.user.uid;
-                onNaviHomeClick();
 
             }).catch((error) => {
                 // Handle Errors here.

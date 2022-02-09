@@ -55,13 +55,6 @@ function onNaviListClick(e) {
   }
 }
 
-function onNaviHomeClick() {
-  refs.headerMain.style.display = 'none';
-  refs.headerLib.style.display = 'block';
-}
-
-export { onNaviHomeClick };
-
 window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
 refs.input.addEventListener('input', debounce(findFilm, 1200));
