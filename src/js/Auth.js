@@ -47,8 +47,6 @@ async function registration(e) {
     const password = e.currentTarget.elements.passwordReg.value;
     await propFirebase.createUser(email, password)
     refs.regForm.reset();
-    // openRegForm()
-    // closeModal();
     openSignInForm()
     
 }
@@ -63,7 +61,6 @@ async function signInAccount(e) {
         refs.openModalBtn.removeEventListener('click', openModal)
         return;
     }
-    Notiflix.Notify.warning('Вы не вошли в аккаунт')
     openModal()
 }
 
