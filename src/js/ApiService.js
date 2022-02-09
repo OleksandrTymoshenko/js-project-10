@@ -13,14 +13,6 @@ export default class ApiService {
     return this.searchQuery;
   }
 
-  get currentPage() {
-    return this.page;
-  }
-
-  set currentPage(nextPage) {
-    this.page = nextPage;
-  }
-
   incrementPage() {
     this.page += 1;
   }
@@ -56,4 +48,3 @@ export default class ApiService {
       .catch(error => console.error(error));
   }
 }
-

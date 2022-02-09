@@ -9,8 +9,27 @@ import { refs } from './auth-modal';
 export default class RenderService {
   constructor() {}
 
+  renderFromLibrary(filmsArr) {
+    list.innerHTML = '';
+    const markup = filmsArr
+      .map(({ id, title, path, genres }) => {
+        return `
+                    <li class="list__item" id=${id}>
+                        
+                        <img class="item__img" src=${path} alt="poster" width="396"> 
+        
+                        <p class="item__title">${title}</p>
+                        <p class="item__genre">${genres}</p>
+                    </li>
+                `;
+      })
+      .join('');
+
+    list.insertAdjacentHTML('afterbegin', markup);
+  }
+
   renderFinders(filmArray) {
-    this.clearGalleryList();
+    list.innerHTML = '';
     const markup = filmArray
       .map(({ id, title, poster_path, genre_ids, release_date }) => {
         const imagePath =
@@ -88,7 +107,7 @@ export default class RenderService {
                             <p class="details__name"><span class="vote">${vote_average}</span> / ${vote_count}<p>
                             <p class="details__name popularity">${popularity}<p>
                             <p class="details__name">${upperTitle}<p>
-                            <p class="details__name">${genresFilm}<p>
+                            <p class="details__name genres">${genresFilm}<p>
                         </div>
                     </div>
 
@@ -168,6 +187,9 @@ export default class RenderService {
 
     const btn = document.querySelector('.close-btn');
     btn.addEventListener('click', () => {
+      document.body.style.overflow = 'auto';
+      document.body.style.position = 'static';
+
       modal.classList.add('hidden');
       modal.classList.remove('footer__modal');
       modal.classList.add('modal');
