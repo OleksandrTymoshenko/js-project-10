@@ -58,7 +58,18 @@ export function getPopular() {
 }
 
 export function renderMyFilms() {
-  getArrayFromLibrary().then(renderService.renderFromLibrary);
+  getArrayFromLibrary().then(arr => {
+    window.removeEventListener('scroll', onScroll);
+    renderService.renderFromLibrary(arr);
+  });
+}
+
+export function renderMyQueue() {
+  getArrayFromLibrary().then(arr => {
+    window.removeEventListener('scroll', onScroll);
+    const queue = arr.reverse();
+    renderService.renderFromLibrary(queue);
+  });
 }
 
 // Функция поиска фильма в хедере

@@ -8,7 +8,14 @@ import './js/loader.js';
 const apiService = new ApiService();
 const renderService = new RenderService();
 import './js/btn-up.js';
-import { getPopular, findFilm, getMembers, getDetails, renderMyFilms } from './js/renderFunctions';
+import {
+  getPopular,
+  findFilm,
+  getMembers,
+  getDetails,
+  renderMyFilms,
+  renderMyQueue,
+} from './js/renderFunctions';
 
 const refs = {
   input: document.querySelector('.input'),
@@ -23,18 +30,16 @@ const refs = {
   footerBtnModal: document.querySelector('.footer__team-button'),
   naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
   naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
-
   btnThemeMode: document.querySelector('.theme__switcher'),
   btnBackToTop: document.querySelector('.back_to_top'),
   watchedBtn: document.querySelector('.watched'),
+  queueBtn: document.querySelector('.queue'),
 };
 
 const Uid = propFirebase;
 
 refs.headerLib.style.display = 'none';
 let itemTitle = '';
-refs.naviListMain.addEventListener('click', onNaviListClick);
-refs.naviListLib.addEventListener('click', onNaviListClick);
 
 refs.headerLib.style.display = 'none';
 
@@ -66,6 +71,7 @@ refs.naviListLib.addEventListener('click', onNaviListClick);
 refs.naviLogoButtonMain.addEventListener('click', onNaviLogoButtonClick);
 refs.naviLogoButtonLibrary.addEventListener('click', onNaviLogoButtonClick);
 refs.watchedBtn.addEventListener('click', renderMyFilms);
+refs.queueBtn.addEventListener('click', renderMyQueue);
 
 function onNaviLogoButtonClick(e) {
   e.preventDefault;
