@@ -1,4 +1,3 @@
-import './auth-modal.js';
 import { debounce } from 'lodash';
 import ApiService from './ApiService';
 import RenderService from './RenderService';
@@ -8,25 +7,13 @@ import { openModal as openAuthModal } from './auth-modal';
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
-import './btn-up.js';
-import { addToLibrary, getArrayFromLibrary } from './serviceFirebase';
+import { addToLibrary, getArrayFromLibrary, removeFilm } from './serviceFirebase';
 
 const refs = {
   input: document.querySelector('.input'),
   inputButton: document.querySelector('.button__search'),
   list: document.querySelector('.list'),
   modal: document.querySelector('[data-modal]'),
-  naviListMain: document.querySelector('.navi__list[data-action="main"]'),
-  naviListLib: document.querySelector('.navi__list[data-action="library"]'),
-  headerMain: document.querySelector('header[data-action="main"]'),
-  headerLib: document.querySelector('header[data-action="library"]'),
-  footer: document.querySelector('.footer__wrapper'),
-  footerBtnModal: document.querySelector('.footer__team-button'),
-  naviLogoButtonMain: document.querySelector('.button-logo[data-action="main"]'),
-  naviLogoButtonLibrary: document.querySelector('.button-logo[data-action="library"]'),
-
-  btnThemeMode: document.querySelector('.theme__switcher'),
-  btnBackToTop: document.querySelector('.back_to_top'),
 };
 
 const Uid = propFirebase;
@@ -80,9 +67,8 @@ export function findFilm() {
     window.removeEventListener('scroll', onScroll);
     apiService.getFilmsByName().then(filmsArr => {
       if (filmsArr.length === 0) {
-        return Notiflix.Notify.warning(
-          'Search result not successful. Enter the correct movie name',
-        );
+        Notiflix.Notify.warning('Search result not successful. Enter the correct movie name');
+        return;
       }
 
       renderService.renderFinders(filmsArr);
@@ -150,7 +136,17 @@ export function openModal(id) {
         openAuthModal();
         return;
       }
-      getArrayFromLibrary().then(console.log);
+
+      const filmElem = document.querySelector('.film-details');
+
+      const obj = {
+        id: filmElem.id,
+        title: filmElem.querySelector('.about__title').innerText,
+        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+        genres: filmElem.querySelector('.genres').innerText,
+      };
+
+      removeFilm(obj.id);
     });
   });
 
