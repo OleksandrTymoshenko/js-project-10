@@ -78,7 +78,7 @@ function onNaviLogoButtonClick(e) {
   refs.list.innerHTML = '';
   refs.input.value = '';
   apiService.resetPage();
-  getPopular();
+  apiService.getPopularFilms().then(renderService.renderAllFilms);
   refs.headerMain.style.display = 'block';
   refs.headerLib.style.display = 'none';
 }
