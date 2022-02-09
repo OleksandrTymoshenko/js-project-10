@@ -163,7 +163,16 @@ export function openModal(id) {
       closeModal();
     }
   });
+
+  refs.modal.addEventListener('click', backdropClick);
+
+  function backdropClick(e) {
+  if (e.currentTarget === e.target) {
+    closeModal();
+    }
+  }
 }
+
  export function onNaviLogoButtonClick(e) {
   e.preventDefault;
   refs.list.innerHTML = '';
