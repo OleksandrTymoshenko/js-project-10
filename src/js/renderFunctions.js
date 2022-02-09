@@ -156,13 +156,6 @@ export function openModal(id) {
     });
   });
 
-  function EscCloseModal(e) {
-    if (e.code === 'Escape') {
-      closeModal();
-      window.removeEventListener('keydown', EscCloseModal);
-    }
-  }
-
   window.addEventListener('keydown', EscCloseModal);
 
   refs.modal.addEventListener('click', e => {
@@ -180,3 +173,10 @@ export function openModal(id) {
   refs.headerMain.style.display = 'block';
   refs.headerLib.style.display = 'none';
 }
+
+export function EscCloseModal(e) {
+    if (e.code === 'Escape') {
+      closeModal();
+      window.removeEventListener('keydown', EscCloseModal);
+    }
+  }
