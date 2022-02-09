@@ -14,6 +14,8 @@ const refs = {
   inputButton: document.querySelector('.button__search'),
   list: document.querySelector('.list'),
   modal: document.querySelector('[data-modal]'),
+  headerMain: document.querySelector('header[data-action="main"]'),
+  headerLib: document.querySelector('header[data-action="library"]'),
 };
 
 const Uid = propFirebase;
@@ -168,4 +170,13 @@ export function openModal(id) {
       closeModal();
     }
   });
+}
+ export function onNaviLogoButtonClick(e) {
+  e.preventDefault;
+  refs.list.innerHTML = '';
+  refs.input.value = '';
+  apiService.resetPage()
+  apiService.getPopularFilms().then(renderService.renderAllFilms)
+  refs.headerMain.style.display = 'block';
+  refs.headerLib.style.display = 'none';
 }
