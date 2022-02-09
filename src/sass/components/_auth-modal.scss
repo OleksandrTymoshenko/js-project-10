@@ -1,8 +1,19 @@
+body.modal-open {
+  // height: 100vh;
+  overflow-y: hidden;
+}
+
 .hide {
   display: none;
 }
 
-.auth-modal__backdrop {
+.form {
+  height: 290px;
+}
+
+.auth-modal__backdrop,
+.terms-modal__backdrop {
+  z-index: 9999;
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +31,16 @@
   }
 }
 
-.auth-modal__backdrop.visually-hidden {
+.terms-modal__backdrop {
+  z-index: 99999;
+
+  @media screen and (max-width: $tablet) {
+    padding: 5px;
+  }
+}
+
+.auth-modal__backdrop.visually-hidden,
+.terms-modal__backdrop.visually-hidden {
   opacity: 0;
   pointer-events: none;
 
@@ -30,7 +50,7 @@
 
   @media screen and (min-width: $tablet) {
     .auth-modal {
-      transform: translate(-50%, -30%) scale(1.1);
+      transform: translate(-50%, -50%) scale(1.1);
     }
   }
 
@@ -41,7 +61,8 @@
   }
 }
 
-.auth-modal {
+.auth-modal,
+.terms-modal {
   position: relative;
   display: block;
   padding: 40px;
@@ -53,6 +74,8 @@
 
   transform: scale(1);
   min-height: 300px;
+  max-width: 450px;
+  margin: 0 auto;
 
   transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -60,8 +83,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%) scale(1);
-    width: 450px;
+    transform: translate(-50%, -50%) scale(1);
+    max-width: none;
+    width: 480px;
   }
 
   @media screen and (min-width: $desktop) {
@@ -70,24 +94,21 @@
   }
 }
 
+.terms-modal {
+  padding: 5px;
+  width: 850px;
+  height: 700px;
+  max-width: 100%;
+}
+
+.terms {
+  width: 100%;
+  height: 100%;
+}
+
 .auth-modal__btn-close {
-  position: absolute;
   top: 8px;
   right: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  width: 30px;
-  color: #000000;
-  background-color: #ffffff;
-
-  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover,
-  &:focus {
-    color: $accent;
-  }
 }
 
 .auth-modal__form-icon {
@@ -118,7 +139,7 @@
 }
 
 .auth-modal__header {
-  background: #eee;
+  background: #eeeeee;
   margin-bottom: 30px;
   overflow: hidden;
   border-radius: 3px 3px 0 0;
@@ -130,25 +151,29 @@
   width: 50%;
   padding: 0;
   text-align: center;
-  background: #ddd;
-  color: #999;
+  background: #dddddd;
+  color: #999999;
   height: 73px;
   line-height: 73px;
 
   &.active {
-    background: #fff;
-    color: #777;
+    background: #ffffff;
+    color: #777777;
   }
 }
 
 .auth-modal__footer {
   overflow: hidden;
   margin-top: 30px;
+
+  [data-auth-modal-signin-form] & {
+    margin-top: 64px;
+  }
 }
 
 .auth-modal__footer-button {
   background: $accent;
-  color: white;
+  color: #ffffff;
   margin: 0;
   border: 0;
   width: 50%;
@@ -161,7 +186,7 @@
 
   &:nth-child(1) {
     border-radius: 3px 0 0 3px;
-    background: #aaa;
+    background: #aaaaaa;
   }
 
   &:nth-child(2) {
@@ -169,15 +194,17 @@
   }
 
   &:disabled {
-    opacity: 0.8;
+    opacity: 0.4;
+    color: #aaaaaa;
   }
 }
 
 .auth-modal__checkbox {
   display: flex;
   margin-top: 20px;
-  color: #777;
+  color: #777777;
   align-items: center;
+  font-size: 12px;
 
   & input {
     margin-right: 10px;
@@ -200,7 +227,7 @@
 }
 
 .auth-modal__google,
-.auth-modal__facebook {
+.auth-modal__google-reg {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -210,22 +237,11 @@
   border-radius: 3px;
 }
 
-.auth-modal__google {
+.auth-modal__google,
+.auth-modal__google-reg {
   border-color: #4285f4;
   color: #4285f4;
   margin-bottom: 10px;
-}
-
-.auth-modal__facebook {
-  color: #ffffff;
-  background-color: #3b5998;
-  border-color: #3b5998;
-}
-
-.facebook-icon {
-  fill: #ffffff;
-  margin-right: 10px;
-  margin-left: 10px;
 }
 
 .google-icon {
@@ -240,4 +256,26 @@
   color: #777;
   margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.auth-modal__form-container {
+  position: relative;
+}
+
+.auth-modal__form-sign-eye {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 73px;
+  right: 20px;
+}
+
+.auth-modal__form-reg-eye {
+  background-color: #fff;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 73px;
+  right: 20px;
 }

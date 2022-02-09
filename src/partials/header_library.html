@@ -1,18 +1,22 @@
 <header class="header" data-action="library">
-    <div class="header-library__container">
-     <div class="navi__box">
+  <div class="header-library__container">
+    <div class="navi__box">
       <div class="navi__logoblock">
-        <img src="../src/partials/img/film.svg" height="24" width="24" alt="Films icon">
-        <a class="navi__logo" href="">Filmoteka</a>
+        <button type="button" class="button-logo" data-action="library">
+          <img src="../src/partials/img/film.svg" height="24" width="24" alt="Films icon" />
+          <p class="navi__logo" href="">Filmoteka</p>
+        </button>
       </div>
-       <div class="navi__list" data-action="library">
-         <button  type="button" class="navi__item" href="">Home</button>
-         <button  type="button" class="navi__item  navi__item--active" href="">My library</button>
-       </div>
-     </div>
-     <div class="navi__buttons">
-         <button type="button" class="navi__button">Watched</button>
-         <button type="button" class="navi__button">Queue</button>
-     </div>
-   </div>    
+      <div class="navi__list" data-action="library">
+        <button id="2" type="button" class="navi__item" href="">Home</button>
+        <button id="2" type="button" class="navi__item navi__item--active" href="">
+          My library
+        </button>
+      </div>
+    </div>
+    <div class="navi__buttons">
+      <button type="button" class="navi__button watched">Watched</button>
+      <button type="button" class="navi__button queue">Queue</button>
+    </div>
+  </div>
 </header>

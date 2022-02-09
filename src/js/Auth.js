@@ -1,11 +1,10 @@
 import { initializeApp } from "firebase/app";
-// import Notiflix from 'notiflix';
-// import { Notify } from 'notiflix/build/notiflix-notify-aio';
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import FirebaseClass from "./firebaseApi";
+import { refs, closeModal, openModal, openSignInForm } from './auth-modal';
+import Notiflix from "notiflix";
+import { ref } from "firebase/database";
 
-const propFiebase = new FirebaseClass;
-import refs from './auth-modal';
+const propFirebase = new FirebaseClass;
 const firebaseConfig = {
     apiKey: "AIzaSyCqVUBbVgMQVw7F0Ui6UZiRCfFX4vTUtNU",
     authDomain: "fir-8926a.firebaseapp.com",
@@ -17,26 +16,80 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-refs.refs.regForm.addEventListener('submit', registration);
-refs.refs.signInForm.addEventListener('submit', signInAccount)
+refs.regForm.addEventListener('submit', registration);
+refs.signInForm.addEventListener('submit', signInAccount)
+refs.signWithGoogle.addEventListener('click', signWithGoogl)
+refs.signWithGoogleReg.addEventListener('click', signWithGooglReg)
+refs.eyeBtnSignPassword.addEventListener('click', eyeSignPassword)
+refs.eyeBtnRegPassword.addEventListener('click', eyeRegPassword)
+
+function eyeSignPassword() {
+    const typeSign = refs.inputPasswordSignin;
+    if (typeSign.getAttribute('type') === 'password') {
+        typeSign.setAttribute('type', 'text');
+    } else {
+ typeSign.setAttribute('type', 'password')
+    }
+}
+
+function eyeRegPassword() {
+    const typeReg = refs.inputPasswordReg;
+    if (typeReg.getAttribute('type') === 'password') {
+        typeReg.setAttribute('type', 'text');
+    } else {
+ typeReg.setAttribute('type', 'password')
+    }
+}
 
 async function registration(e) {
     e.preventDefault();
     const email = e.currentTarget.elements.email.value;
-    const password = e.currentTarget.elements.password.value;
-    await propFiebase.createUser(email, password)
-
+    const password = e.currentTarget.elements.passwordReg.value;
+    await propFirebase.createUser(email, password)
+    refs.regForm.reset();
+    // openRegForm()
+    // closeModal();
+    openSignInForm()
+    
 }
 
 async function signInAccount(e) {
     e.preventDefault();
     const email = e.currentTarget.elements.email.value;
-    const password = e.currentTarget.elements.password.value;
-    await propFiebase.signUserInAccount(email, password);
+    const password = e.currentTarget.elements.passwordSign.value;
+    await propFirebase.signUserInAccount(email, password);
+    if (propFirebase.logIn) {
+        closeModal();
+        refs.openModalBtn.removeEventListener('click', openModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
 }
-// console.log(refs.refs.signWithGoogle)
-// refs.refs.signWithGoogle.addEventListener('submit', signWithGoogl)
 
-// async function signWithGoogl() {
-//     await propFiebase.signUserInAccountWithGoogle();
-// }
+async function signWithGoogl(e) {
+    e.preventDefault();
+    await propFirebase.signUserInAccountWithGoogle();
+    if (propFirebase.logIn) {
+    closeModal();
+        refs.openModalBtn.removeEventListener('click', openModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
+
+}
+
+async function signWithGooglReg(e) {
+    e.preventDefault();
+    await propFirebase.signUserInAccountWithGoogle();
+    if (propFirebase.logIn) {
+    closeModal();
+        refs.openModalBtn.removeEventListener('click', openModal)
+        return;
+    }
+    Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    openModal()
+}
+
+export { propFirebase }

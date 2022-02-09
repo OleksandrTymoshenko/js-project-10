@@ -29,7 +29,7 @@
     font-size: 14px;    
     font-weight: 400;    
     line-height: 1.17;    
-    color: $secondary-text;    
+    color: inherit;    
     
     @media screen and (min-width: $tablet) {
         flex-direction: row;        
@@ -79,10 +79,10 @@
 
 .footer__team-button{    
     margin-left: 5px;
-    color: $secondary-text;    
+    color: inherit;    
     text-decoration: underline;  
     border: none;
-    background-color: $footer-bg;
+    background-color: inherit;
     text-align: center;
     cursor: pointer;
 
@@ -111,9 +111,9 @@
         height: 100%;
     }
 
-    // @media screen and (min-width: $tablet) {
-    //     padding: 40px 20px 40px 20px;
-    // }
+    @media screen and (min-width: $desktop) {
+        padding: 0;
+    }
 }
 
 .footer__modal-wrapper {
@@ -125,7 +125,7 @@
 
     @media screen and (min-width: $tablet) {
         flex-direction: row;
-        padding: 40px 30px 20px 30px;
+        padding: 40px 30px 40px 30px;
     }
 
     @media screen and (min-width: $desktop) {
@@ -255,17 +255,6 @@
 }
 
 .socials-item:not(:first-child) {
-    margin-left: 5px;
+    margin-left: 15px;
 }
-
-.socials-linkedin {
-    color: rgb(40, 115, 255);
-}
-
-.socials-github {
-    color: rgb(88, 88, 88);
-}
-
-.socials-telegram {
-    color: rgb(0, 75, 160);
-}
+// comment
