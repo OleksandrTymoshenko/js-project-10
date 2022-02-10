@@ -16,18 +16,17 @@
     }
   }
 }
-
-.user-registration-plus {
+.mode-buttons {
   position: absolute;
   z-index: 1;
-  top: 45px;
-  right: 20px;
-  cursor: pointer;
+  top:9px;
+  right: 5px;
+}
+
+.user-registration-plus {
+  cursor: pointer; 
   fill: white;
-  @media screen and (max-width: 350px) {
-    top: 15px;
-    right: 15px;
-  }
+
 }
 
 .hide {
@@ -35,49 +34,37 @@
 }
 
 .user-registration-check {
-  position: absolute;
-  z-index: 1;
-  top: 45px;
-  right: 20px;
   cursor: pointer;
   fill: green;
-  @media screen and (max-width: 350px) {
-    top: 15px;
-    right: 15px;
-  }
+
 }
 
 .user-registration-minus {
-  position: absolute;
-  z-index: 1;
-  top: 45px;
-  right: 20px;
+
   cursor: pointer;
   fill: red;
-  @media screen and (max-width: 350px) {
-    top: 15px;
-    right: 15px;
-  }
+
 }
 
 .header__container {
   display: flexbox;
   padding-top: 45px;
   padding-bottom: 45px;
-  padding-left: 15px;
-  padding-right: 15px;
-  max-width: 500px;
+ 
+  max-width: 290px;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
 
   @media screen and (min-width: $tablet) {
-    max-width: 993px;
+    max-width: 738px;
     padding-top: 40px;
     padding-bottom: 100px;
+    padding-left: 19px;
+    padding-right: 19px;
 
     @media screen and (min-width: $desktop) {
-      max-width: 1200px;
+      max-width: 994px;
     }
   }
 }
@@ -90,19 +77,19 @@
 .navi__logoblock {
   display: flex;
   @media screen and (min-width: $tablet) {
-    margin-left: 30px;
+    margin-left: 18px;
   }
   @media screen and (min-width: $desktop) {
-    margin-left: 60px;
+    margin-left: 7px;
   }
 }
 
 .navi__list {
   @media screen and (min-width: $tablet) {
-    margin-right: 30px;
+  margin-right: 18px;
   }
   @media screen and (min-width: $desktop) {
-    margin-right: 60px;
+    margin-right: 7px;
   }
 }
 
