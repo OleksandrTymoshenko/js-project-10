@@ -1,6 +1,7 @@
 import Notiflix from 'notiflix';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth,setPersistence,browserSessionPersistence, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 export default class FirebaseClass {
 
     constructor( logIn = false, email, password, uid) {
@@ -28,20 +29,36 @@ export default class FirebaseClass {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
 
-            Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
-            this.logIn = true;
-            this.uid = result.user.uid;
-            return;
-            }).catch((error) => {
-            if (error.code === 'auth/wrong-password') {
-                Notiflix.Notify.warning('Неверный пароль');
+                    Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+                    this.logIn = true;
+                    this.uid = result.user.uid;
+                    return;
+                }).catch((error) => {
+                    if (error.code === 'auth/wrong-password') {
+                        Notiflix.Notify.warning('Неверный пароль');
                 
-            } else {
-                console.log(error);
-                Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
-            }
-        });
-    }
+                    } else {
+                        console.log(error);
+                        Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
+                    }
+                })
+}
+    //     await signInWithEmailAndPassword(auth, email, password).then((result) => {
+
+    //         Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+    //         this.logIn = true;
+    //         this.uid = result.user.uid;
+    //         return;
+    //         }).catch((error) => {
+    //         if (error.code === 'auth/wrong-password') {
+    //             Notiflix.Notify.warning('Неверный пароль');
+                
+    //         } else {
+    //             console.log(error);
+    //             Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
+    //         }
+    //     });
+    // }
 
     async signUserInAccountWithGoogle() {
         const provider = new GoogleAuthProvider();

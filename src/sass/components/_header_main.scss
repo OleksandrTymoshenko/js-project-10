@@ -17,6 +17,49 @@
   }
 }
 
+.user-registration-plus {
+  position: absolute;
+  z-index: 2;
+  top: 45px;
+  right: 20px;
+  cursor: pointer;
+  fill: white;
+  @media screen and (max-width: 350px) {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.user-registration-check {
+  position: absolute;
+  z-index: 2;
+  top: 45px;
+  right: 20px;
+  cursor: pointer;
+  fill: green;
+  @media screen and (max-width: 350px) {
+    top: 15px;
+    right: 15px;
+  }
+}
+
+.user-registration-minus {
+  position: absolute;
+  z-index: 2;
+  top: 45px;
+  right: 20px;
+  cursor: pointer;
+  fill: red;
+  @media screen and (max-width: 350px) {
+    top: 15px;
+    right: 15px;
+  }
+}
+
 .header__container {
   display: flexbox;
   padding-top: 45px;
@@ -27,6 +70,7 @@
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
+
   @media screen and (min-width: $tablet) {
     max-width: 993px;
     padding-top: 40px;

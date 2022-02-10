@@ -16,6 +16,7 @@ import {
   renderMyFilms,
   renderMyQueue,
 } from './renderFunctions';
+import { openModal } from './auth-modal';
 
 const refs = {
   input: document.querySelector('.input'),
@@ -50,11 +51,15 @@ function onNaviListClick(e) {
   if (e.target.textContent.trim() === 'Home') {
     refs.headerMain.style.display = 'block';
     refs.headerLib.style.display = 'none';
+    return;
   }
-  if (e.target.textContent.trim() === 'My library' && Uid.logIn) {
+  if (e.target.textContent.trim() === 'My library' && localStorage.getItem('User')) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
+    return;
   }
+  openModal();
+
 }
 // getPopular()
 window.addEventListener('load', getPopular);
