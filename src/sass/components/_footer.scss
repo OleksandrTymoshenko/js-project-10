@@ -384,9 +384,9 @@
             display: block;
         }
     }
-    @media screen and (min-width: $tablet) {
-    height: 365px;
-    }
+    // @media screen and (min-width: $tablet) {
+    // height: 365px;
+    // }
     @media screen and (min-width: $tablet) and (max-width: 1023px) {
         height: 340px;
     }
