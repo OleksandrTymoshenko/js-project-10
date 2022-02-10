@@ -116,8 +116,14 @@ export function openModal(id) {
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
 
-    let idsArr = localSaver.getWatchedIds() ?? [];
-    let queueIdsArr = localSaver.getQueueIds() ?? [];
+    let idsArr = localSaver.getWatchedIds();
+    if (!idsArr) {
+      idsArr = [];
+    }
+    let queueIdsArr = localSaver.getQueueIds();
+    if (!queueIdsArr) {
+      queueIdsArr = [];
+    }
 
     if (idsArr.includes(id)) {
       addToLibBtn.textContent = 'DELETE FROM WATCHED';
@@ -133,9 +139,6 @@ export function openModal(id) {
       addToQueBtn.textContent = 'ADD TO QUEUE';
     }
 
-    // const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
-    // const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
-
     // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
       if (!localStorage.getItem('User')) {
@@ -143,8 +146,7 @@ export function openModal(id) {
 
         return;
       }
-      // addToLibBtn.classList.toggle('vis');
-      // removeToLibBtn.classList.toggle('vis');
+
       const filmElem = document.querySelector('.film-details');
 
       const obj = {
