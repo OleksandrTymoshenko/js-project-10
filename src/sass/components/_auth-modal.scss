@@ -132,6 +132,10 @@ body.modal-open {
 
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
+  &.dark {
+    border-color: #999999;
+  }
+
   &:focus {
     outline: none;
     border-color: $accent;
@@ -155,10 +159,24 @@ body.modal-open {
   color: #999999;
   height: 73px;
   line-height: 73px;
+  // border-color: #ffffff;
+
+  &.dark {
+    background: #333333;
+    color: #ffffff;
+    // border-color: #1f2026;
+  }
 
   &.active {
     background: #ffffff;
     color: #777777;
+    // border-color: #ffffff;
+  }
+
+  &.dark--active {
+    background: #1f2026;
+    color: #ffffff;
+    // border-color: #1f2026;
   }
 }
 
