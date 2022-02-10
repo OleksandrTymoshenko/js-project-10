@@ -16,9 +16,9 @@ export default class FirebaseClass {
         await createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
-                Notiflix.Notify.success('Поздравляем! Вы успешно зарегистрированы на нашем сайте:)')
+                Notiflix.Notify.success('Welcome')
                 Notiflix.Notify.merge({
- position: 'center-top',
+                position: 'center-top',
 });
 
             })
@@ -33,48 +33,37 @@ export default class FirebaseClass {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
 
-            Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+
+            Notiflix.Notify.success(`Welcome ${email}`);
             Notiflix.Notify.merge({
- position: 'center-top',
+            position: 'center-top',
 });
+
 
                     this.logIn = true;
                     this.uid = result.user.uid;
-                    return;
+                    
                 }).catch((error) => {
                     if (error.code === 'auth/wrong-password') {
-                        Notiflix.Notify.warning('Неверный пароль');
+
+                        Notiflix.Notify.warning('Invalid password');
+                        return;
+                    } else {
+                        console.log(error);
+                        Notiflix.Notify.warning('Something is wrong');
                         Notiflix.Notify.merge({
- position: 'center-top',
+                     position: 'center-top',
 });
 
                 
                     } else {
                         console.log(error);
-                        Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
                         Notiflix.Notify.merge({
- position: 'center-top',
+                     position: 'center-top',
 });
-
-                    }
+                   }
                 })
 }
-    //     await signInWithEmailAndPassword(auth, email, password).then((result) => {
-
-    //         Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
-    //         this.logIn = true;
-    //         this.uid = result.user.uid;
-    //         return;
-    //         }).catch((error) => {
-    //         if (error.code === 'auth/wrong-password') {
-    //             Notiflix.Notify.warning('Неверный пароль');
-                
-    //         } else {
-    //             console.log(error);
-    //             Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
-    //         }
-    //     });
-    // }
 
     async signUserInAccountWithGoogle() {
         const provider = new GoogleAuthProvider();
@@ -86,9 +75,9 @@ export default class FirebaseClass {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                Notiflix.Notify.success('Вы вошли в свой аккаунт')
+                Notiflix.Notify.success('Welcome')
                 Notiflix.Notify.merge({
- position: 'center-top',
+                position: 'center-top',
 });
 
                 this.logIn = true;

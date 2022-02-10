@@ -16,6 +16,28 @@
   }
 }
 
+// .hide {
+//   display: none;
+// }
+
+.user-registration-check-lib {
+  cursor: pointer;
+  fill: green;
+  position: absolute;
+  z-index: 1;
+  top: 9px;
+  right: 5px;
+}
+
+.user-registration-minus-lib {
+  cursor: pointer;
+  fill: red;
+  position: absolute;
+  z-index: 1;
+  top: 9px;
+  right: 5px;
+}
+
 .navi__buttons {
   margin-top: 48px;
   display: flex;
