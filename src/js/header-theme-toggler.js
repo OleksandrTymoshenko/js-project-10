@@ -53,6 +53,7 @@ function onNaviListClick(e) {
   if (e.target.textContent.trim() === 'Home') {
     refs.headerMain.style.display = 'block';
     refs.headerLib.style.display = 'none';
+    window.location.reload();
     return;
   }
   if (e.target.textContent.trim() === 'My library' && localStorage.getItem('User')) {
