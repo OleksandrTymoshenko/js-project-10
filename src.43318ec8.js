@@ -79,4 +79,4 @@ document.addEventListener("DOMContentLoaded",()=>{let e=document.querySelector("
 },{"../sass/main.scss":"clu1","./auth-modal.js":"TOav","lodash":"B1iE","./ApiService":"sjSB","./RenderService":"oIeD","./Auth":"z12n","./loader.js":"vQE2","./btn-up.js":"mWWP","./renderFunctions":"tMTp","./auth-modal":"TOav"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/renderFunctions"),require("./js/header-theme-toggler");
 },{"./sass/main.scss":"clu1","./js/renderFunctions":"tMTp","./js/header-theme-toggler":"K4Gn"}]},{},["Focm"], null)
-//# sourceMappingURL=/js-project-10/src.63bfcd55.js.map
+//# sourceMappingURL=/js-project-10/src.43318ec8.js.map
