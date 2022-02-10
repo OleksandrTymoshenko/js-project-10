@@ -156,19 +156,20 @@
   }
 }
 
-.lib {
-  background-color: $accent;
-  color: $white-text-and-bg;
-  margin-right: 14px;
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.queue {
-  border: 1px solid $secondary-text;
+.about__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 2px $secondary-text;
   background-color: $white-text-and-bg;
   color: $secondary-text;
-  padding: 14px 6px 12px 6px;
+  margin-right: 14px;
+}
+
+.about__btn:hover,
+.about__btn:focus {
+  background-color: $accent;
+  color: $white-text-and-bg;
 }
 
 .close-btn {
