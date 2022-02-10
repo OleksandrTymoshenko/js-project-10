@@ -8,6 +8,7 @@ const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
 import { addToLibrary, getArrayFromLibrary, removeFilm } from './serviceFirebase';
+import { addToWatched, addToQueue, getWatched, getQueue } from './localStorageService';
 
 const refs = {
   input: document.querySelector('.input'),
@@ -16,7 +17,6 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
   headerMain: document.querySelector('header[data-action="main"]'),
   headerLib: document.querySelector('header[data-action="library"]'),
- 
 };
 
 const Uid = propFirebase;
@@ -134,7 +134,7 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      addToLibrary(obj);
+      addToWatched(obj);
     });
 
     // Кнопка Queue в модалке
@@ -153,7 +153,7 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      removeFilm(obj.id);
+      addToQueue(obj);
     });
   });
 
@@ -168,15 +168,15 @@ export function openModal(id) {
   refs.modal.addEventListener('click', backdropClick);
 
   function backdropClick(e) {
-  if (e.currentTarget === e.target) {
-    closeModal();
+    if (e.currentTarget === e.target) {
+      closeModal();
     }
   }
 }
 
 export function EscCloseModal(e) {
-    if (e.code === 'Escape') {
-      closeModal();
-      window.removeEventListener('keydown', EscCloseModal);
-    }
+  if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal);
   }
+}

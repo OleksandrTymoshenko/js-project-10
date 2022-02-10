@@ -1,30 +1,37 @@
-export default class LocalStorageService {
-    constructor() {
-      this.filmsArray = []
-    }
+export function addToWatched(obj) {
+  const data = localStorage.getItem('watched');
+  let watchedArr = JSON.parse(data);
+  if (!data) {
+    watchedArr = [];
+  }
 
-    addToLibrary(obj) {
-        // const data = localStorage.getItem('myFilms')
-        // const filmArray = JSON.parse(data)
-
-        // if (filmArray) {
-        //     filmArray.forEach(film => {
-        //         console.log(film.id)
-        //     })
-        // }
-
-        this.filmsArray.push(obj)
-        const stringified = JSON.stringify(this.filmsArray)
-        localStorage.setItem('myArr', stringified)
-    }
-
-    getAllFilms() {
-        const data = localStorage.getItem('myArr')
-        const parsedData = JSON.parse(data)
-        return parsedData
-    }
-
-    
-
-
+  watchedArr.push(obj);
+  localStorage.setItem('watched', JSON.stringify(watchedArr));
 }
+
+export function addToQueue(obj) {
+  const data = localStorage.getItem('queue');
+  let queueArr = JSON.parse(data);
+  if (!data) {
+    queueArr = [];
+  }
+
+  queueArr.push(obj);
+  localStorage.setItem('queue', JSON.stringify(queueArr));
+}
+
+export function getWatched() {
+  const data = localStorage.getItem('watched');
+  const parsedData = JSON.parse(data);
+  return parsedData;
+}
+
+export function getQueue() {
+  const data = localStorage.getItem('queue');
+  const parsedData = JSON.parse(data);
+  return parsedData;
+}
+
+export function removerFromWatched(id) {}
+
+export function removerFromQueue(id) {}
