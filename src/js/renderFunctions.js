@@ -157,13 +157,6 @@ export function openModal(id) {
     });
   });
 
-  function EscCloseModal(e) {
-    if (e.code === 'Escape') {
-      closeModal();
-      window.removeEventListener('keydown', EscCloseModal);
-    }
-  }
-
   window.addEventListener('keydown', EscCloseModal);
 
   refs.modal.addEventListener('click', e => {
@@ -171,5 +164,19 @@ export function openModal(id) {
       closeModal();
     }
   });
+
+  refs.modal.addEventListener('click', backdropClick);
+
+  function backdropClick(e) {
+  if (e.currentTarget === e.target) {
+    closeModal();
+    }
+  }
 }
 
+export function EscCloseModal(e) {
+    if (e.code === 'Escape') {
+      closeModal();
+      window.removeEventListener('keydown', EscCloseModal);
+    }
+  }

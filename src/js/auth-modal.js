@@ -1,4 +1,5 @@
 import { ref } from "firebase/database";
+import { EscCloseModal as EscCloseFilmModal } from './renderFunctions';
 
 const refs = {
   openModalBtn: document.querySelector('[data-auth-modal-open]'),
@@ -45,20 +46,18 @@ refs.termsLink.addEventListener('click', showTerms);
 refs.closeTermsBtn.addEventListener('click', closeTerms);
 refs.termsModal.addEventListener('click', onTermsBackdropClick);
 
-// function toggleModal() {
-//   refs.modal.classList.toggle('visually-hidden');
-// }
-
 function openModal() {
   refs.modal.classList.remove('visually-hidden');
   window.addEventListener('keydown', onEscKeyPress);
   document.querySelector('body').classList.add('modal-open');
+  window.removeEventListener('keydown', EscCloseFilmModal);
 }
 
 function closeModal() {
   refs.modal.classList.add('visually-hidden');  
   window.removeEventListener('keydown', onEscKeyPress);
   document.querySelector('body').classList.remove('modal-open');
+  window.addEventListener('keydown', EscCloseFilmModal);
 }
 
 function onEscKeyPress(e) {
