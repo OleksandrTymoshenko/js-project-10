@@ -183,28 +183,44 @@
 }
 
 #C1:hover .C1 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C2:hover .C2 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C3:hover .C3 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C4:hover .C4 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C5:hover .C5 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C6:hover .C6 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C7:hover .C7 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 #C8:hover .C8 {
-    display: block;
+    @media screen and (min-width: $desktop) {
+        display: block;
+    }
 }
 
 #C1 {
