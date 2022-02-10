@@ -54,7 +54,7 @@ function onNaviListClick(e) {
     refs.headerLib.style.display = 'block';
   }
 }
-
+// getPopular()
 window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
 refs.input.addEventListener('input', debounce(findFilm, 1200));

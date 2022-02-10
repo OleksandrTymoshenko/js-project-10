@@ -1,103 +1,105 @@
+// .header {
+//   margin-bottom: 20px;
+//   @media screen and (min-width: $tablet) {
+//     margin-bottom: 60px;
+//   }
+// }
 .gallery-block {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  // margin-top: 20px;
+  margin-bottom: 20px;
 
-    padding-right: 15px;
-    padding-left: 15px;
-    padding-bottom: 40px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 40px;
 
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 
-    @media screen and (min-width: $tablet) {
-        margin-top: 60px;
-        margin-bottom: 50px;
-    }
+  @media screen and (min-width: $tablet) {
+    //     margin-top: 60px;
+    margin-bottom: 50px;
+  }
 
-    @media screen and (max-width: 767px) {
-        padding-bottom: 100px;
-    }
+  @media screen and (max-width: 767px) {
+    padding-bottom: 100px;
+  }
 }
 
 .list {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+
+  @media screen and (min-width: $tablet) {
     display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
+    flex-flow: row wrap;
     align-items: center;
+    justify-content: center;
+    // margin-top: -30px;
+  }
 
-    @media screen and (min-width: $tablet) {
-        display: flex;
-        flex-flow: row wrap;
-        align-items: center;
-        justify-content: center;
-        margin-top: -30px;
-        
-    }
-
-    @media screen and (min-width: $desktop) {
-        justify-content: center;
-        align-items: center;
-        margin-top: -30px;
-        max-width: 1200px;
-    }
-
+  @media screen and (min-width: $desktop) {
+    justify-content: center;
+    align-items: center;
+    // margin-top: -30px;
+    max-width: 1200px;
+  }
 }
 
 .list__item {
-   
-    @media screen and (min-width: $tablet) {
-        flex-basis: calc(100% / 2 - 40px);
-        margin-top: 30px;
+  margin-bottom: 20px;
+  @media screen and (min-width: $tablet) {
+    flex-basis: calc(100% / 2 - 40px);
+    margin-bottom: 30px;
 
-        &:nth-child(2n) {
-            margin-left: 20px;
-        }
+    &:nth-child(2n) {
+      margin-left: 20px;
     }
+  }
 
-    @media screen and (min-width: $desktop) {
-        flex-basis: calc(100% / 3 - 60px);
-        margin-right: 30px;
-        margin-top: 30px;
+  @media screen and (min-width: $desktop) {
+    flex-basis: calc(100% / 3 - 60px);
+    margin-right: 30px;
+    margin-bottom: 30px;
 
-
-        &:nth-child(2n) {
-            margin-left: 0;
-        }
-        &:nth-child(3n) {
-            margin-right: 0;
-        }
-        &:nth-child(-n+3) {
-            margin-top: 0;
-        }
-
+    &:nth-child(2n) {
+      margin-left: 0;
     }
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+    &:nth-child(-n + 3) {
+      margin-top: 0;
+    }
+  }
 }
 
 .item__img {
-    width: 100%;
-    border-radius: 5px;
+  width: 100%;
+  border-radius: 5px;
 }
 
 .item__title,
 .item__genre {
-    margin-top: 10px;
+  margin-top: 10px;
 
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.33;
-    color: $secondary-text;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: $secondary-text;
 }
 
 .item__genre {
-    color: $accent;
+  color: $accent;
 }
 
 .vote {
-    display: inline-block;
-    height: 16px;
-    width: 36px;
-    background-color: $accent;
-    color: $white-text-and-bg;
-    text-align: center;
+  display: inline-block;
+  height: 16px;
+  width: 36px;
+  background-color: $accent;
+  color: $white-text-and-bg;
+  text-align: center;
 }
