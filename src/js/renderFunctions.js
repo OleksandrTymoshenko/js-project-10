@@ -4,7 +4,8 @@ import RenderService from './RenderService';
 import { propFirebase } from './Auth';
 import './loader.js';
 import { openModal as openAuthModal } from './auth-modal';
-import { addToWatched, addToQueue, getWatched, getQueue } from './localSaver';
+import LocalSaver from './localSaver';
+const localSaver = new LocalSaver();
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
@@ -47,13 +48,13 @@ export function getPopular() {
 }
 
 export function renderMyFilms() {
-  const films = getWatched();
+  const films = localSaver.getWatched();
   window.removeEventListener('scroll', onScroll);
   renderService.renderFromLibrary(films);
 }
 
 export function renderMyQueue() {
-  const films = getQueue();
+  const films = localSaver.getQueue();
   window.removeEventListener('scroll', onScroll);
   const queue = films.reverse();
   renderService.renderFromLibrary(queue);
@@ -110,8 +111,27 @@ export function openModal(id) {
 
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
-    const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
-    const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
+
+    let watchedArr = localSaver.getWatched();
+    let queueArr = localSaver.getQueue();
+
+    for (let film in watchedArr) {
+      if (watchedArr[film].id === id) {
+        addToLibBtn.textContent = 'DELETE FROM WATCHED';
+      } else {
+        addToLibBtn.textContent = 'ADD TO WATCHED';
+      }
+    }
+
+    for (let film in queueArr) {
+      if (queueArr[film].id === id) {
+        addToQueBtn.textContent = 'DELETE FROM QUEUE';
+      } else {
+        addToQueBtn.textContent = 'ADD TO QUEUE';
+      }
+    }
+    // const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
+    // const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
 
     // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
@@ -120,8 +140,8 @@ export function openModal(id) {
 
         return;
       }
-      addToLibBtn.classList.toggle('vis');
-      removeToLibBtn.classList.toggle('vis');
+      // addToLibBtn.classList.toggle('vis');
+      // removeToLibBtn.classList.toggle('vis');
       const filmElem = document.querySelector('.film-details');
 
       const obj = {
@@ -131,7 +151,8 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      addToWatched(obj);
+      localSaver.addToWatched(obj);
+      addToLibBtn.textContent = 'DELETE FROM WATCHED';
     });
 
     // Кнопка Queue в модалке
@@ -150,7 +171,8 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      addToQueue(obj);
+      localSaver.addToQueue(obj);
+      addToQueBtn.textContent = 'DELETE FROM QUEUE';
     });
   });
 
