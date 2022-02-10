@@ -14,6 +14,12 @@ const firebaseConfig = {
     appId: "1:789848914440:web:0c1d36ce7d4d9e020befbd"
 }
 
+Notiflix.Notify.init({
+  width: '280px',
+  position: 'center-top',
+  height: '15px'
+});
+
 const app = initializeApp(firebaseConfig);
 const refsRegistration = {
     userAdd: document.querySelector('.user-registration-plus'),
@@ -30,6 +36,11 @@ refs.eyeBtnRegPassword.addEventListener('click', eyeRegPassword)
 refsRegistration.userCheck.addEventListener('mouseover', userMinus)
 refsRegistration.userOut.addEventListener('mouseleave', userCheck)
 refsRegistration.userOut.addEventListener('click', outUser)
+refsRegistration.userAdd.addEventListener('click', clickOpenModelForRegistration)
+
+function clickOpenModelForRegistration() {
+    openModal();
+}
 
 function outUser(e) {
     refsRegistration.userCheck.removeEventListener('mouseover', userMinus);
