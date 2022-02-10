@@ -4,11 +4,10 @@ import RenderService from './RenderService';
 import { propFirebase } from './Auth';
 import './loader.js';
 import { openModal as openAuthModal } from './auth-modal';
+import { addToWatched, addToQueue, getWatched, getQueue } from './localSaver';
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
-import { addToLibrary, getArrayFromLibrary, removeFilm } from './serviceFirebase';
-import { addToWatched, addToQueue, getWatched, getQueue } from './localStorageService';
 
 const refs = {
   input: document.querySelector('.input'),
