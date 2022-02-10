@@ -56,6 +56,9 @@ function outUserLib() {
     refsRegistration.userAdd.classList.remove('hide')
     localStorage.removeItem('User');
     Notiflix.Notify.success('You are logged out')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
     setTimeout(() => {
     window.location.reload();
     }, 1000)
@@ -87,6 +90,9 @@ function outUser(e) {
     refsRegistration.userAdd.classList.remove('hide')
     localStorage.removeItem('User');
     Notiflix.Notify.success('You are logged out');
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
     setTimeout(() => {
     window.location.reload();
     }, 1000)
@@ -151,7 +157,7 @@ async function signInAccount(e) {
     await propFirebase.signUserInAccount(email, password);
     if (propFirebase.logIn) {
         closeModal();
-        console.log(propFirebase.uid)
+ 
         refsRegistration.userCheck.addEventListener('mouseover', userMinus)
         refsRegistration.userOut.addEventListener('mouseleave', userCheck)
         refsRegistration.userCheck.classList.remove('hide')

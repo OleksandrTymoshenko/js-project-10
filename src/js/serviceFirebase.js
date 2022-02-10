@@ -79,7 +79,7 @@ export async function removeFilm(id) {
         const childKey = childSnapshot.key;
         const childData = childSnapshot.val();
         if (childData.id === id) {
-          console.log(childKey);
+
           const childRef = ref(db, `films/${childKey}`);
           remove(childRef);
         }
