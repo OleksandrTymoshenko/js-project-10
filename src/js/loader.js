@@ -35,15 +35,15 @@ function showLoading() {
   setTimeout(() => {
     loading.classList.remove('show');
 
-    setTimeout(() => {
-      apiService.incrementPage();
-      showFilms();
-    }, 300);
+    // setTimeout(() => {
+    //   apiService.incrementPage();
+    //   showFilms();
+    // }, 300);
   }, 1000);
 }
 
 
-showFilms();
+// showFilms();
 
 window.addEventListener('scroll', () => {
   const { scrollTop, scrollHeight, clientHeight } = document.documentElement;

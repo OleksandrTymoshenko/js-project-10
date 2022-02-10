@@ -2,19 +2,14 @@
   position: absolute;
   background-color: #f2f2f3;
   box-shadow: 0 0 5px 2px #e3e3e4;
-  top: 215px;
+  top: 200px;
   right: 10px;
-  height: 35px;  
-  width: 100px;
-  border-radius: 15px;  
-   
+  height: 20px;
+  width: 20px;
+  border-radius: 15px;
 }
-
 
 .theme__switcher[data-theme='dark'] {
-    color: #e3e3e4;
-    background-color: #242424;
+  color: #e3e3e4;
+  background-color: #242424;
 }
-
-
-

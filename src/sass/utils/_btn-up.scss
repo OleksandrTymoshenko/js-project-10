@@ -2,35 +2,27 @@
   font-weight: bold;
   font-size: 14px;
   position: fixed;
-  bottom: 17px;
-  right: 10px;
+  bottom: 10px;
+  right: 17px;
   display: none;
   z-index: 1;
-  //   cursor: pointer;
-  //   border-radius: 20px;
-  //   background-color: rgb(39, 177, 92);
   background-color: $footer-bg;
 
-  @media screen and (min-width: 420px) {
-    font-size: 18px;
-    bottom: 55px;
-    right: 28px;
-  }
   @media screen and (min-width: $tablet) {
     font-size: 25px;
-    bottom: 30px;
-    right: 28px;
+    bottom: 4px;
+    right: 43px;
   }
   @media screen and (min-width: $desktop) {
     font-size: 25px;
-    bottom: 85px;
+    bottom: 20px;
     right: 28px;
-    background-color: $white-text-and-bg;
+    // background-color: $white-text-and-bg;
   }
 }
 .back-to-top-icon {
   width: 30px;
-  height: 30px;  
+  height: 30px;
   color: #ff6b08;
   border-radius: 20px;
   background-color: inherit;

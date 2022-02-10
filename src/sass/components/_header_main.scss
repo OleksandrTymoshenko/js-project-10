@@ -2,11 +2,12 @@
   display: block;
   width: 100vw;
   height: 230px;
-
+  margin-bottom: 20px;
   background-image: linear-gradient($for-grad-header, $for-grad-header),
     url(../partials/img/Rectangle_x1.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
+    margin-bottom: 60px;
     background-image: linear-gradient($for-grad-header, $for-grad-header),
       url(../partials/img/Rectangle_tabl_x1.jpg);
     @media screen and (min-width: $desktop) {
