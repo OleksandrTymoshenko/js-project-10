@@ -90,12 +90,12 @@ export function getMembers() {
 }
 
 // Получение карточки фильма и открытие в модалке
-export const getDetails = e => {
-  if (e.target.nodeName === 'IMG') {
+export function getDetails(e) {
+   if (e.target.nodeName === 'IMG') {
     const { id } = e.target.parentNode;
     openModal(id);
   }
-};
+}
 
 export function closeModal() {
   document.body.style.overflow = 'auto';
