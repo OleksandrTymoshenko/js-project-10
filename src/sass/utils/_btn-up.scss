@@ -2,7 +2,7 @@
   font-weight: bold;
   font-size: 14px;
   position: fixed;
-  bottom: 23px;
+  bottom: 10px;
   right: 17px;
   display: none;
   z-index: 1;
@@ -15,9 +15,9 @@
   }
   @media screen and (min-width: $desktop) {
     font-size: 25px;
-    bottom: 85px;
+    bottom: 20px;
     right: 28px;
-    background-color: $white-text-and-bg;
+    // background-color: $white-text-and-bg;
   }
 }
 .back-to-top-icon {
