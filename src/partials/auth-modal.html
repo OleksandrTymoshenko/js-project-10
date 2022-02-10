@@ -25,7 +25,9 @@
           placeholder="Password"
         />
         <button class="auth-modal__form-sign-eye" type="button">
-          <img src="partials/img/Eye-min.png" alt="eye" />
+          <svg class="auth-modal__eye-icon" width="15" height="15">
+            <use href="partials/img/symbol-defs.svg#icon-eye"></use>
+          </svg>
         </button>
       </div>
       <div class="auth-modal__footer">
@@ -56,12 +58,15 @@
           placeholder="Password"
         />
         <button class="auth-modal__form-reg-eye" type="button">
-          <img src="partials/img/Eye-min.png" alt="eye" />
+          <svg class="auth-modal__eye-icon" width="15" height="15">
+            <use href="partials/img/symbol-defs.svg#icon-eye"></use>
+          </svg>
         </button>
       </div>
 
       <label class="auth-modal__checkbox" for="check">
-        <input type="checkbox" name="checkbox" id="check" value="1" />
+        <input class="visually-hidden" type="checkbox" name="checkbox" id="check" value="1" />
+        <span class="auth-modal__icon-check"></span>
         I agree to the
         <a class="auth-modal__trems-link" href="">Terms</a>
       </label>

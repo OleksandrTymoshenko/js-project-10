@@ -100,7 +100,9 @@ function onbtnThemeModeClick() {
     refs.footer.style.color = 'black';
     authRefs.authModalWindow.style.backgroundColor = '#ffffff';
     authRefs.authModalWindow.style.backgroundColor = '#ffffff';
-    // authRefs.inputCheckboxReg.classList.remove('dark');
+    authRefs.eyeBtnSignPassword.classList.toggle('dark');
+    authRefs.eyeBtnRegPassword.classList.toggle('dark');
+    authRefs.authModalFooter.forEach(el => { el.classList.toggle('dark') });
     document.querySelectorAll('.auth-modal__header-button').forEach( btn => { btn.classList.remove('dark') });
     document.querySelector('.auth-modal__header-button.dark--active').classList.replace('dark--active', 'active');  
     document.querySelectorAll('.auth-modal__form-input').forEach( btn => { btn.classList.toggle('dark') });
@@ -118,11 +120,14 @@ function onbtnThemeModeClick() {
     refs.footer.style.backgroundColor = '#1f2026';
     refs.footer.style.color = 'white';
     authRefs.authModalWindow.style.backgroundColor = '#1f2026';
-    authRefs.authModalWindow.style.backgroundColor = '#1f2026';    
-    // authRefs.inputCheckboxReg.classList.add('dark');
+    authRefs.authModalWindow.style.backgroundColor = '#1f2026'; 
+    authRefs.eyeBtnSignPassword.classList.toggle('dark');
+    authRefs.eyeBtnRegPassword.classList.toggle('dark');
+    authRefs.authModalFooter.forEach(el => { el.classList.toggle('dark') });
     document.querySelector('.auth-modal__header-button.active').classList.replace('active', 'dark--active');
     document.querySelectorAll('.auth-modal__header-button').forEach(btn => { btn.classList.add('dark') });
-    document.querySelectorAll('.auth-modal__form-input').forEach( btn => { btn.classList.toggle('dark') });
+    document.querySelectorAll('.auth-modal__form-input').forEach(btn => { btn.classList.toggle('dark') });
+    authRefs.eyeBtnRegPassword
   }
 }
 

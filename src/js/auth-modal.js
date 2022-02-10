@@ -29,6 +29,7 @@ const refs = {
   termsModal: document.querySelector('.terms-modal__backdrop'),  
   closeTermsBtn: document.querySelector('.terms-modal .close-btn'),  
   authModalWindow: document.querySelector('.auth-modal'),  
+  authModalFooter: document.querySelectorAll('.auth-modal__footer'),
 };
 
 refs.openModalBtn.addEventListener('click', openModal);

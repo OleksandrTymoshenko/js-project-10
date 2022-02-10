@@ -125,6 +125,7 @@ body.modal-open {
   border: 1px solid rgba(33, 33, 33, 0.2);
   box-sizing: border-box;
   border-radius: 3px;
+  color: inherit;
 
   font-size: 12px;
   line-height: 1.17;
@@ -143,7 +144,6 @@ body.modal-open {
 }
 
 .auth-modal__header {
-  background: #eeeeee;
   margin-bottom: 30px;
   overflow: hidden;
   border-radius: 3px 3px 0 0;
@@ -159,24 +159,20 @@ body.modal-open {
   color: #999999;
   height: 73px;
   line-height: 73px;
-  // border-color: #ffffff;
 
   &.dark {
     background: #333333;
     color: #ffffff;
-    // border-color: #1f2026;
   }
 
   &.active {
     background: #ffffff;
     color: #777777;
-    // border-color: #ffffff;
   }
 
   &.dark--active {
     background: #1f2026;
     color: #ffffff;
-    // border-color: #1f2026;
   }
 }
 
@@ -186,6 +182,10 @@ body.modal-open {
 
   [data-auth-modal-signin-form] & {
     margin-top: 64px;
+  }
+
+  &.dark .auth-modal__footer-button:nth-child(1) {
+    background-color: #333333;
   }
 }
 
@@ -204,7 +204,7 @@ body.modal-open {
 
   &:nth-child(1) {
     border-radius: 3px 0 0 3px;
-    background: #aaaaaa;
+    background-color: #aaaaaa;
   }
 
   &:nth-child(2) {
@@ -224,9 +224,25 @@ body.modal-open {
   align-items: center;
   font-size: 12px;
 
-  & input {
-    margin-right: 10px;
+  & input:checked + .auth-modal__icon-check {
+    background-image: url(../partials/img/check-icon.png);
+    background-color: $accent;
+    background-origin: border-box;
+    background-size: 70%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-color: transparent;
   }
+}
+
+.auth-modal__icon-check {
+  display: inline-block;
+  margin-right: 7px;
+
+  width: 14px;
+  height: 14px;
+  border: 1px solid #999999;
+  border-radius: 2px;
 }
 
 .auth-modal__trems-link {
@@ -282,18 +298,34 @@ body.modal-open {
 
 .auth-modal__form-sign-eye {
   background-color: #fff;
+  color: #777777;
   width: 12px;
   height: 12px;
   position: absolute;
   top: 73px;
   right: 20px;
+
+  &.dark {
+    background-color: #1f2026;
+    color: #777777;
+  }
 }
 
 .auth-modal__form-reg-eye {
   background-color: #fff;
+  color: #777777;
   width: 12px;
   height: 12px;
   position: absolute;
   top: 73px;
   right: 20px;
+
+  &.dark {
+    background-color: #1f2026;
+    color: #777777;
+  }
+}
+
+.auth-modal__eye-icon {
+  fill: currentColor;
 }
