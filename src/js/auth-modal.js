@@ -1,5 +1,6 @@
 import { ref } from "firebase/database";
 import { EscCloseModal as EscCloseFilmModal } from './renderFunctions';
+// import { refs as themeRefs } from './header-theme-toggler';
 
 const refs = {
   openModalBtn: document.querySelector('[data-auth-modal-open]'),
@@ -27,6 +28,8 @@ const refs = {
   termsLink: document.querySelector('.auth-modal__trems-link'),
   termsModal: document.querySelector('.terms-modal__backdrop'),  
   closeTermsBtn: document.querySelector('.terms-modal .close-btn'),  
+  authModalWindow: document.querySelector('.auth-modal'),  
+  authModalFooter: document.querySelectorAll('.auth-modal__footer'),
 };
 
 refs.openModalBtn.addEventListener('click', openModal);
@@ -69,15 +72,28 @@ function onEscKeyPress(e) {
 function openSignInForm() {
   refs.signInForm.classList.remove('hide');
   refs.regForm.classList.add('hide');
+
+  if (document.querySelector('.theme__switcher').dataset.theme === 'light') {
   refs.openSignInFormBtn.classList.add('active');
   refs.openRegFormBtn.classList.remove('active');
+  } else if (document.querySelector('.theme__switcher').dataset.theme === 'dark') {
+  refs.openSignInFormBtn.classList.add('dark--active');
+  refs.openRegFormBtn.classList.remove('dark--active');
+  }
 }
 
 function openRegForm() {
   refs.regForm.classList.remove('hide');
-  refs.signInForm.classList.add('hide');    
+  refs.signInForm.classList.add('hide');  
+
+  if (document.querySelector('.theme__switcher').dataset.theme === 'light') {
   refs.openSignInFormBtn.classList.remove('active');
   refs.openRegFormBtn.classList.add('active');
+  } else if (document.querySelector('.theme__switcher').dataset.theme === 'dark') {
+  refs.openSignInFormBtn.classList.remove('dark--active');
+  refs.openRegFormBtn.classList.add('dark--active');
+  }
+  
 }
 
 function onBackDropClick(e) {
