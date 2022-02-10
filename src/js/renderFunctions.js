@@ -117,7 +117,7 @@ export function openModal(id) {
 
     // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
-      if (Uid.logIn !== true) {
+      if (!localStorage.getItem('User')) {
         openAuthModal();
 
         return;
@@ -138,7 +138,7 @@ export function openModal(id) {
 
     // Кнопка Queue в модалке
     addToQueBtn.addEventListener('click', () => {
-      if (Uid.logIn !== true) {
+      if (!localStorage.getItem('User')) {
         openAuthModal();
         return;
       }
