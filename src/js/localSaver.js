@@ -75,4 +75,34 @@ export default class LocalSaver {
     let parsedData = JSON.parse(data);
     return parsedData;
   }
+
+  getWatchedIds() {
+    let idsArr = [];
+    let data = localStorage.getItem('watched');
+    let parsedData = JSON.parse(data);
+    if (!parsedData) {
+      return;
+    }
+
+    parsedData.map(film => {
+      idsArr.push(film.id);
+    });
+
+    return idsArr;
+  }
+
+  getQueueIds() {
+    let idsArr = [];
+    let data = localStorage.getItem('queue');
+    let parsedData = JSON.parse(data);
+    if (!parsedData) {
+      return;
+    }
+
+    parsedData.map(film => {
+      idsArr.push(film.id);
+    });
+
+    return idsArr;
+  }
 }
