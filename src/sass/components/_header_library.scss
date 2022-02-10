@@ -1,13 +1,12 @@
 .header-library__container {
-  
   width: 100vw;
   height: 230px;
-  
+  margin-bottom: 20px;
   background-image: linear-gradient($for-grad-header-lib, $for-grad-header-lib),
     url(../partials/img/Rectangle_lib_x1.jpg);
   background-size: cover;
   @media screen and (min-width: $tablet) {
-    
+    margin-bottom: 60px;
     background-image: linear-gradient($for-grad-header-lib, $for-grad-header-lib),
       url(../partials/img/Rectangle_lib_tabl_x1.jpg);
     @media screen and (min-width: $desktop) {
