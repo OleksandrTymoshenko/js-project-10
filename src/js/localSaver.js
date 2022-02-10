@@ -55,11 +55,21 @@ export default class LocalSaver {
   }
 
   addToWatched(obj) {
+    let watchedIds = this.getWatchedIds() ?? [];
+    if (watchedIds.includes(obj.id)) {
+      return;
+    }
+
     this.watched.push(obj);
     localStorage.setItem('watched', JSON.stringify(this.watched));
   }
 
   addToQueue(obj) {
+    let queuedIds = this.getQueueIds() ?? [];
+    if (queuedIds.includes(obj.id)) {
+      return;
+    }
+
     this.queue.push(obj);
     localStorage.setItem('queue', JSON.stringify(this.queue));
   }
