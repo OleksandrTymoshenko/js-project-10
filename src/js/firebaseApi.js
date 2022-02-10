@@ -17,6 +17,10 @@ export default class FirebaseClass {
             .then((userCredential) => {
                 // Signed in 
                 Notiflix.Notify.success('Поздравляем! Вы успешно зарегистрированы на нашем сайте:)')
+                Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -29,17 +33,29 @@ export default class FirebaseClass {
         const auth = getAuth();
         await signInWithEmailAndPassword(auth, email, password).then((result) => {
 
-                    Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+            Notiflix.Notify.success(`Вы вошли на сайт как ${email}`);
+            Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
                     this.logIn = true;
                     this.uid = result.user.uid;
                     return;
                 }).catch((error) => {
                     if (error.code === 'auth/wrong-password') {
                         Notiflix.Notify.warning('Неверный пароль');
+                        Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
                 
                     } else {
                         console.log(error);
                         Notiflix.Notify.warning('Чтобы войти нужно зарегистрироваться');
+                        Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
                     }
                 })
 }
@@ -71,6 +87,10 @@ export default class FirebaseClass {
                 // The signed-in user info.
                 const user = result.user;
                 Notiflix.Notify.success('Вы вошли в свой аккаунт')
+                Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
                 this.logIn = true;
                 this.uid = result.user.uid;
 

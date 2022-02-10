@@ -14,11 +14,11 @@ const firebaseConfig = {
     appId: "1:789848914440:web:0c1d36ce7d4d9e020befbd"
 }
 
-Notiflix.Notify.init({
-  width: '280px',
-  position: 'center-top',
-  height: '15px'
-});
+// Notiflix.Notify.init({
+//   width: '280px',
+//   position: 'center-top',
+//   height: '15px'
+// });
 
 const app = initializeApp(firebaseConfig);
 const refsRegistration = {
@@ -49,7 +49,11 @@ function outUser(e) {
     refsRegistration.userCheck.classList.add('hide')
     refsRegistration.userAdd.classList.remove('hide')
     localStorage.removeItem('User');
-    Notiflix.Notify.init({ height: '20px'},'Вы вышли из аккаунта')
+    Notiflix.Notify.init({ height: '20px' }, 'Вы вышли из аккаунта')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
     
 }
 
@@ -136,6 +140,10 @@ async function signWithGoogl(e) {
         return;
     }
     Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
     openModal()
 
 }
@@ -154,6 +162,10 @@ async function signWithGooglReg(e) {
         return;
     }
     Notiflix.Notify.warning('Вы не вошли в аккаунт')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
     openModal()
 }
 
