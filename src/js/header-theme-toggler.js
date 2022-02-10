@@ -81,7 +81,7 @@ function onbtnThemeModeClick() {
 
   if (refs.btnThemeMode.dataset.theme === 'dark') {
     refs.btnThemeMode.dataset.theme = 'light';
-    refs.btnThemeMode.textContent = 'Daymode';
+    refs.btnThemeMode.textContent = '🌕';
     document.body.style.backgroundColor = '#ffffff';
     for (const item of itemTitle) {
       item.style.color = 'black';
@@ -91,7 +91,7 @@ function onbtnThemeModeClick() {
     refs.footer.style.color = 'black';
   } else if (refs.btnThemeMode.dataset.theme === 'light') {
     refs.btnThemeMode.dataset.theme = 'dark';
-    refs.btnThemeMode.textContent = 'Nightmode';
+    refs.btnThemeMode.textContent = '🌘';
     document.body.style.backgroundColor = '#1f2026';
     for (const item of itemTitle) {
       item.style.color = 'white';
