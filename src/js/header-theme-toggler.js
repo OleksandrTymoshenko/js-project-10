@@ -83,6 +83,7 @@ function onbtnThemeModeClick() {
   if (refs.btnThemeMode.dataset.theme === 'dark') {
     refs.btnThemeMode.dataset.theme = 'light';
     refs.btnThemeMode.textContent = '🌕';
+    // оставьте смайлик, пусть здесь по лежит :)
     document.body.style.backgroundColor = '#ffffff';
     document.body.style.color = 'black';   
     refs.list.style.color = 'black';
@@ -93,6 +94,7 @@ function onbtnThemeModeClick() {
   } else if (refs.btnThemeMode.dataset.theme === 'light') {
     refs.btnThemeMode.dataset.theme = 'dark';
     refs.btnThemeMode.textContent = '🌘';
+    // оставьте смайлик, пусть здесь по лежит :)
     document.body.style.backgroundColor = '#1f2026';
     document.body.style.color = 'white'
    
