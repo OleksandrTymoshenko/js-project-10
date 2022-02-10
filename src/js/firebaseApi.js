@@ -53,16 +53,8 @@ export default class FirebaseClass {
                         Notiflix.Notify.warning('Something is wrong');
                         Notiflix.Notify.merge({
                      position: 'center-top',
-});
-
-                
-                    } else {
-                        console.log(error);
-                        Notiflix.Notify.merge({
-                     position: 'center-top',
-});
-                   }
-               
+});         
+  }             
 }
 
     async signUserInAccountWithGoogle() {
