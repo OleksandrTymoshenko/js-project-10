@@ -70,8 +70,8 @@ export function findFilm() {
       if (filmsArr.length === 0) {
         Notiflix.Notify.warning('Search result not successful. Enter the correct movie name');
         Notiflix.Notify.merge({
- position: 'center-top',
-});
+          position: 'center-top',
+        });
 
         return;
       }
@@ -116,26 +116,23 @@ export function openModal(id) {
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
 
-    let watchedArr = localSaver.getWatched();
-    let queueArr = localSaver.getQueue();
+    let idsArr = localSaver.getWatchedIds() ?? [];
+    let queueIdsArr = localSaver.getQueueIds() ?? [];
 
-    for (let film in watchedArr) {
-      if (watchedArr[film].id === id) {
-        addToLibBtn.textContent = 'DELETE FROM WATCHED';
-        return;
-      } else {
-        addToLibBtn.textContent = 'ADD TO WATCHED';
-      }
+    if (idsArr.includes(id)) {
+      addToLibBtn.textContent = 'DELETE FROM WATCHED';
+      return;
+    } else {
+      addToLibBtn.textContent = 'ADD TO WATCHED';
     }
 
-    for (let film in queueArr) {
-      if (queueArr[film].id === id) {
-        addToQueBtn.textContent = 'DELETE FROM QUEUE';
-        return;
-      } else {
-        addToQueBtn.textContent = 'ADD TO QUEUE';
-      }
+    if (queueIdsArr.includes(id)) {
+      addToQueBtn.textContent = 'DELETE FROM QUEUE';
+      return;
+    } else {
+      addToQueBtn.textContent = 'ADD TO QUEUE';
     }
+
     // const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
     // const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
 
