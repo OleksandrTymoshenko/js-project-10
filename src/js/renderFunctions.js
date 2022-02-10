@@ -69,6 +69,10 @@ export function findFilm() {
     apiService.getFilmsByName().then(filmsArr => {
       if (filmsArr.length === 0) {
         Notiflix.Notify.warning('Search result not successful. Enter the correct movie name');
+        Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
         return;
       }
 
