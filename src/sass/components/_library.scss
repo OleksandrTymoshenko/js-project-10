@@ -60,7 +60,7 @@
 .list__item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 
   margin-bottom: 20px;
   @media screen and (min-width: $tablet) {
@@ -68,7 +68,7 @@
     margin-bottom: 30px;
 
     &:nth-child(2n) {
-      margin-left: 20px;
+      margin-left: 30px;
     }
   }
 
@@ -95,7 +95,7 @@
   height: 402px;
   @media screen and (min-width: $tablet) {
     height: 398px;
-    width: 294px;
+    width: 274px;
   }
 }
 
@@ -122,5 +122,7 @@
   text-align: center;
 }
 .box__title {
-  width: 294px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
