@@ -48,18 +48,16 @@ export function getPopular() {
 }
 
 export function renderMyFilms() {
-  getArrayFromLibrary().then(arr => {
-    window.removeEventListener('scroll', onScroll);
-    renderService.renderFromLibrary(arr);
-  });
+  const films = getWatched();
+  window.removeEventListener('scroll', onScroll);
+  renderService.renderFromLibrary(films);
 }
 
 export function renderMyQueue() {
-  getArrayFromLibrary().then(arr => {
-    window.removeEventListener('scroll', onScroll);
-    const queue = arr.reverse();
-    renderService.renderFromLibrary(queue);
-  });
+  const films = getQueue();
+  window.removeEventListener('scroll', onScroll);
+  const queue = films.reverse();
+  renderService.renderFromLibrary(queue);
 }
 
 // Функция поиска фильма в хедере
