@@ -19,9 +19,10 @@ export default class RenderService {
                     <li class="list__item" id=${id}>
                         
                         <img class="item__img" src=${path} alt="poster" width="396"> 
-        
+                        <div class = "box__title">
                         <p class="item__title">${title}</p>
                         <p class="item__genre">${genres}</p>
+                        </div>
                     </li>
                 `;
       })
@@ -44,9 +45,10 @@ export default class RenderService {
                     <li class="list__item" id=${id}>
                         
                         <img class="item__img" src=${imagePath} alt="poster" width="396"> 
-        
+                         <div class = "box__title">
                         <p class="item__title">${upperTitle}</p>
                         <p class="item__genre">${generesFilmArray} | ${date}</p>
+                        </div>
                     </li>
                 `;
       })
@@ -68,9 +70,10 @@ export default class RenderService {
                     <li class="list__item" id=${id}>
                         
                         <img class="item__img" src=${imagePath} alt="poster" width="396"> 
-        
+                        <div class = "box__title">
                         <p class="item__title">${upperTitle}</p>
                         <p class="item__genre">${generesFilmArray} | ${date}</p>
+                        </div>
                     </li>
                 `;
       })
