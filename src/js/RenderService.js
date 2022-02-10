@@ -2,7 +2,6 @@ const list = document.querySelector('.list');
 const modal = document.querySelector('[data-modal]');
 const btnThemeMode = document.querySelector('.theme__switcher');
 
-
 import { getGenres } from './genresInfo';
 import { memberInfo } from './memberInfo';
 import noPoster from '../partials/img/no_poster.jpg';
@@ -137,8 +136,8 @@ export default class RenderService {
         `;
 
     modal.insertAdjacentHTML('afterbegin', markup);
-    // цвет модалки. не удалять!!!!
-    backGroundColorForDarkMode ()
+
+    backGroundColorForDarkMode();
   }
 
   renderMembers() {
@@ -206,8 +205,8 @@ export default class RenderService {
     });
 
     memberList.insertAdjacentHTML('afterbegin', markup);
-     // цвет модалки. не удалять!!!!
-     backGroundColorForDarkModeFooter  ()
+    // цвет модалки. не удалять!!!!
+    backGroundColorForDarkModeFooter();
   }
   clearList() {
     modal.innerHTML = '';
@@ -219,25 +218,21 @@ export default class RenderService {
 }
 
 // цвет модалки. не удалять!!!!
-function backGroundColorForDarkMode () {
+function backGroundColorForDarkMode() {
   const filmDetailsCase = document.querySelector('.film-details');
 
-    if (btnThemeMode.dataset.theme === 'dark') {       
-      filmDetailsCase.style.backgroundColor= '#1f2026'; 
-     } else if (btnThemeMode.dataset.theme === 'light') {     
-       filmDetailsCase.style.backgroundColor = '#ffffff'     
-     }  
+  if (btnThemeMode.dataset.theme === 'dark') {
+    filmDetailsCase.style.backgroundColor = '#1f2026';
+  } else if (btnThemeMode.dataset.theme === 'light') {
+    filmDetailsCase.style.backgroundColor = '#ffffff';
+  }
 }
 
-function backGroundColorForDarkModeFooter () {
- 
-  const footerModalCase = document.querySelector('.footer__modal-wrapper')
-    if (btnThemeMode.dataset.theme === 'dark') {      
-      footerModalCase.style.backgroundColor = '#1f2026'
- 
-     } else if (btnThemeMode.dataset.theme === 'light') {
-      footerModalCase.style.backgroundColor = '#ffffff'    
-     }
- 
-  
+function backGroundColorForDarkModeFooter() {
+  const footerModalCase = document.querySelector('.footer__modal-wrapper');
+  if (btnThemeMode.dataset.theme === 'dark') {
+    footerModalCase.style.backgroundColor = '#1f2026';
+  } else if (btnThemeMode.dataset.theme === 'light') {
+    footerModalCase.style.backgroundColor = '#ffffff';
+  }
 }
