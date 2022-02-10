@@ -4,7 +4,8 @@ import RenderService from './RenderService';
 import { propFirebase } from './Auth';
 import './loader.js';
 import { openModal as openAuthModal } from './auth-modal';
-import { addToWatched, addToQueue, getWatched, getQueue } from './localSaver';
+import LocalSaver from './localSaver';
+const localSaver = new LocalSaver();
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
@@ -47,13 +48,13 @@ export function getPopular() {
 }
 
 export function renderMyFilms() {
-  const films = getWatched();
+  const films = localSaver.getWatched();
   window.removeEventListener('scroll', onScroll);
   renderService.renderFromLibrary(films);
 }
 
 export function renderMyQueue() {
-  const films = getQueue();
+  const films = localSaver.getQueue();
   window.removeEventListener('scroll', onScroll);
   const queue = films.reverse();
   renderService.renderFromLibrary(queue);
@@ -68,6 +69,10 @@ export function findFilm() {
     apiService.getFilmsByName().then(filmsArr => {
       if (filmsArr.length === 0) {
         Notiflix.Notify.warning('Search result not successful. Enter the correct movie name');
+        Notiflix.Notify.merge({
+          position: 'center-top',
+        });
+
         return;
       }
 
@@ -110,8 +115,29 @@ export function openModal(id) {
 
     const addToLibBtn = document.querySelector('[data-action="addToLib"]');
     const addToQueBtn = document.querySelector('[data-action="addToQue"]');
-    const removeToLibBtn = document.querySelector('[data-action="removeToLib"]');
-    const removeToQueBtn = document.querySelector('[data-action="removeToQue"]');
+
+    let idsArr = localSaver.getWatchedIds();
+    if (!idsArr) {
+      idsArr = [];
+    }
+    let queueIdsArr = localSaver.getQueueIds();
+    if (!queueIdsArr) {
+      queueIdsArr = [];
+    }
+
+    if (idsArr.includes(id)) {
+      addToLibBtn.textContent = 'DELETE FROM WATCHED';
+      return;
+    } else {
+      addToLibBtn.textContent = 'ADD TO WATCHED';
+    }
+
+    if (queueIdsArr.includes(id)) {
+      addToQueBtn.textContent = 'DELETE FROM QUEUE';
+      return;
+    } else {
+      addToQueBtn.textContent = 'ADD TO QUEUE';
+    }
 
     // Кнопка Library в модалке
     addToLibBtn.addEventListener('click', () => {
@@ -120,8 +146,7 @@ export function openModal(id) {
 
         return;
       }
-      addToLibBtn.classList.toggle('vis');
-      removeToLibBtn.classList.toggle('vis');
+
       const filmElem = document.querySelector('.film-details');
 
       const obj = {
@@ -131,7 +156,8 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      addToWatched(obj);
+      localSaver.addToWatched(obj);
+      addToLibBtn.textContent = 'DELETE FROM WATCHED';
     });
 
     // Кнопка Queue в модалке
@@ -150,7 +176,8 @@ export function openModal(id) {
         genres: filmElem.querySelector('.genres').innerText,
       };
 
-      addToQueue(obj);
+      localSaver.addToQueue(obj);
+      addToQueBtn.textContent = 'DELETE FROM QUEUE';
     });
   });
 

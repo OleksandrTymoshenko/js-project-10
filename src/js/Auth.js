@@ -15,11 +15,11 @@ const firebaseConfig = {
     appId: "1:789848914440:web:0c1d36ce7d4d9e020befbd"
 }
 
-Notiflix.Notify.init({
-  width: '280px',
-  position: 'center-top',
-  height: '15px'
-});
+// Notiflix.Notify.init({
+//   width: '280px',
+//   position: 'center-top',
+//   height: '15px'
+// });
 
 const app = initializeApp(firebaseConfig);
 const refsRegistration = {
@@ -90,10 +90,8 @@ function outUser(e) {
     setTimeout(() => {
     window.location.reload();
     }, 1000)
-    
-    
-    
-    
+   
+      
 }
 
 function userCheck() {
@@ -180,6 +178,11 @@ async function signWithGoogl(e) {
         return;
     }
     Notiflix.Notify.warning('You are not logged in')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
+
     openModal()
 
 }
@@ -197,7 +200,12 @@ async function signWithGooglReg(e) {
         refs.openModalBtn.removeEventListener('click', openModal)
         return;
     }
+
     Notiflix.Notify.warning('You are not logged in')
+    Notiflix.Notify.merge({
+ position: 'center-top',
+});
+
     openModal()
 }
 
