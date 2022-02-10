@@ -34,6 +34,8 @@ const refs = {
   btnBackToTop: document.querySelector('.back_to_top'),
   watchedBtn: document.querySelector('.watched'),
   queueBtn: document.querySelector('.queue'),
+
+
 };
 
 const Uid = propFirebase;
@@ -54,7 +56,7 @@ function onNaviListClick(e) {
     refs.headerLib.style.display = 'block';
   }
 }
-
+// getPopular()
 window.addEventListener('load', getPopular);
 refs.list.addEventListener('click', getDetails);
 refs.input.addEventListener('input', debounce(findFilm, 1200));
@@ -71,21 +73,20 @@ function onNaviLogoButtonClick(e) {
   refs.list.innerHTML = '';
   refs.input.value = '';
   apiService.resetPage();
-  apiService.getPopularFilms().then(renderService.renderAllFilms);
+  apiService.getPopularFilms().then(renderService.renderAllFilms); 
   refs.headerMain.style.display = 'block';
   refs.headerLib.style.display = 'none';
+
 }
 
-function onbtnThemeModeClick() {
-  itemTitle = document.querySelectorAll('.item__title');
-
+function onbtnThemeModeClick() {  
   if (refs.btnThemeMode.dataset.theme === 'dark') {
     refs.btnThemeMode.dataset.theme = 'light';
     refs.btnThemeMode.textContent = '🌕';
     document.body.style.backgroundColor = '#ffffff';
-    for (const item of itemTitle) {
-      item.style.color = 'black';
-    }
+    document.body.style.color = 'black';   
+    refs.list.style.color = 'black';
+
     refs.btnBackToTop.style.backgroundColor = '#ffffff';
     refs.footer.style.backgroundColor = '#ffffff';
     refs.footer.style.color = 'black';
@@ -93,13 +94,17 @@ function onbtnThemeModeClick() {
     refs.btnThemeMode.dataset.theme = 'dark';
     refs.btnThemeMode.textContent = '🌘';
     document.body.style.backgroundColor = '#1f2026';
-    for (const item of itemTitle) {
-      item.style.color = 'white';
-    }
+    document.body.style.color = 'white'
+   
+
+    refs.list.style.color = 'white';
     refs.btnBackToTop.style.backgroundColor = '#1f2026';
     refs.footer.style.backgroundColor = '#1f2026';
     refs.footer.style.color = 'white';
   }
 }
+
+
+
 
 refs.btnThemeMode.addEventListener('click', onbtnThemeModeClick);

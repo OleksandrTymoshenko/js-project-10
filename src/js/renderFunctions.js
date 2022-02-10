@@ -16,6 +16,7 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
   headerMain: document.querySelector('header[data-action="main"]'),
   headerLib: document.querySelector('header[data-action="library"]'),
+ 
 };
 
 const Uid = propFirebase;
@@ -156,13 +157,6 @@ export function openModal(id) {
     });
   });
 
-  function EscCloseModal(e) {
-    if (e.code === 'Escape') {
-      closeModal();
-      window.removeEventListener('keydown', EscCloseModal);
-    }
-  }
-
   window.addEventListener('keydown', EscCloseModal);
 
   refs.modal.addEventListener('click', e => {
@@ -170,13 +164,19 @@ export function openModal(id) {
       closeModal();
     }
   });
+
+  refs.modal.addEventListener('click', backdropClick);
+
+  function backdropClick(e) {
+  if (e.currentTarget === e.target) {
+    closeModal();
+    }
+  }
 }
- export function onNaviLogoButtonClick(e) {
-  e.preventDefault;
-  refs.list.innerHTML = '';
-  refs.input.value = '';
-  apiService.resetPage()
-  apiService.getPopularFilms().then(renderService.renderAllFilms)
-  refs.headerMain.style.display = 'block';
-  refs.headerLib.style.display = 'none';
-}
+
+export function EscCloseModal(e) {
+    if (e.code === 'Escape') {
+      closeModal();
+      window.removeEventListener('keydown', EscCloseModal);
+    }
+  }
