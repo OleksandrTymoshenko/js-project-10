@@ -1,13 +1,12 @@
 .header__container-img {
-   display: block; 
+  display: block; 
   width: 100vw;
   height: 230px;
   
   background-image: linear-gradient($for-grad-header, $for-grad-header),
     url(../partials/img/Rectangle_x1.jpg);
   background-size: cover;
-  @media screen and (min-width: $tablet) {
-  
+  @media screen and (min-width: $tablet) { 
 
     background-image: linear-gradient($for-grad-header, $for-grad-header),
       url(../partials/img/Rectangle_tabl_x1.jpg);
