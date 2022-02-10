@@ -33,9 +33,25 @@
 // }
 
 export default class LocalSaver {
-  constructor(watched = [], queue = []) {
-    this.watched = watched;
-    this.queue = queue;
+  constructor() {
+    this.watched = [];
+    this.queue = [];
+  }
+
+  get watchedArr() {
+    return this.watched;
+  }
+
+  set watchedArr(newArr) {
+    this.watched = newArr;
+  }
+
+  get queueArr() {
+    return this.queue;
+  }
+
+  set queueArr(newArr) {
+    this.queue = newArr;
   }
 
   addToWatched(obj) {

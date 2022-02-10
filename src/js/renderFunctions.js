@@ -122,6 +122,7 @@ export function openModal(id) {
     for (let film in watchedArr) {
       if (watchedArr[film].id === id) {
         addToLibBtn.textContent = 'DELETE FROM WATCHED';
+        return;
       } else {
         addToLibBtn.textContent = 'ADD TO WATCHED';
       }
@@ -130,6 +131,7 @@ export function openModal(id) {
     for (let film in queueArr) {
       if (queueArr[film].id === id) {
         addToQueBtn.textContent = 'DELETE FROM QUEUE';
+        return;
       } else {
         addToQueBtn.textContent = 'ADD TO QUEUE';
       }
