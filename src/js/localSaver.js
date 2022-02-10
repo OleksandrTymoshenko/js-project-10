@@ -32,8 +32,3 @@ export function getQueue() {
   return parsedData;
 }
 
-export function removerFromWatched(id) {
-  console.log(id);
-}
-
-export function removerFromQueue(id) {}
