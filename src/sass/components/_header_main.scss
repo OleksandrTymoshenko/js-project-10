@@ -1,13 +1,13 @@
 .header__container-img {
-  display: block; 
+  display: block;
   width: 100vw;
   height: 230px;
-  
+  margin-bottom: 20px;
   background-image: linear-gradient($for-grad-header, $for-grad-header),
     url(../partials/img/Rectangle_x1.jpg);
   background-size: cover;
-  @media screen and (min-width: $tablet) { 
-
+  @media screen and (min-width: $tablet) {
+    margin-bottom: 60px;
     background-image: linear-gradient($for-grad-header, $for-grad-header),
       url(../partials/img/Rectangle_tabl_x1.jpg);
     @media screen and (min-width: $desktop) {
@@ -19,42 +19,38 @@
 
 .header__container {
   display: flexbox;
- padding-top: 45px;
- padding-bottom: 45px;
- padding-left: 15px;
- padding-right: 15px;
- max-width: 500px;
- margin-left:auto;
- margin-right: auto;
- justify-content: center;
- 
- 
- @media screen and (min-width: $tablet) {
- 
-  max-width: 993px; 
-  padding-top: 40px;
-  padding-bottom: 100px;
+  padding-top: 45px;
+  padding-bottom: 45px;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  @media screen and (min-width: $tablet) {
+    max-width: 993px;
+    padding-top: 40px;
+    padding-bottom: 100px;
 
-  @media screen and (min-width: $desktop) {
-    max-width: 1200px; 
-   }
- }
+    @media screen and (min-width: $desktop) {
+      max-width: 1200px;
+    }
+  }
 }
 
 .navi__box {
   display: flex;
   justify-content: space-between;
-  
 }
 
 .navi__logoblock {
   display: flex;
   @media screen and (min-width: $tablet) {
-  margin-left: 30px;
+    margin-left: 30px;
   }
   @media screen and (min-width: $desktop) {
     margin-left: 60px;
-    }
+  }
 }
 
 .navi__list {
@@ -79,8 +75,6 @@
   }
 }
 
-
-
 .button-logo {
   background-color: transparent;
   display: flex;
@@ -88,15 +82,13 @@
 }
 
 .input__case {
-  position:relative;
+  position: relative;
   width: 276px;
   margin-right: auto;
   margin-left: auto;
-   @media screen and (min-width: $tablet) {
+  @media screen and (min-width: $tablet) {
     width: 336px;
-   }
-   
- 
+  }
 }
 
 .input {
@@ -111,7 +103,7 @@
   font-weight: 40;
   font-size: 14px;
   line-height: calc(16 / 14);
-  color: $white-text-and-bg; 
+  color: $white-text-and-bg;
   &::placeholder {
     font-style: normal;
     font-weight: 400;
@@ -124,10 +116,8 @@
 .button__search {
   background-color: transparent;
   position: absolute;
-    top: 0;
-   right: 0; 
-
-   
+  top: 0;
+  right: 0;
 }
 
 .navi__item {
