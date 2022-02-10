@@ -62,7 +62,7 @@ export default class FirebaseClass {
                      position: 'center-top',
 });
                    }
-                })
+               
 }
 
     async signUserInAccountWithGoogle() {
