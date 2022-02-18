@@ -11,7 +11,7 @@ export default class RenderService {
   constructor() {}
 
   renderFromLibrary(filmsArr) {
-
+// console.log(filmsArr)
       const markup = filmsArr
       .map(({ id, title, path, genres }) => {
         return `

@@ -21,8 +21,16 @@ export default class LocalSaver {
   }
 
   addToWatched(obj) {
-   this.setWatchedArr(obj)
+    this.setWatchedArr(obj)
+    console.log(this.watched)
     localStorage.setItem('watched', JSON.stringify(this.watched));
+  }
+
+  removeWatched(obj) {
+    const newArr = this.watched.filter(value => value.id !== obj.id)
+    this.watched = newArr;
+    console.log(newArr)
+    console.log(this.watched)
   }
 
   addToQueue(obj) {
