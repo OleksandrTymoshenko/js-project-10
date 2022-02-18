@@ -1,6 +1,6 @@
 export default class LocalSaver {
   constructor() {
-    this.watched = [];
+    this.watched = JSON.parse(localStorage.getItem('watched')) ? JSON.parse(localStorage.getItem('watched')) : []
     this.queue = [];
   }
 
@@ -8,8 +8,8 @@ export default class LocalSaver {
     return this.watched;
   }
 
-  set watchedArr(newArr) {
-    this.watched = newArr;
+  setWatchedArr(newArr) {
+    this.watched.push(newArr);
   }
 
   get queueArr() {
@@ -21,7 +21,7 @@ export default class LocalSaver {
   }
 
   addToWatched(obj) {
-    this.watched.push(obj);
+   this.setWatchedArr(obj)
     localStorage.setItem('watched', JSON.stringify(this.watched));
   }
 

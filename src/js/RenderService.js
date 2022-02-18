@@ -11,8 +11,8 @@ export default class RenderService {
   constructor() {}
 
   renderFromLibrary(filmsArr) {
-    list.innerHTML = '';
-    const markup = filmsArr
+
+      const markup = filmsArr
       .map(({ id, title, path, genres }) => {
         return `
                     <li class="list__item" id=${id}>
@@ -27,7 +27,11 @@ export default class RenderService {
       })
       .join('');
 
-    list.insertAdjacentHTML('afterbegin', markup);
+     list.insertAdjacentHTML( 'beforeend', markup);
+    
+    return;
+    // list.innerHTML = '';
+    
   }
 
   renderFinders(filmArray) {

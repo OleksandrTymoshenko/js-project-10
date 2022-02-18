@@ -59,6 +59,7 @@ function onNaviListClick(e) {
   if (e.target.textContent.trim() === 'My library' && localStorage.getItem('User')) {
     refs.headerMain.style.display = 'none';
     refs.headerLib.style.display = 'block';
+    refs.list.innerHTML = ''
     return;
   }
   openModal();
@@ -84,6 +85,7 @@ function onNaviLogoButtonClick(e) {
   apiService.getPopularFilms().then(renderService.renderAllFilms); 
   refs.headerMain.style.display = 'block';
   refs.headerLib.style.display = 'none';
+
 
 }
 
