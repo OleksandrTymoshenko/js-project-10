@@ -126,8 +126,9 @@ export function openModal(id) {
     renderService.renderFilmDetails(data);
     const addToWatchBtn = document.querySelector('[data-action="addToLib"]');
     const removeBtnWatch = document.querySelector('[data-action="removeToLib"]');
-     const arrFromLocal = JSON.parse(localStorage.getItem('watched'))
-    arrFromLocal.map((data) => {
+    const arrFromLocal = JSON.parse(localStorage.getItem('watched'))
+    if (arrFromLocal) {
+      arrFromLocal.map((data) => {
       if (data.id === id) {
         addToWatchBtn.classList.add('vis');
       removeBtnWatch.classList.remove('vis')
@@ -135,17 +136,41 @@ export function openModal(id) {
       }
       return data.id;
     })
+    }
+    
     removeBtnWatch.addEventListener('click', removeWitchWatched)
     addToWatchBtn.addEventListener('click', addToWatch);
     function addToWatch() {
       addToLib();
-    
+      removeBtnWatch.addEventListener('click', removeWitchWatched)
       addToWatchBtn.removeEventListener('click', addToWatch)
       addToWatchBtn.classList.add('vis');
       removeBtnWatch.classList.remove('vis')
-
+      
   
-}
+    }
+    
+    function removeWitchWatched(e) {
+      const filmElemDel = document.querySelector('.film-details');
+
+      const objDel = {
+        id: filmElemDel.id,
+        title: filmElemDel.querySelector('.about__title').innerText,
+        path: filmElemDel.querySelector('.film-details__path').getAttribute('src'),
+        genres: filmElemDel.querySelector('.genres').innerText,
+      };
+      const arrWithLocal = JSON.parse(localStorage.getItem('watched'));
+      const toLib = arrWithLocal.filter(value => value.id !== objDel.id)
+      localStorage.setItem('watched', JSON.stringify(toLib))
+      localSaver.removeWatched(objDel)
+      // console.log(toLib)
+      renderService.renderFromLibrary(toLib)
+      removeBtnWatch.removeEventListener('click', removeWitchWatched)
+      addToWatchBtn.addEventListener('click', addToWatch);
+      addToWatchBtn.classList.remove('vis');
+      removeBtnWatch.classList.add('vis')
+      
+    }
 
     let idsArr = localSaver.getWatchedIds();
     if (!idsArr) {
@@ -191,6 +216,7 @@ export function openModal(id) {
       
 
       const findIdFilm = arrFromLocal.find(value => value.id === obj.id)
+
       if (findIdFilm !== undefined) {
         return;
       }
@@ -202,20 +228,21 @@ export function openModal(id) {
     
     
 
-    function removeWitchWatched(e) {
-      const filmElemDel = document.querySelector('.film-details');
+    // function removeWitchWatched(e) {
+    //   const filmElemDel = document.querySelector('.film-details');
 
-      const objDel = {
-        id: filmElemDel.id,
-        title: filmElemDel.querySelector('.about__title').innerText,
-        path: filmElemDel.querySelector('.film-details__path').getAttribute('src'),
-        genres: filmElemDel.querySelector('.genres').innerText,
-      };
-      const arrWithLocal = JSON.parse(localStorage.getItem('watched'));
-      const toLib = arrWithLocal.filter(id => id !== objDel.id)
-      console.log('return')
-      renderService.renderFromLibrary(toLib)
-    }
+    //   const objDel = {
+    //     id: filmElemDel.id,
+    //     title: filmElemDel.querySelector('.about__title').innerText,
+    //     path: filmElemDel.querySelector('.film-details__path').getAttribute('src'),
+    //     genres: filmElemDel.querySelector('.genres').innerText,
+    //   };
+    //   const arrWithLocal = JSON.parse(localStorage.getItem('watched'));
+    //   const toLib = arrWithLocal.filter(value => value.id !== objDel.id)
+    //   localStorage.setItem('watched', JSON.stringify(toLib))
+    //   // console.log(toLib)
+    //   renderService.renderFromLibrary(toLib)
+    // }
 
 //     // Кнопка Queue в модалке
 //     // addToQueBtn.addEventListener('click', () => {
