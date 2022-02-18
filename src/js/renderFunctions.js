@@ -9,7 +9,6 @@ const localSaver = new LocalSaver();
 const apiService = new ApiService();
 const renderService = new RenderService();
 import Notiflix from 'notiflix';
-
 const refs = {
   input: document.querySelector('.input'),
   inputButton: document.querySelector('.button__search'),
@@ -17,7 +16,13 @@ const refs = {
   modal: document.querySelector('[data-modal]'),
   headerMain: document.querySelector('header[data-action="main"]'),
   headerLib: document.querySelector('header[data-action="library"]'),
+  addToQueBtn: document.querySelector('[data-action="addToQue"]'),
+  removeBtnQue: document.querySelector('[data-action="removeToQue"]'),
 };
+
+
+
+
 
 const Uid = propFirebase;
 
@@ -48,9 +53,14 @@ export function getPopular() {
 }
 
 export function renderMyFilms() {
-  const films = localSaver.getWatched();
+   
+  if (localStorage.getItem('watched')) {
+    const films = localSaver.getWatched();
   window.removeEventListener('scroll', onScroll);
-  renderService.renderFromLibrary(films);
+  return renderService.renderFromLibrary(films);
+  }
+  // return refs.list.innerHTML = ''
+  
 }
 
 export function renderMyQueue() {
@@ -109,12 +119,33 @@ export function openModal(id) {
   refs.modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
+  
+ 
 
   apiService.getFilmDetails(id).then(data => {
     renderService.renderFilmDetails(data);
+    const addToWatchBtn = document.querySelector('[data-action="addToLib"]');
+    const removeBtnWatch = document.querySelector('[data-action="removeToLib"]');
+     const arrFromLocal = JSON.parse(localStorage.getItem('watched'))
+    arrFromLocal.map((data) => {
+      if (data.id === id) {
+        addToWatchBtn.classList.add('vis');
+      removeBtnWatch.classList.remove('vis')
+        return;
+      }
+      return data.id;
+    })
+    removeBtnWatch.addEventListener('click', removeWitchWatched)
+    addToWatchBtn.addEventListener('click', addToWatch);
+    function addToWatch() {
+      addToLib();
+    
+      addToWatchBtn.removeEventListener('click', addToWatch)
+      addToWatchBtn.classList.add('vis');
+      removeBtnWatch.classList.remove('vis')
 
-    const addToLibBtn = document.querySelector('[data-action="addToLib"]');
-    const addToQueBtn = document.querySelector('[data-action="addToQue"]');
+  
+}
 
     let idsArr = localSaver.getWatchedIds();
     if (!idsArr) {
@@ -124,28 +155,24 @@ export function openModal(id) {
     if (!queueIdsArr) {
       queueIdsArr = [];
     }
-
     if (idsArr.includes(id)) {
-      addToLibBtn.textContent = 'DELETE FROM WATCHED';
       return;
     } else {
-      addToLibBtn.textContent = 'ADD TO WATCHED';
+      addToWatchBtn.textContent = 'ADD TO WATCHED';
     }
+  })
 
-    if (queueIdsArr.includes(id)) {
-      addToQueBtn.textContent = 'DELETE FROM QUEUE';
-      return;
-    } else {
-      addToQueBtn.textContent = 'ADD TO QUEUE';
-    }
 
-    // Кнопка Library в модалке
-    addToLibBtn.addEventListener('click', () => {
+
+}
+    
+    function addToLib() {
       if (!localStorage.getItem('User')) {
         openAuthModal();
 
         return;
       }
+
 
       const filmElem = document.querySelector('.film-details');
 
@@ -155,52 +182,82 @@ export function openModal(id) {
         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
         genres: filmElem.querySelector('.genres').innerText,
       };
+
+      const arrFromLocal = JSON.parse(localStorage.getItem('watched'))
+      if (arrFromLocal === null) {
+        localSaver.addToWatched(obj);
+        return;
+      }
+      
+
+      const findIdFilm = arrFromLocal.find(value => value.id === obj.id)
+      if (findIdFilm !== undefined) {
+        return;
+      }
 
       localSaver.addToWatched(obj);
-      addToLibBtn.textContent = 'DELETE FROM WATCHED';
-    });
+      
+    }
+      
+    
+    
 
-    // Кнопка Queue в модалке
-    addToQueBtn.addEventListener('click', () => {
-      if (!localStorage.getItem('User')) {
-        openAuthModal();
-        return;
-      }
+    function removeWitchWatched(e) {
+      const filmElemDel = document.querySelector('.film-details');
 
-      const filmElem = document.querySelector('.film-details');
-
-      const obj = {
-        id: filmElem.id,
-        title: filmElem.querySelector('.about__title').innerText,
-        path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-        genres: filmElem.querySelector('.genres').innerText,
+      const objDel = {
+        id: filmElemDel.id,
+        title: filmElemDel.querySelector('.about__title').innerText,
+        path: filmElemDel.querySelector('.film-details__path').getAttribute('src'),
+        genres: filmElemDel.querySelector('.genres').innerText,
       };
-
-      localSaver.addToQueue(obj);
-      addToQueBtn.textContent = 'DELETE FROM QUEUE';
-    });
-  });
-
-  window.addEventListener('keydown', EscCloseModal);
-
-  refs.modal.addEventListener('click', e => {
-    if (e.target.dataset.action === 'close') {
-      closeModal();
+      const arrWithLocal = JSON.parse(localStorage.getItem('watched'));
+      const toLib = arrWithLocal.filter(id => id !== objDel.id)
+      console.log('return')
+      renderService.renderFromLibrary(toLib)
     }
-  });
 
-  refs.modal.addEventListener('click', backdropClick);
+//     // Кнопка Queue в модалке
+//     // addToQueBtn.addEventListener('click', () => {
+//       if (!localStorage.getItem('User')) {
+//         openAuthModal();
+//         return;
+//       }
 
-  function backdropClick(e) {
-    if (e.currentTarget === e.target) {
-      closeModal();
-    }
-  }
-}
+//       const filmElem = document.querySelector('.film-details');
 
-export function EscCloseModal(e) {
-  if (e.code === 'Escape') {
-    closeModal();
-    window.removeEventListener('keydown', EscCloseModal);
-  }
-}
+//       const obj = {
+//         id: filmElem.id,
+//         title: filmElem.querySelector('.about__title').innerText,
+//         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
+//         genres: filmElem.querySelector('.genres').innerText,
+//       };
+
+//       localSaver.addToQueue(obj);
+//       addToQueBtn.textContent = 'DELETE FROM QUEUE';
+//     });
+//   });
+
+//   window.addEventListener('keydown', EscCloseModal);
+
+//   refs.modal.addEventListener('click', e => {
+//     if (e.target.dataset.action === 'close') {
+//       closeModal();
+//     }
+//   });
+
+//   refs.modal.addEventListener('click', backdropClick);
+
+//   function backdropClick(e) {
+//     if (e.currentTarget === e.target) {
+//       closeModal();
+//     }
+//   }
+// }
+
+// export function EscCloseModal(e) {
+//   if (e.code === 'Escape') {
+//     closeModal();
+//     window.removeEventListener('keydown', EscCloseModal);
+//   }
+// }
