@@ -119,6 +119,7 @@ export function openModal(id) {
   refs.modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
+  window.addEventListener('keydown', EscCloseModal);
   
  
 
@@ -163,7 +164,6 @@ export function openModal(id) {
       const toLib = arrWithLocal.filter(value => value.id !== objDel.id)
       localStorage.setItem('watched', JSON.stringify(toLib))
       localSaver.removeWatched(objDel)
-      // console.log(toLib)
       renderService.renderFromLibrary(toLib)
       removeBtnWatch.removeEventListener('click', removeWitchWatched)
       addToWatchBtn.addEventListener('click', addToWatch);
@@ -265,26 +265,31 @@ export function openModal(id) {
 //     });
 //   });
 
-//   window.addEventListener('keydown', EscCloseModal);
+  
 
-//   refs.modal.addEventListener('click', e => {
-//     if (e.target.dataset.action === 'close') {
-//       closeModal();
-//     }
-//   });
+  // refs.modal.addEventListener('click', e => {
+  //   if (e.target.dataset.action === 'close') {
+  //     closeModal();
+  //   }
+  // });
 
-//   refs.modal.addEventListener('click', backdropClick);
+  refs.modal.addEventListener('click', backdropClick);
 
-//   function backdropClick(e) {
-//     if (e.currentTarget === e.target) {
-//       closeModal();
-//     }
-//   }
+  function backdropClick(e) {
+    if (e.currentTarget === e.target) {
+      closeModal();
+      return;
+    }
+    if (e.target.dataset.action === 'close') {
+      closeModal();
+      return;
+    }
+  }
 // }
 
-// export function EscCloseModal(e) {
-//   if (e.code === 'Escape') {
-//     closeModal();
-//     window.removeEventListener('keydown', EscCloseModal);
-//   }
-// }
+export function EscCloseModal(e) {
+  if (e.code === 'Escape') {
+    closeModal();
+    window.removeEventListener('keydown', EscCloseModal);
+  }
+}
