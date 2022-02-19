@@ -12,6 +12,7 @@ export default class RenderService {
 
   renderFromLibrary(filmsArr) {
 // console.log(filmsArr)
+    list.innerHTML = '';
       const markup = filmsArr
       .map(({ id, title, path, genres }) => {
         return `
@@ -30,7 +31,7 @@ export default class RenderService {
      list.insertAdjacentHTML( 'beforeend', markup);
     
     return;
-    // list.innerHTML = '';
+    
     
   }
 

@@ -1,7 +1,7 @@
 export default class LocalSaver {
   constructor() {
-    this.watched = JSON.parse(localStorage.getItem('watched')) ? JSON.parse(localStorage.getItem('watched')) : []
-    this.queue = [];
+    this.watched = JSON.parse(localStorage.getItem('watched')) ? JSON.parse(localStorage.getItem('watched')) : [];
+    this.queue = JSON.parse(localStorage.getItem('Que')) ? JSON.parse(localStorage.getItem('Que')) : [];
   }
 
   get watchedArr() {
@@ -16,26 +16,28 @@ export default class LocalSaver {
     return this.queue;
   }
 
-  set queueArr(newArr) {
-    this.queue = newArr;
+  setQueueArr(newArr) {
+    this.queue.push(newArr);
   }
 
   addToWatched(obj) {
     this.setWatchedArr(obj)
-    console.log(this.watched)
     localStorage.setItem('watched', JSON.stringify(this.watched));
   }
 
   removeWatched(obj) {
     const newArr = this.watched.filter(value => value.id !== obj.id)
     this.watched = newArr;
-    console.log(newArr)
-    console.log(this.watched)
   }
 
   addToQueue(obj) {
-    this.queue.push(obj);
-    localStorage.setItem('queue', JSON.stringify(this.queue));
+    this.setQueueArr(obj);
+    localStorage.setItem('Que', JSON.stringify(this.queue));
+  }
+
+  removeQue(obj) {
+    const newArrQue = this.queue.filter(value => value.id !== obj.id)
+    this.queue = newArrQue;
   }
 
   getWatched() {
@@ -45,7 +47,7 @@ export default class LocalSaver {
   }
 
   getQueue() {
-    let data = localStorage.getItem('queue');
+    let data = localStorage.getItem('Que');
     let parsedData = JSON.parse(data);
     return parsedData;
   }
