@@ -57,7 +57,7 @@ export function renderMyFilms() {
   window.removeEventListener('scroll', onScroll);
   return renderService.renderFromLibrary(films);
   }
-  // return refs.list.innerHTML = ''
+  return refs.list.innerHTML = ''
   
 }
 
@@ -66,9 +66,9 @@ export function renderMyQueue() {
     const filmsQue = localSaver.getQueue();
   window.removeEventListener('scroll', onScroll);
   const queue = filmsQue.reverse();
-  renderService.renderFromLibrary(queue);
+  return renderService.renderFromLibrary(queue);
   }
-  return;
+  return refs.list.innerHTML = ''
   
 }
 
@@ -116,6 +116,7 @@ export function closeModal() {
 
   renderService.clearList();
 }
+
 
 export function openModal(id) {
   refs.modal.classList.remove('hidden');
@@ -178,7 +179,6 @@ export function openModal(id) {
     }
 
     function removeWitcQue() {
-      // const filmElemDel = document.querySelector('.film-details');
 
       const objDelQue = {
         id: filmElemDel.id,
@@ -188,6 +188,9 @@ export function openModal(id) {
       };
       const arrWithLocalQue = JSON.parse(localStorage.getItem('Que'));
       const toLibQue = arrWithLocalQue.filter(value => value.id !== objDelQue.id)
+      if (toLibQue.length === 0) {
+        getPopular();
+      }
       localStorage.setItem('Que', JSON.stringify(toLibQue))
       localSaver.removeQue(objDelQue)
       renderService.renderFromLibrary(toLibQue)
@@ -198,7 +201,6 @@ export function openModal(id) {
     }
     
     function removeWitchWatched(e) {
-      // const filmElemDel = document.querySelector('.film-details');
 
       const objDel = {
         id: filmElemDel.id,
@@ -208,6 +210,9 @@ export function openModal(id) {
       };
       const arrWithLocal = JSON.parse(localStorage.getItem('watched'));
       const toLib = arrWithLocal.filter(value => value.id !== objDel.id)
+      if (toLib.length === 0) {
+        getPopular();
+      }
       localStorage.setItem('watched', JSON.stringify(toLib))
       localSaver.removeWatched(objDel)
       renderService.renderFromLibrary(toLib)
@@ -305,35 +310,6 @@ export function openModal(id) {
       
     }
 
-//     // Кнопка Queue в модалке
-//     // addToQueBtn.addEventListener('click', () => {
-//       if (!localStorage.getItem('User')) {
-//         openAuthModal();
-//         return;
-//       }
-
-//       const filmElem = document.querySelector('.film-details');
-
-//       const obj = {
-//         id: filmElem.id,
-//         title: filmElem.querySelector('.about__title').innerText,
-//         path: filmElem.querySelector('.film-details__path').getAttribute('src'),
-//         genres: filmElem.querySelector('.genres').innerText,
-//       };
-
-//       localSaver.addToQueue(obj);
-//       addToQueBtn.textContent = 'DELETE FROM QUEUE';
-//     });
-//   });
-
-  
-
-  // refs.modal.addEventListener('click', e => {
-  //   if (e.target.dataset.action === 'close') {
-  //     closeModal();
-  //   }
-  // });
-
   refs.modal.addEventListener('click', backdropClick);
 
   function backdropClick(e) {
@@ -346,7 +322,6 @@ export function openModal(id) {
       return;
     }
   }
-// }
 
 export function EscCloseModal(e) {
   if (e.code === 'Escape') {
